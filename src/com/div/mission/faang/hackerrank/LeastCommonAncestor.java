@@ -1,3 +1,5 @@
+package com.div.mission.faang.hackerrank;
+
 import java.util.Scanner;
 
 class Node {
