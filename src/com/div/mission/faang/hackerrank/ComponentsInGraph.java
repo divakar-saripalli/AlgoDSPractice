@@ -1,8 +1,6 @@
 package com.div.mission.faang.hackerrank;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -44,28 +42,52 @@ class Result {
 		List<Integer> targetIndices = new ArrayList<>();
 		while (currentIndex != -1) {
 
-			int currentNodeValue = gb.get(currentIndex).get(1);
+			List<Integer> currentList = gb.get(currentIndex);
+			int currentTargetNode = currentList.get(1);
 			targetIndices.add(currentIndex);
-			gb.get(currentIndex).set(0, 0);
-			gb.get(currentIndex).set(0, 1);
+			currentList.set(0, 0);
+			currentList.set(1, 0);
+			gb.set(currentIndex, currentList);
 			currentEdges++;
 
 			for (int i = 0; i < gb.size(); i++) {
-				if (gb.get(i).get(1) != currentNodeValue) {
-					if (currentNodeValue != gb.get(currentIndex).get(0) && currentNodeValue < gb.size())
-						sourceIndices.add(i);
+				if (gb.get(i).get(1) == currentTargetNode) {
+					sourceIndices.add(i);
+					currentList = gb.get(i);
+					currentEdges++;
+					currentList.set(0, 0);
+					currentList.set(1, 0);
+					gb.set(currentIndex, currentList);
 				}
-				currentEdges++;
-				gb.get(currentIndex).set(0, 0);
-				gb.get(currentIndex).set(1, 0);
 			}
 
-			for (int i = 0; i < sourceIndices.size(); i++) {
-				if (gb.get(sourceIndices.get(i)).get(0) != 0) {
-					gb.get(sourceIndices.get(i)).set(0, 0);
-					targetIndices.add(i);
-					gb.get(sourceIndices.get(i)).set(1, 0);
-					currentEdges++;
+			while (!sourceIndices.isEmpty() || !targetIndices.isEmpty()) {
+				for (int i = 0; !sourceIndices.isEmpty(); i++) {
+					if (sourceIndices.get(i) != null && gb.get(i).get(1) != 0) {
+						targetIndices.add(sourceIndices.get(i));
+						currentList = gb.get(sourceIndices.get(i));
+						sourceIndices.remove(i);
+						currentList.set(0, 0);
+						currentList.set(1, 0);
+						gb.set(i, currentList);
+						currentEdges++;
+					} else {
+						sourceIndices.remove(i);
+					}
+				}
+
+				for (int i = 0; !targetIndices.isEmpty(); i++) {
+					if (targetIndices.get(i) != null && gb.get(i).get(0) != 0) {
+						sourceIndices.add(targetIndices.get(i));
+						currentList = gb.get(targetIndices.get(i));
+						targetIndices.remove(i);
+						currentList.set(0, 0);
+						currentList.set(1, 0);
+						gb.set(i, currentList);
+						currentEdges++;
+					} else {
+						targetIndices.remove(i);
+					}
 				}
 			}
 
@@ -98,7 +120,6 @@ class Result {
 public class ComponentsInGraph {
 	public static void main(String[] args) throws IOException {
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
 		int n = Integer.parseInt(bufferedReader.readLine().trim());
 
@@ -115,9 +136,8 @@ public class ComponentsInGraph {
 
 		List<Integer> result = Result.componentsInGraph(gb);
 
-		bufferedWriter.write(result.stream().map(Object::toString).collect(Collectors.joining(" ")) + "\n");
+		System.out.println(result.toString());
 
 		bufferedReader.close();
-		bufferedWriter.close();
 	}
 }
