@@ -1,4 +1,4 @@
-package src.com.div.mission.faang.practice;
+package src.com.div.missionfaang.practice;
 
 import java.util.ArrayList;
 import java.util.Arrays;

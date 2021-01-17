@@ -1,4 +1,4 @@
-package src.com.div.mission.faang.algoexpert;
+package src.com.div.missionfaang.algoexpert;
 
 public class LongestPalindromeSubstring {
 

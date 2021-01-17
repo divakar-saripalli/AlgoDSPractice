@@ -1,4 +1,4 @@
-package src.com.div.mission.faang.hackerrank;
+package src.com.div.missionfaang.hackerrank;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
