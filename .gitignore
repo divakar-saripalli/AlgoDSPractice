@@ -350,8 +350,8 @@ MigrationBackup/
 .ionide/
 
 ./bin
+./out
 .classpath
 .project
 .idea
 *.iml
-./out
