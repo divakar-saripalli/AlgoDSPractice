@@ -1,4 +1,4 @@
-package src.com.div.missionfaang.hackerrank;
+package com.div.missionfaang.hackerrank;
 
 import java.io.BufferedReader;
 import java.io.IOException;
