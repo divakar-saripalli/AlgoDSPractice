@@ -33,10 +33,4 @@ public class CheckBST {
 			}
 		}
 	}
-
-	class Node {
-		int data;
-		Node left;
-		Node right;
-	}
 }

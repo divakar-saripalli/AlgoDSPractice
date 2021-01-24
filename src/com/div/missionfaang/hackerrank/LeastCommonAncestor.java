@@ -2,18 +2,6 @@ package com.div.missionfaang.hackerrank;
 
 import java.util.Scanner;
 
-class Node {
-	Node left;
-	Node right;
-	int data;
-
-	Node(int data) {
-		this.data = data;
-		left = null;
-		right = null;
-	}
-}
-
 class LeastCommonAncestor {
 
 	public static Node lca(Node root, int v1, int v2) {
