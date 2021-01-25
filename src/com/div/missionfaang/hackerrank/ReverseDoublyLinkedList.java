@@ -27,6 +27,7 @@ public class ReverseDoublyLinkedList {
 		}
 
 		public void insertNode(int nodeData) {
+
 			DoublyLinkedListNode node = new DoublyLinkedListNode(nodeData);
 
 			if (this.head == null) {
@@ -65,11 +66,14 @@ public class ReverseDoublyLinkedList {
 		if (head != null) {
 			while (head.next != null) {
 				DoublyLinkedListNode currentNode = head;
+				head = head.next;
 				DoublyLinkedListNode temp = currentNode.prev;
 				currentNode.prev = currentNode.next;
 				currentNode.next = temp;
-				head = head.next;
 			}
+			DoublyLinkedListNode temp = head.prev;
+			head.prev = head.next;
+			head.next = temp;
 		}
 		return head;
 	}
