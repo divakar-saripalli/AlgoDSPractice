@@ -1,0 +1,100 @@
+Program to Connect all nodes of a Tree at same level
+Find maximum in binary tree
+Program Two Nodes of a BST are Swapped correct the BST
+Program to check if a binary tree is height balanced or not
+Program to Check if a Binary Tree is BST or not
+
+char * ConvertToPalindrome(char* str)
+
+The function accepts a string str, implement the function to find and return the minimum characters required to append at the end of str to make it a palindrome
+
+
+char *CompressString(char* str);
+
+The function accepts a string as an argument that may contain repetitive characters. Implement the function to modify and return the input string, such that each character once, along with the count of consecutive occurrence. Do not append count if the character occurs only once.
+
+Note – 
+
+The string will only contain lowercase English Alphabets
+If you have to manipulate the input string in place you cant use another string
+Assumption – 
+
+No character will occur consecutively more than 9 times.
+
+Example – 
+
+input – aaaaabbbccccccccdaa
+
+OutPut – a4b3c8da2
+
+
+Given a string consisting of only 0, 1, A, B, C where
+A = AND
+B = OR
+C = XOR
+Calculate the value of the string assuming no order of precedence and evaluation is done from left to right.
+
+Constraints – The length of string will be odd. It will always be a valid string.
+Example, 1AA0 will not be given as an input.
+
+Examples:
+
+Input : 1A0B1
+Output : 1
+1 AND 0 OR 1 = 1
+
+Input : 1C1B1B0A0
+Output : 0
+
+Find the number closest to n and divisible by m
+Given two integers n and m. The problem is to find the number closest to n and divisible by m. If there are more than one such number, then output the one having maximum absolute value. If n is completely divisible by m, then output n only. Time complexity of O(1) is required.
+
+Constraints: m != 0
+
+We find value of n/m. Let this value be q. Then we find closest of two possibilities. One is q * m other is (m * (q + 1)) or (m * (q – 1)) depending on whether one of the given two numbers is negative or not.
+
+
+Longest Prefix Suffix
+ 
+Given a string of character, find the length of longest proper prefix which is also a proper suffix.
+Example:
+S = abab
+lps is 2 because, ab.. is prefix and ..ab is also a suffix.
+
+Input:
+First line is T number of test cases. 1<=T<=100.
+Each test case has one line denoting the string of length less than 100000.
+
+Expected time compexity is O(N).
+
+Output:
+Print length of longest proper prefix which is also a proper suffix.
+
+Example:
+Input:
+2
+abab
+aaaa
+
+Output:
+2
+3
+
+
+
+Maximum difference between two elements such that larger element appears after the smaller number
+Given an array arr[] of integers, find out the difference between any two elements such that larger element appears after the smaller number in arr[].
+
+Examples: If array is [2, 3, 10, 6, 4, 8, 1] then returned value should be 8 (Diff between 10 and 2). If array is [ 7, 9, 5, 6, 3, 2 ] then returned value should be 2 (Diff between 7 and 9)
+
+Time Complexity: O(n^2)
+Auxiliary Space: O(1)
+
+Use two loops. In the outer loop, pick elements one by one and in the inner loop calculate the difference of the picked element with every other element in the array and compare the difference with the maximum difference calculated so far.
+
+
+
+Printing all the Leaders in an Array
+Write a program to print all the LEADERS in the array. An element is leader if it is greater than all the elements to its right side.
+
+And the rightmost element is always a leader. For example int the array {16, 19, 4, 3, 8, 3}, leaders are 19, 8 and 3?

@@ -19,32 +19,29 @@ public class DownToZero {
 
 		int count = 0;
 		while (n >= 4) {
+		    System.out.println("Number is :: " + n);
 			if (isPrime(n)) {
 				n--;
+			    	System.out.println("Prime number detected and hence reduced by 1 :: " + n);
+				count++;
 			} else {
 				double dub = n;
 				double sqrt = Math.sqrt(dub);
-				int a = (int) sqrt;
-				System.out.println(n);
-				System.out.println(dub);
-				System.out.println(sqrt);
-				System.out.println(a);
+				int a = (int) Math.ceil(sqrt);
+				System.out.println("Square root is :: " + sqrt);
+				System.out.println("Maximum divisor is :: " + a);
 				System.out.println("=======================================");
-				for (int j = a; j <= n / 2; j++) {
-					if (j * j == n || n % j == 0) {
-						n = j;
-						System.out.println(j);
-						break;
-					}
-					System.out.println(j);
-					System.out.println("-------------");
+			    	int j = a;
+				for (; (j * j != n && n % j != 0); j++) {
+				    System.out.println("Maximum divisor is :: " + j);
 				}
-				System.out.println("#####################################");
+			    System.out.println("Maximum divisor is :: " + j);
+			    n = j;
+			    System.out.println("#####################################");
 			}
 			count++;
 		}
 		count += n;
-
 		return count;
 	}
 
