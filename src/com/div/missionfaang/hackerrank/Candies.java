@@ -7,26 +7,26 @@ public class Candies {
 
 	// Complete the candies function below.
 	static long candies(int n, int[] arr) {
-		int currentCandies = 1;
 		long totalCandies = 1;
-
+		int[] candies = new int[arr.length];
 		if (n < 2) {
 			return n;
 		}
-
+		candies[0] = 1;
 		for (int i = 1; i < n; i++) {
 			if (arr[i] > arr[i - 1]) {
-				currentCandies++;
+				candies[i] = candies[i - 1] + 1;
 			} else {
-				currentCandies = 1;
-				if (i < n - 1 && arr[i] > arr[i + 1]) {
-					currentCandies++;
-				}
+				candies[i] = 1;
 			}
-			System.out.print(currentCandies + " ");
-			totalCandies += currentCandies;
 		}
-		return totalCandies;
+		for (int i = n - 2; i > 0; i--) {
+			if (arr[i] > arr[i + 1] && candies[i] < candies[i - 1]) {
+				candies[i]++;
+			}
+			totalCandies += candies[i];
+		}
+		return totalCandies + candies[n - 1];
 	}
 
 	private static final Scanner scanner = new Scanner(System.in);

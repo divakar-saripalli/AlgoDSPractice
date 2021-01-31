@@ -28,15 +28,8 @@ public class EqualStacks {
 		}
 
 		while (stack1Sum != stack2Sum || stack1Sum != stack3Sum) {
-			System.out.println("Stack 1 :: " + h1.toString());
-			System.out.println("Stack 2 :: " + h2.toString());
-			System.out.println("Stack 3 :: " + h3.toString());
-			System.out.println("Stack 1 sum :: " + stack1Sum);
-			System.out.println("Stack 2 sum :: " + stack2Sum);
-			System.out.println("Stack 3 sum :: " + stack3Sum);
-			System.out.println("=======================");
 			if (h1.isEmpty() || h2.isEmpty() || h3.isEmpty()) {
-				return -1;
+				return 0;
 			}
 
 			int minHeight = stack1Sum;
@@ -58,17 +51,9 @@ public class EqualStacks {
 			if (stack3Sum > minHeight) {
 				stack3Sum -= h3.remove(0);
 			}
-//			while (stack1Sum > minHeight || stack2Sum > minHeight || stack3Sum > minHeight) {
-//			}
-
-			System.out.println("Stack 1 :: " + h1.toString());
-			System.out.println("Stack 2 :: " + h2.toString());
-			System.out.println("Stack 3 :: " + h3.toString());
-			System.out.println("Stack 1 sum :: " + stack1Sum);
-			System.out.println("Stack 2 sum :: " + stack2Sum);
-			System.out.println("Stack 3 sum :: " + stack3Sum);
-			System.out.println("######################");
-
+		}
+		if (stack1Sum < 0) {
+			return 0;
 		}
 		return stack1Sum;
 
