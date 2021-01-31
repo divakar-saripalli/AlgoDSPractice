@@ -3,8 +3,6 @@ package com.div.missionfaang.practice;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import com.div.missionfaang.hackerrank.Node;
-
 public class VerticalTraversal {
 
 	static int leftHeight = 0;

@@ -1,7 +1,6 @@
 package com.div.missionfaang.hackerrank;
 
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.Stack;
 
 public class BalancedBrackets {
@@ -45,7 +44,7 @@ public class BalancedBrackets {
 		return s.length() != 0 ? "NO" : "YES";
 	}
 
-	private static final Scanner scanner = new Scanner(System.in);
+//	private static final Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) throws IOException {
 //		int t = scanner.nextInt();
