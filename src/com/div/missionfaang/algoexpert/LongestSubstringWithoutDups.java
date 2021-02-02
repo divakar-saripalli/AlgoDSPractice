@@ -17,10 +17,9 @@ public class LongestSubstringWithoutDups {
 					result = currentMaxString;
 				}
 				startIndex = Math.max(startIndex, charsFoundEarlier.get(c) + 1);
-				charsFoundEarlier.put(c, Math.max(charsFoundEarlier.get(c), i));
 			} else {
-				charsFoundEarlier.put(c, i);
 			}
+			charsFoundEarlier.put(c, i);
 		}
 		if (str.substring(startIndex, str.length()).length() > result.length()) {
 			return str.substring(startIndex, str.length());
@@ -29,12 +28,6 @@ public class LongestSubstringWithoutDups {
 	}
 
 	public static void main(String[] args) {
-//		abacacacaaabacaaaeaaafa
-//		abcdeabcdefc
-//		abcdabcef
-//		abcbde
-//		clementisanarm
-//		clementisacap
-		System.out.println(longestSubstringWithoutDuplication("clementisanarm"));
+		System.out.println(longestSubstringWithoutDuplication("abcbde"));
 	}
 }
