@@ -10,6 +10,8 @@ public class UnderscorifySubstring {
 		if (substring.length() == 0) {
 			return str;
 		}
+		String possibleOverlap = findPossibleOverlapSubstring(substring);
+		System.out.println("Possible Overlap :: " + possibleOverlap);
 		for (int i = 0; i < str.length(); i++) {
 			int substringIndex = 0;
 			if (str.charAt(i) == substring.charAt(substringIndex)) {
@@ -36,6 +38,26 @@ public class UnderscorifySubstring {
 			}
 		}
 		return str;
+	}
+
+	private static String findPossibleOverlapSubstring(String substring) {
+		// TODO Auto-generated method stub
+		int i = 0;
+		while (i < substring.length()) {
+			if (substring.charAt(i) == substring.charAt(0)) {
+				int startIndex = i++;
+				int j = i;
+				while (j < substring.length() && substring.charAt(i) == substring.charAt(j)) {
+					j++;
+				}
+				if (j == substring.length()) {
+					return substring.substring(startIndex);
+				}
+			} else {
+				i++;
+			}
+		}
+		return null;
 	}
 
 	public static void main(String[] args) {

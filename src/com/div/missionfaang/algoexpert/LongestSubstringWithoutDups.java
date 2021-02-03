@@ -17,7 +17,6 @@ public class LongestSubstringWithoutDups {
 					result = currentMaxString;
 				}
 				startIndex = Math.max(startIndex, charsFoundEarlier.get(c) + 1);
-			} else {
 			}
 			charsFoundEarlier.put(c, i);
 		}
