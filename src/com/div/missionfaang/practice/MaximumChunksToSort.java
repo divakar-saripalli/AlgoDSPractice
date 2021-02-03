@@ -16,14 +16,14 @@ public class MaximumChunksToSort {
 				int max = i;
 
 				while (!chunks.isEmpty()) {
-					int[] var5 = chunks.peek();
+					int[] top = chunks.peek();
 
-					if (i >= var5[1]) {
+					if (i >= top[1]) {
 						break;
 					}
 
-					min = Math.min(var5[0], min);
-					max = Math.max(max, var5[1]);
+					min = Math.min(top[0], min);
+					max = Math.max(max, top[1]);
 					chunks.pop();
 				}
 				chunks.push(new int[] { min, max });
