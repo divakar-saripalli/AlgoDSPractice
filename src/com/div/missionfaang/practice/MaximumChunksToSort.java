@@ -36,6 +36,7 @@ public class MaximumChunksToSort {
 
 	public static void main(String[] var0) {
 		// Below line is just to avoid warnings.
+
 		countChunks(new int[3]);
 	}
 
