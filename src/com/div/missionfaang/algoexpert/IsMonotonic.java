@@ -14,6 +14,7 @@ public class IsMonotonic {
 				if (array[i] < array[i + 1]) {
 					lesser = true;
 				}
+				break;
 			}
 
 		}
