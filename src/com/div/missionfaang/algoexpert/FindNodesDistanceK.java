@@ -19,15 +19,11 @@ public class FindNodesDistanceK {
 	}
 
 	public static ArrayList<Integer> findNodesDistanceK(BinaryTree tree, int target, int k) {
-		// Write your code here.
-
 		ArrayList<Integer> result = new ArrayList<Integer>();
 		HashMap<BinaryTree, BinaryTree> parentChildMap = new HashMap<>();
 		BinaryTree targetNode = buildParentChildRelation(tree, parentChildMap, target);
 		HashSet<BinaryTree> visited = new HashSet<>();
-
 		findKDistantNodes(targetNode, k, parentChildMap, visited, 0, result);
-
 		return result;
 	}
 
@@ -42,13 +38,10 @@ public class FindNodesDistanceK {
 			findKDistantNodes(node.right, k, parentChildMap, visited, level + 1, result);
 			findKDistantNodes(parentChildMap.get(node), k, parentChildMap, visited, level + 1, result);
 		}
-		// TODO Auto-generated method stub
-
 	}
 
 	private static BinaryTree buildParentChildRelation(BinaryTree tree, HashMap<BinaryTree, BinaryTree> parentChildMap,
 			int target) {
-		// TODO Auto-generated method stub
 		if (tree != null) {
 			parentChildMap.put(tree.left, tree);
 			parentChildMap.put(tree.right, tree);
