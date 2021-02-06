@@ -1,6 +1,8 @@
 package com.div.missionfaang.algoexpert;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class FindNodesDistanceK {
 	public static boolean IS_NODE_AT_LEFT = false;
@@ -18,72 +20,52 @@ public class FindNodesDistanceK {
 
 	public static ArrayList<Integer> findNodesDistanceK(BinaryTree tree, int target, int k) {
 		// Write your code here.
-		int distanceFromRoot = findDistanceFromRoot(tree, target);
 
 		ArrayList<Integer> result = new ArrayList<Integer>();
+		HashMap<BinaryTree, BinaryTree> parentChildMap = new HashMap<>();
+		BinaryTree targetNode = buildParentChildRelation(tree, parentChildMap, target);
+		HashSet<BinaryTree> visited = new HashSet<>();
 
-		if (distanceFromRoot < k) {
-			if (IS_NODE_AT_LEFT) {
-				findAndAddNodesAtLevelK(tree.right, k, distanceFromRoot + 1, result);
-			} else {
-				findAndAddNodesAtLevelK(tree.left, k, distanceFromRoot + 1, result);
-			}
-		} else {
-			findAndAddNodesAtLevelK(tree, k, distanceFromRoot + 1, result);
-		}
-		findAndAddNodesAtLevelK(NODE, k, 0, result);
+		findKDistantNodes(targetNode, k, parentChildMap, visited, 0, result);
 
 		return result;
 	}
 
-	public static void findAndAddNodesAtLevelK(BinaryTree node, int k, int currentLevel, ArrayList<Integer> result) {
-		if (node != null) {
-			if (k == currentLevel) {
+	private static void findKDistantNodes(BinaryTree node, int k, HashMap<BinaryTree, BinaryTree> parentChildMap,
+			HashSet<BinaryTree> visited, int level, ArrayList<Integer> result) {
+		if (node != null && !visited.contains(node)) {
+			visited.add(node);
+			if (level == k) {
 				result.add(node.value);
 			}
-			findAndAddNodesAtLevelK(node.left, k, currentLevel + 1, result);
-			findAndAddNodesAtLevelK(node.right, k, currentLevel + 1, result);
+			findKDistantNodes(node.left, k, parentChildMap, visited, level + 1, result);
+			findKDistantNodes(node.right, k, parentChildMap, visited, level + 1, result);
+			findKDistantNodes(parentChildMap.get(node), k, parentChildMap, visited, level + 1, result);
 		}
+		// TODO Auto-generated method stub
+
 	}
 
-	private static int findDistanceFromRoot(BinaryTree tree, int target) {
+	private static BinaryTree buildParentChildRelation(BinaryTree tree, HashMap<BinaryTree, BinaryTree> parentChildMap,
+			int target) {
 		// TODO Auto-generated method stub
 		if (tree != null) {
+			parentChildMap.put(tree.left, tree);
+			parentChildMap.put(tree.right, tree);
+			BinaryTree left = buildParentChildRelation(tree.left, parentChildMap, target);
+			BinaryTree right = buildParentChildRelation(tree.right, parentChildMap, target);
+			if (left != null) {
+				return left;
+			}
+			if (right != null) {
+				return right;
+			}
 			if (tree.value == target) {
-				NODE = tree;
-				return 1;
-			}
-			int leftDistance = findDistanceFromRoot(tree.left, target);
-			if (-1 != leftDistance) {
-				IS_NODE_AT_LEFT = true;
-				return leftDistance++;
-			}
-			int rightDistance = findDistanceFromRoot(tree.right, target);
-			if (-1 != rightDistance) {
-				IS_NODE_AT_LEFT = false;
-				return rightDistance++;
+				return tree;
 			}
 		}
-		return -1;
+		return null;
 	}
-
-//	private BinaryTree findNode(BinaryTree tree, int target) {
-//		// TODO Auto-generated method stub
-//		if (tree != null) {
-//			if (tree.value == target) {
-//				return tree;
-//			}
-//			BinaryTree leftNode = findNode(tree.left, target);
-//			if (leftNode != null) {
-//				return leftNode;
-//			}
-//			BinaryTree rightNode = findNode(tree.right, target);
-//			if (rightNode != null) {
-//				return rightNode;
-//			}
-//		}
-//		return null;
-//	}
 
 	public static void main(String[] args) {
 
