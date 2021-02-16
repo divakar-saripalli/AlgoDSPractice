@@ -1,0 +1,57 @@
+Following is the problem statement. Please code in any language of your choice and revert.
+
+Given a river with number of floating stones .There are N number of person who are eligible to try to cross the river.
+
+	Assumptions:
+	-----------
+		The person with feet area less than stone's width can only stand on the stone.
+
+		Stones are in straight line.
+
+		Users have to attempt one by one.
+
+		Every user will get same number of stones and stones' properties.
+
+		Users have to always jump according to his maximum jump capability.
+
+		Users only know the distance between the stones .
+
+		Users known their own properties.
+
+		Users cannot step back.
+
+		User who crosses in minimum time is the winner.
+
+		No person can cross the river in a single jump.
+
+
+	Stone properties:
+	----------------
+
+		area of stone
+
+		sink time of stone while person is standing (irrespective of weight)
+
+		distance from bank
+
+
+	Person properties:
+	-----------------
+
+		width of feet
+
+		minimum time required for next jump
+
+		maximum jump length
+
+		Person ID
+
+Questions:
+
+	How many persons crossed the river?
+
+	How many persons died?
+
+	How many did not attempt to cross?
+
+	Number of stones the winning person stepped to cross the river?
