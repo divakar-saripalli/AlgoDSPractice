@@ -7,22 +7,6 @@ public class MoveElementToEnd {
 
 	public static List<Integer> moveElementToEnd(List<Integer> array, int toMove) {
 		// Write your code here.
-//		for (int i = 0, j = i + 1; j < array.size();) {
-//			if (array.get(i) == toMove) {
-//				while (j < array.size() && array.get(j) == toMove) {
-//					j++;
-//				}
-//				if (j < array.size()) {
-//					int temp = array.get(i);
-//					array.set(i, array.get(j));
-//					array.set(j, temp);
-//				}
-//				i++;
-//			}
-//			System.out.println(array.toString());
-//		}
-//		return array;
-
 		int i = 0;
 		int j = array.size() - 1;
 		while (i < j) {

@@ -8,83 +8,85 @@ public class SpiralTraverse {
 	public static List<Integer> spiralTraverse(int[][] array) {
 		// Write your code here.
 		ArrayList<Integer> list = new ArrayList<Integer>();
-		boolean hasValidValue = true;
+		boolean allBlocked = false;
+
+		boolean rightBlocked = false;
+		boolean downBlocked = false;
+		boolean leftBlocked = false;
+		boolean upBlocked = false;
 
 		int row = 0;
 		int col = 0;
 
-		while (hasValidValue) {
+		while (!allBlocked) {
 			while (col < array[row].length) {
 				if (array[row][col] == Integer.MIN_VALUE) {
 					col--;
 					row++;
-					if (array[row][col] == Integer.MIN_VALUE) {
-						hasValidValue = false;
-					}
+					rightBlocked = true;
 					break;
 				}
 				list.add(array[row][col]);
 				array[row][col] = Integer.MIN_VALUE;
 				col++;
 			}
-//			if (hasValidValue) {
-//				col--;
-//				row++;
-//			}
+			if (col == array[row].length) {
+				col--;
+				row++;
+			}
 
 			while (row < array.length) {
-				if (array[row][col] == Integer.MIN_VALUE) {
+				if (row == array.length || array[row][col] == Integer.MIN_VALUE) {
 					row--;
 					col--;
-					if (array[row][col] == Integer.MIN_VALUE) {
-						hasValidValue = false;
-					}
+					downBlocked = true;
 					break;
 				}
 				list.add(array[row][col]);
 				array[row][col] = Integer.MIN_VALUE;
 				row++;
 			}
-//			if (hasValidValue) {
-//				col--;
-//				row--;
-//			}
+
+			if (row == array.length) {
+				row--;
+				col--;
+			}
 
 			while (col > -1) {
 				if (array[row][col] == Integer.MIN_VALUE) {
-					col++;
 					row--;
-					if (array[row][col] == Integer.MIN_VALUE) {
-						hasValidValue = false;
-					}
+					col++;
+					leftBlocked = true;
 					break;
 				}
 				list.add(array[row][col]);
 				array[row][col] = Integer.MIN_VALUE;
 				col--;
 			}
-//			if (hasValidValue) {
-//				col++;
-//				row--;
-//			}
+
+			if (col < 0) {
+				col++;
+				row--;
+			}
 
 			while (row > -1) {
 				if (array[row][col] == Integer.MIN_VALUE) {
 					row++;
 					col++;
-					if (array[row][col] == Integer.MIN_VALUE) {
-						hasValidValue = false;
-					}
+					upBlocked = true;
 					break;
 				}
 				list.add(array[row][col]);
 				array[row][col] = Integer.MIN_VALUE;
 				row--;
 			}
-//			if (hasValidValue) {
-//				col++;
-//				row++;
-//			}
+
+			if (row < 0) {
+				row++;
+				col++;
+			}
+
+			allBlocked = rightBlocked && leftBlocked && upBlocked && downBlocked;
 		}
 		return list;
 	}
