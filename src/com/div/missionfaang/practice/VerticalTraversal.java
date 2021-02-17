@@ -1,70 +1,61 @@
 package com.div.missionfaang.practice;
 
 import java.util.ArrayList;
-import java.util.Stack;
 
 public class VerticalTraversal {
 
-	static int leftHeight = 0;
-	static int rightHeight = 0;
+	static int minHeight = 0;
+	static int maxHeight = 0;
 
 	static ArrayList<Integer> verticalOrder(Node root) {
 		if (root == null) {
 			return null;
 		}
 
-		int rootLevel = 0;
-		findHeights(root);
-		int totalStacks = leftHeight + rightHeight + 1;
+		findHeights(root, 0);
 		ArrayList<Integer> order = new ArrayList<>();
-
-		if (totalStacks == 1) {
-			order.add(root.data);
-			return order;
-		}
-
-		if (totalStacks % 2 == 0) {
-			rootLevel = (leftHeight > rightHeight) ? totalStacks / 2 : totalStacks / 2 + 1;
-		} else {
-			rootLevel = totalStacks / 2;
-		}
-
-		Stack<Integer>[] stacks = new Stack[totalStacks];
-		vertOrder(root, stacks, rootLevel);
-		for (int i = 0; i < totalStacks; i++) {
-			order.addAll(stacks[i]);
+		for (int i = minHeight; i <= maxHeight; i++) {
+			vertOrder(root, i, 0, order);
 		}
 		return order;
 	}
 
-	static void vertOrder(Node root, Stack[] stacks, int rootLevel) {
+	static void vertOrder(Node root, int lineNumber, int horizontalDistance, ArrayList<Integer> order) {
 		if (root != null) {
-			if (stacks[rootLevel] == null) {
-				stacks[rootLevel] = new Stack<Integer>();
+			if (horizontalDistance == lineNumber) {
+				order.add(root.data);
 			}
-			stacks[rootLevel].push(root.data);
-			vertOrder(root.left, stacks, rootLevel - 1);
-			vertOrder(root.right, stacks, rootLevel + 1);
+			vertOrder(root.left, lineNumber, horizontalDistance - 1, order);
+			vertOrder(root.right, lineNumber, horizontalDistance + 1, order);
 		}
 	}
 
-	static void findHeights(Node root) {
-		Node left = root.left;
-		Node right = root.right;
-		while (left != null) {
-			leftHeight++;
-			left = left.left;
+	static void findHeights(Node root, int horizontalDistance) {
+		if (root == null) {
+			return;
 		}
-		while (right != null) {
-			rightHeight++;
-			right = right.right;
+		if (horizontalDistance < minHeight) {
+			minHeight = horizontalDistance;
 		}
+
+		if (horizontalDistance > maxHeight) {
+			maxHeight = horizontalDistance;
+		}
+
+		findHeights(root.left, horizontalDistance - 1);
+		findHeights(root.right, horizontalDistance + 1);
 	}
 
 	public static void main(String[] args) {
-		Node root = new Node(2);
+		Node root = new Node(1);
+		root.left = new Node(2);
 		root.right = new Node(3);
-		root.right.left = new Node(4);
+		root.left.left = new Node(4);
+		root.left.right = new Node(5);
+		root.right.left = new Node(6);
+		root.right.right = new Node(7);
+		root.right.left.right = new Node(8);
+		root.right.right.right = new Node(9);
 		System.out.println(verticalOrder(root).toString());
 	}
 
