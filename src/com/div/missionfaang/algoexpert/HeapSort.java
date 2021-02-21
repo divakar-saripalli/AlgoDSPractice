@@ -5,11 +5,9 @@ import java.util.Arrays;
 public class HeapSort {
 	public static int[] heapSort(int[] array) {
 		int i = array.length;
-		while (i > 1) {
+		while (i > 0) {
 			heapify(array, i);
-			int temp = array[0];
-			array[0] = array[i - 1];
-			array[i - 1] = temp;
+			swap(array, 0, i - 1);
 			i--;
 		}
 		return array;
