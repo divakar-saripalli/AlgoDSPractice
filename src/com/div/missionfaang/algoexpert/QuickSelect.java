@@ -1,5 +1,7 @@
 package com.div.missionfaang.algoexpert;
 
+import java.util.Arrays;
+
 public class QuickSelect {
 
 	public static int quickselect(int[] array, int k) {
@@ -48,36 +50,39 @@ public class QuickSelect {
 				j++;
 			}
 		}
-		while (true) {
-			boolean recall = false;
-			for (int i2 = 0, j2 = k; i2 < k - 1 || j2 < array.length;) {
-				if (i2 < k - 1) {
-					if (array[i2] < array[k - 1]) {
-						i2++;
-					} else {
-						recall = true;
-						break;
-					}
-				}
-				if (j2 < array.length) {
-					if (array[j2] > array[k - 1]) {
-						j2++;
-					} else {
-						recall = true;
-						break;
-					}
+		boolean recall = false;
+		for (int i2 = 0, j2 = k; i2 < k - 1 || j2 < array.length;) {
+			if (i2 < k - 1) {
+				if (array[i2] < array[k - 1]) {
+					i2++;
+				} else {
+					recall = true;
+					break;
 				}
 			}
-			if (recall) {
-				return quickselect(array, k);
-			} else {
-				break;
+			if (j2 < array.length) {
+				if (array[j2] > array[k - 1]) {
+					j2++;
+				} else {
+					recall = true;
+					break;
+				}
 			}
+		}
+		if (recall) {
+			return quickselect(array, k);
 		}
 		return array[k - 1];
 	}
 
 	public static void main(String[] args) {
-		System.out.println(quickselect(new int[] { 8, 5, 2, 9, 7, 6, 3 }, 3));
+		int[] array = new int[] { 5, 61, 71, 72, 73, 0, 1, 21, 33, 37, 39, 40, 41, 42 };
+//		System.out.println(quickselect(array, 3));
+
+		for (int i = 1; i < array.length; i++) {
+			quickselect(array, i);
+		}
+
+		System.out.println(Arrays.toString(array));
 	}
 }
