@@ -49,14 +49,6 @@ public class RightSiblingTree {
 		return root;
 	}
 
-//	private static void rightSiblingTree(BinaryTree root, int level, ArrayList<Integer> noOfNodesAtLevel,
-//			LinkedList<BinaryTree> queue) {
-//		// TODO Auto-generated method stub
-//		if (root == null) {
-//			return;
-//		}
-//	}
-
 	public static void preOrder(BinaryTree root) {
 		if (root != null) {
 			preOrder(root.left);
