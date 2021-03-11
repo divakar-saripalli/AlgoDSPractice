@@ -10,26 +10,51 @@ import java.util.stream.Stream;
 
 public class StockMax {
 	public static long stockmax(List<Integer> prices) {
-		long currMax = prices.get(prices.size() - 1);
-		long currExp = 0;
-		long currStocks = 0;
-		long profit = 0;
-		int currMaxIdx = prices.size() - 1;
+//		long currMax = prices.get(prices.size() - 1);
+//		long currExp = 0;
+//		long currStocks = 0;
+//		long profit = 0;
+//		int currMaxIdx = prices.size() - 1;
+//
+//		while (currMaxIdx > 0) {
+//			if (prices.get(currMaxIdx) < currMax) {
+//				currMax = prices.get(currMaxIdx);
+//				currStocks++;
+//				currExp += currMax;
+//			} else {
+//				long currCash = prices.get(currMaxIdx) * currStocks;
+//				profit += currCash - currExp;
+//				currStocks = 0;
+//				currExp = 0;
+//			}
+//			currMaxIdx--;
+//		}
+//		profit += (prices.get(currMaxIdx) * currStocks) - currExp;
+//		return profit;
 
-		while (currMaxIdx > 0) {
-			if (prices.get(currMaxIdx) < currMax) {
-				currMax = prices.get(currMaxIdx);
-				currStocks++;
-				currExp += currMax;
+		int profit = 0;
+		int stocks = 0;
+		int expense = 0;
+		for (int i = prices.size() - 1; i > 0; i--) {
+			if (prices.get(i) > prices.get(i - 1)) {
+				profit += (prices.get(i) - prices.get(i - 1)) * stocks;
+				profit -= expense;
 			} else {
-				long currCash = prices.get(currMaxIdx) * currStocks;
-				profit += currCash - currExp;
-				currStocks = 0;
-				currExp = 0;
+				expense += prices.get(i);
+				stocks++;
 			}
-			currMaxIdx--;
 		}
-		profit += (prices.get(currMaxIdx) * currStocks) - currExp;
+		return profit;
+	}
+
+	public static int maxProfitWithKTransactions(int[] prices, int k) {
+		// Write your code here.
+		int profit = 0;
+		for (int i = prices.length - 1; i > 0; i--) {
+			if (prices[i] > prices[i - 1]) {
+				profit += prices[i] - prices[i - 1];
+			}
+		}
 		return profit;
 	}
 

@@ -10,7 +10,7 @@ public class ZigzagTraverse2DArray {
 		ArrayList<Integer> result = new ArrayList<Integer>();
 		result.add(array.get(0).get(0));
 		boolean upwards = true;
-		for (int i = 1; i < array.size();) {
+		for (int i = 0; i < array.size();) {
 			for (int j = 0; j < array.get(i).size();) {
 				result.add(array.get(i).get(j));
 				if (i >= array.size() - 1 && j >= array.get(i).size() - 1) {
