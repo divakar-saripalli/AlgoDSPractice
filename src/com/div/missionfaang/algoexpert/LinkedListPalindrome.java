@@ -63,6 +63,31 @@ public class LinkedListPalindrome {
 		return true;
 	}
 
+	public static int eliminateNext() {
+		LinkedList head = new LinkedList(1);
+		LinkedList node = head;
+		for (int i = 2; i <= 100; i++) {
+			node.next = new LinkedList(i);
+			node = node.next;
+		}
+		node.next = head;
+		node = head;
+		while (node.next != null) {
+			LinkedList temp = node.next.next;
+			node.next.next = null;
+			node.next = temp;
+			node = node.next;
+			System.out.println(node.value);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println(node.value);
+		return node.value;
+	}
+
 	public static void main(String[] args) {
 		LinkedList head = new LinkedList(0);
 //		head.next = new LinkedList(1);
@@ -70,7 +95,8 @@ public class LinkedListPalindrome {
 //		head.next.next.next = new LinkedList(2);
 //		head.next.next.next.next = new LinkedList(1);
 //		head.next.next.next.next.next = new LinkedList(0);
-		System.out.println(linkedListPalindrome(head));
+//		System.out.println(linkedListPalindrome(head));
+		eliminateNext();
 	}
 
 }

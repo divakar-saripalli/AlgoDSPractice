@@ -1,6 +1,8 @@
 package com.div.missionfaang.algoexpert;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MergeSort {
 
@@ -43,8 +45,55 @@ public class MergeSort {
 		}
 	}
 
+	public static List<Integer> mergeSort(List<Integer> array) {
+		if (array.size() < 3) {
+			if (array.size() > 1 && array.get(0) > array.get(1)) {
+				Integer temp = array.get(0);
+				array.set(0, array.get(1));
+				array.set(1, temp);
+			}
+			return array;
+		} else {
+			int mid = array.size() / 2;
+			List<Integer> leftArray = array.subList(0, mid);
+			List<Integer> rightArray = array.subList(mid, array.size());
+			List<Integer> array1 = mergeSort(leftArray);
+			List<Integer> array2 = mergeSort(rightArray);
+			List<Integer> resultantArray = new ArrayList<>(array1.size() + array2.size());
+			int i = 0;
+			int j = 0;
+
+			while (i + j < array1.size() + array2.size()) {
+				Integer resultantArrayNextValue = 0;
+				if (i < array1.size() && j < array2.size()) {
+					if (array1.get(i) < array2.get(j)) {
+						resultantArrayNextValue = array1.get(i++);
+					} else {
+						resultantArrayNextValue = array2.get(j++);
+					}
+				} else if (i < array1.size()) {
+					resultantArrayNextValue = array1.get(i++);
+				} else {
+					resultantArrayNextValue = array2.get(j++);
+				}
+
+				resultantArray.add(resultantArrayNextValue);
+			}
+			return resultantArray;
+		}
+	}
+
 	public static void main(String[] args) {
 		int[] array = new int[] { 2, 4, 1, 6, 5, 9, 7 };
+		List<Integer> list = new ArrayList<>();
+		list.add(2);
+		list.add(4);
+		list.add(1);
+		list.add(6);
+		list.add(5);
+		list.add(9);
+		list.add(7);
 		System.out.println(Arrays.toString(mergeSort(array)));
+		System.out.println(mergeSort(list).toString());
 	}
 }

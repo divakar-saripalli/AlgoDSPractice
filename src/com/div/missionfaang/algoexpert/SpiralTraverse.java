@@ -8,90 +8,101 @@ public class SpiralTraverse {
 	public static List<Integer> spiralTraverse(int[][] array) {
 		// Write your code here.
 		ArrayList<Integer> list = new ArrayList<Integer>();
-		boolean allBlocked = false;
-
-		boolean rightBlocked = false;
-		boolean downBlocked = false;
-		boolean leftBlocked = false;
-		boolean upBlocked = false;
-
-		int row = 0;
-		int col = 0;
-
-		while (!allBlocked) {
-			while (col < array[row].length) {
-				if (array[row][col] == Integer.MIN_VALUE) {
-					col--;
-					row++;
-					rightBlocked = true;
-					break;
-				}
-				list.add(array[row][col]);
-				array[row][col] = Integer.MIN_VALUE;
-				col++;
+		boolean done = false;
+		int i = 0;
+		int j = 0;
+		while (!done) {
+			boolean processed = false;
+			while (j <= array.length - 1 && array[i][j] != Integer.MIN_VALUE) {
+				list.add(array[i][j]);
+				array[i][j] = Integer.MIN_VALUE;
+				j++;
+				processed = true;
 			}
-			if (col == array[row].length) {
-				col--;
-				row++;
+			j--;
+			i++;
+			while (i <= array.length - 1 && array[i][j] != Integer.MIN_VALUE) {
+				list.add(array[i][j]);
+				array[i][j] = Integer.MIN_VALUE;
+				i++;
+				processed = true;
 			}
-
-			while (row < array.length) {
-				if (row == array.length || array[row][col] == Integer.MIN_VALUE) {
-					row--;
-					col--;
-					downBlocked = true;
-					break;
-				}
-				list.add(array[row][col]);
-				array[row][col] = Integer.MIN_VALUE;
-				row++;
+			i--;
+			j--;
+			while (j > -1 && array[i][j] != Integer.MIN_VALUE) {
+				list.add(array[i][j]);
+				array[i][j] = Integer.MIN_VALUE;
+				j--;
+				processed = true;
 			}
-
-			if (row == array.length) {
-				row--;
-				col--;
+			j++;
+			i--;
+			while (i > -1 && array[i][j] != Integer.MIN_VALUE) {
+				list.add(array[i][j]);
+				array[i][j] = Integer.MIN_VALUE;
+				i--;
+				processed = true;
 			}
-
-			while (col > -1) {
-				if (array[row][col] == Integer.MIN_VALUE) {
-					row--;
-					col++;
-					leftBlocked = true;
-					break;
-				}
-				list.add(array[row][col]);
-				array[row][col] = Integer.MIN_VALUE;
-				col--;
-			}
-
-			if (col < 0) {
-				col++;
-				row--;
-			}
-
-			while (row > -1) {
-				if (array[row][col] == Integer.MIN_VALUE) {
-					row++;
-					col++;
-					upBlocked = true;
-					break;
-				}
-				list.add(array[row][col]);
-				array[row][col] = Integer.MIN_VALUE;
-				row--;
-			}
-
-			if (row < 0) {
-				row++;
-				col++;
-			}
-
-			allBlocked = rightBlocked && leftBlocked && upBlocked && downBlocked;
+			i++;
+			j++;
+			done = !processed;
 		}
+
 		return list;
 	}
 
+	public static ArrayList<ArrayList<Integer>> generateSpiralMatrix(int A) {
+		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
+		for (int i = 0; i < A; i++) {
+			matrix.add(new ArrayList<>());
+			for (int j = 0; j < A; j++) {
+				matrix.get(i).add(0);
+			}
+		}
+		int cellValue = 1;
+		boolean done = false;
+		int i = 0;
+		int j = 0;
+		while (!done) {
+			boolean processed = false;
+			while (j <= A - 1 && matrix.get(i).get(j) == 0) {
+				matrix.get(i).set(j, cellValue++);
+				j++;
+				processed = true;
+			}
+			j--;
+			i++;
+			while (i <= A - 1 && matrix.get(i).get(j) == 0) {
+				matrix.get(i).set(j, cellValue++);
+				i++;
+				processed = true;
+			}
+			i--;
+			j--;
+			while (j > -1 && matrix.get(i).get(j) == 0) {
+				matrix.get(i).set(j, cellValue++);
+				j--;
+				processed = true;
+			}
+			j++;
+			i--;
+			while (i > -1 && matrix.get(i).get(j) == 0) {
+				matrix.get(i).set(j, cellValue++);
+				i--;
+				processed = true;
+			}
+			i++;
+			j++;
+			done = !processed;
+		}
+		return matrix;
+	}
+
 	public static void main(String[] args) {
-		System.out.println(spiralTraverse(new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } }).toString());
+		ArrayList<ArrayList<Integer>> spiralMatrix = generateSpiralMatrix(6);
+		System.out.println(spiralMatrix);
+		int[][] spiralMatrixArray = spiralMatrix.stream().map(u -> u.stream().mapToInt(i -> i).toArray())
+				.toArray(int[][]::new);
+		System.out.println(spiralTraverse(spiralMatrixArray).toString());
 	}
 }
