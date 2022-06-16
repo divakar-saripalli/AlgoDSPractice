@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class TimeComplexity {
-    private static int b;
 
     static int calcLoops(int n) {
         int count = 0;
@@ -19,7 +18,6 @@ public class TimeComplexity {
     }
 
     private static int search(List<Integer> A, int B) {
-        TimeComplexity.b = B;
         if (A.isEmpty()) {
             return -1;
         }
@@ -35,7 +33,7 @@ public class TimeComplexity {
         boolean isGreaterThanFirstElem = (B > A.get(0));
         boolean isLesserThanLastElem = (B < A.get(A.size() - 1));
         int pivot = TimeComplexity.findPivot(A);
-        int start = (isGreaterThanFirstElem) ? 0 : pivot;
+        int start = (isGreaterThanFirstElem) ? 0 : pivot + 1;
         int end = (isLesserThanLastElem) ? A.size() - 1 : pivot;
         while (start <= end && start < A.size() && end > -1) {
             int mid = (end + start) / 2;
