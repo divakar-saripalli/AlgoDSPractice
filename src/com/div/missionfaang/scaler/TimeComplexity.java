@@ -51,6 +51,26 @@ public class TimeComplexity {
         return -1;
     }
 
+    private static int findPivot(List<Integer> A) {
+        int start = 0;
+        int end = A.size() - 1;
+        Integer lastValue = A.get(A.size() - 1);
+        Integer firstValue = A.get(0);
+        int mid = 0;
+        while (start < end) {
+            mid = (start + end) / 2;
+            Integer midValue = A.get(mid);
+            if ((midValue < lastValue) && (mid > 0 && midValue > A.get(mid - 1))) {
+                end = mid;
+            } else if (midValue > firstValue && midValue < A.get(mid + 1)) {
+                start = mid;
+            } else {
+                break;
+            }
+        }
+        return mid;
+    }
+
     private static int maxMod(ArrayList<Integer> A) {
         Integer max = 0;
         int secondMax = 0;
@@ -156,8 +176,8 @@ public class TimeComplexity {
     }
 
     private static String nextSmallestPalindrome(String A) {
-        String left = "";
-        String right = "";
+        String left;
+        String right;
         String center = "";
 
         int mid = A.length() / 2;
@@ -169,7 +189,117 @@ public class TimeComplexity {
             right = A.substring(mid);
         }
 
+        boolean isAll9s = true;
+        for (int i = 0, j = A.length() - 1; i < j; i++, j--) {
+            if (A.charAt(i) != '9' || A.charAt(j) != '9') {
+                isAll9s = false;
+                break;
+            }
+        }
+
+        if (A.length() == 1) {
+            return "11";
+        }
+
+        if (isAll9s) {
+            StringBuilder result = new StringBuilder("1");
+            for (int i = 0; i < A.length() - 1; i++) {
+                result.append("0");
+            }
+            return result + "1";
+        } else {
+            int i = left.length() - 1;
+            int j = 0;
+            boolean shouldContinue = true;
+            while (i > -1 && j < right.length() && shouldContinue) {
+                char leftValue = left.charAt(i);
+                char rightValue = right.charAt(j);
+                if (leftValue != rightValue) {
+                    if (leftValue > rightValue) {
+                        StringBuilder strToCopy = new StringBuilder(left.substring(0, i + 1)).reverse();
+                        right = right.substring(0, j);
+                        right += strToCopy.toString();
+                        return left + center + right;
+                    } else {
+                        boolean updateLeft = true;
+                        if (!center.equals("")) {
+                            if (center.equals("9")) {
+                                center = "0";
+                            } else {
+                                updateLeft = false;
+                                center = String.valueOf(TimeComplexity.getNextIntCharacter(center.charAt(0)));
+                                StringBuilder strToCopy = new StringBuilder(left.substring(0, i + 1)).reverse();
+                                right = right.substring(0, j);
+                                right += strToCopy.toString();
+                            }
+                        }
+                        if (updateLeft) {
+                            int k = left.length() - 1;
+                            boolean carryForward = true;
+                            while (k >= i && carryForward) {
+                                if (left.charAt(k) != '9') {
+                                    carryForward = false;
+                                }
+                                char charToChange = TimeComplexity.getNextIntCharacter(left.charAt(k));
+                                left = left.substring(0, k) + charToChange
+                                        + left.substring(k + 1);
+                                k--;
+                                shouldContinue = false;
+                            }
+                        }
+                    }
+                }
+                i--;
+                j++;
+            }
+            if (i < 0) {
+                if (left.charAt(left.length() - 1) == '9') {
+                    int k = left.length() - 1;
+                    boolean carryForward = true;
+                    while (k >= i && carryForward) {
+                        if (left.charAt(k) != '9') {
+                            carryForward = false;
+                        }
+                        char charToChange = TimeComplexity.getNextIntCharacter(left.charAt(k));
+                        left = left.substring(0, k) + charToChange
+                                + left.substring(k + 1);
+                        k--;
+                    }
+                } else {
+                    left = left.substring(0, left.length() - 1) + TimeComplexity.getNextIntCharacter(left.charAt(left.length() - 1));
+                }
+            }
+        }
+
+        right = new StringBuilder(left).reverse().toString();
+
         return left + center + right;
+    }
+
+    private static char getNextIntCharacter(char c) {
+        switch (c) {
+            case '0':
+                return '1';
+            case '1':
+                return '2';
+            case '2':
+                return '3';
+            case '3':
+                return '4';
+            case '4':
+                return '5';
+            case '5':
+                return '6';
+            case '6':
+                return '7';
+            case '7':
+                return '8';
+            case '8':
+                return '9';
+            case '9':
+            default:
+                return '0';
+        }
     }
 
     private static int minimumAppendsPalindrome(String A) {
@@ -198,26 +328,6 @@ public class TimeComplexity {
             }
         }
         return A.length() - 1;
-    }
-
-    private static int findPivot(List<Integer> A) {
-        int start = 0;
-        int end = A.size() - 1;
-        Integer lastValue = A.get(A.size() - 1);
-        Integer firstValue = A.get(0);
-        int mid = 0;
-        while (start < end) {
-            mid = (start + end) / 2;
-            Integer midValue = A.get(mid);
-            if ((midValue < lastValue) && (mid > 0 && midValue > A.get(mid - 1))) {
-                end = mid;
-            } else if ((midValue > firstValue) && (mid < A.size() && midValue < A.get(mid + 1))) {
-                start = mid;
-            } else {
-                break;
-            }
-        }
-        return mid;
     }
 
     private static ArrayList<Integer> prefixMatching(ArrayList<String> A, String B) {
@@ -302,7 +412,18 @@ public class TimeComplexity {
         //        ArrayList<Integer> B = TimeComplexity.convertArrayToList(arr1);
         //        System.out.println(TimeComplexity.commonElements(A, B));
 
-        System.out.println(TimeComplexity.minimumAppendsPalindrome("aadea"));
+//        System.out.println(TimeComplexity.nextSmallestPalindrome("1342451"));
+//        System.out.println(TimeComplexity.nextSmallestPalindrome("1342421"));
+//        System.out.println(TimeComplexity.nextSmallestPalindrome("1349421"));
+//        System.out.println(TimeComplexity.nextSmallestPalindrome("134451"));
+//        System.out.println(TimeComplexity.nextSmallestPalindrome("13951"));
+//        System.out.println(TimeComplexity.nextSmallestPalindrome("139951"));
+        System.out.println(TimeComplexity.nextSmallestPalindrome("4026061117300483012903885770893074783710083450145995410543800173874703980775883092103840037111606204"));
+//        System.out.println(TimeComplexity.nextSmallestPalindrome("138851"));
+//        System.out.println(TimeComplexity.nextSmallestPalindrome("1389851"));
+//        System.out.println(TimeComplexity.nextSmallestPalindrome("1299941"));
+//        System.out.println(TimeComplexity.nextSmallestPalindrome("13799751"));
+//        System.out.println(TimeComplexity.nextSmallestPalindrome("1367997651"));
     }
 
 }
