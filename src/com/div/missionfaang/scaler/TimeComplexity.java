@@ -382,18 +382,18 @@ public class TimeComplexity {
         }
         return vowelsSubString.toString();
     }
-    
-    public static int sumOfAdjIsEven(ArrayList<Integer> A){
-    	int oddCount = 0;
-    	int evenCount = 0; 
-    	for (int i = 0; i < A.size(); i++) {
-			if(A.get(i)%2 == 0) {
-				evenCount++;
-			}else {
-				oddCount++;
-			}
-		}
-    	return (oddCount < evenCount)?oddCount:evenCount;
+
+    public static int sumOfAdjIsEven(ArrayList<Integer> A) {
+        int oddCount = 0;
+        int evenCount = 0;
+        for (int i = 0; i < A.size(); i++) {
+            if (A.get(i) % 2 == 0) {
+                evenCount++;
+            } else {
+                oddCount++;
+            }
+        }
+        return (oddCount < evenCount) ? oddCount : evenCount;
     }
 
     public static void main(String[] args) {
