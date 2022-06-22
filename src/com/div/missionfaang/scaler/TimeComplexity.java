@@ -396,6 +396,83 @@ public class TimeComplexity {
         return (oddCount < evenCount) ? oddCount : evenCount;
     }
 
+    public static int maxBalancedBinaryString(String A) {
+        int count = 0;
+        int onesCount = 0;
+        int zerosCount = 0;
+        for (int i = 0; i < A.length(); i++) {
+            if (A.charAt(i) == '0') {
+                zerosCount++;
+            } else {
+                onesCount++;
+            }
+            if (zerosCount == onesCount) {
+                count++;
+                onesCount = 0;
+                zerosCount = 0;
+            }
+        }
+        return count;
+    }
+
+    private static int balancedArray(ArrayList<Integer> A) {
+        int count = 0;
+
+        if (A.size() < 3) {
+            return (A.size() < 2) ? 1 : 0;
+        }
+
+        ArrayList<Integer> prefixOdd = new ArrayList<>();
+        ArrayList<Integer> prefixEven = new ArrayList<>();
+        ArrayList<Integer> suffixOdd = new ArrayList<>();
+        ArrayList<Integer> suffixEven = new ArrayList<>();
+
+        for (int i = 0; i < A.size(); i++) {
+            if (i % 2 == 0) {
+                if (i < 1) {
+                    prefixEven.add(0);
+                    prefixOdd.add(A.get(i));
+                } else {
+                    prefixOdd.add(prefixOdd.get(prefixOdd.size() - 1) + A.get(i));
+                    prefixEven.add(prefixEven.get(prefixEven.size() - 1));
+                }
+            } else {
+                prefixOdd.add(prefixOdd.get(prefixOdd.size() - 1));
+                prefixEven.add(prefixEven.get(prefixEven.size() - 1) + A.get(i));
+            }
+        }
+
+        for (int i = A.size() - 1; i > -1; i--) {
+            if (i % 2 == 0) {
+                if (i == A.size() - 1) {
+                    suffixEven.add(0);
+                    suffixOdd.add(A.get(i));
+                } else {
+                    suffixOdd.add(suffixOdd.get(suffixOdd.size() - 1) + A.get(i));
+                    suffixEven.add(suffixEven.get(suffixEven.size() - 1));
+                }
+            } else {
+                if (i == A.size() - 1) {
+                    suffixOdd.add(0);
+                    suffixEven.add(A.get(i));
+                } else {
+                    suffixOdd.add(suffixOdd.get(suffixOdd.size() - 1));
+                    suffixEven.add(suffixEven.get(suffixEven.size() - 1) + A.get(i));
+                }
+            }
+        }
+
+        Collections.reverse(suffixOdd);
+        Collections.reverse(suffixEven);
+
+        for (int i = 0; i < A.size(); i++) {
+            if (prefixOdd.get(i) + suffixEven.get(i) == prefixEven.get(i) + suffixOdd.get(i)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
         //        int[] arr = { 186, 192, 193, 202, 204, 2, 3, 6, 10, 11, 12, 17, 21, 28, 29, 30, 31, 32, 37, 38, 39, 40, 41, 47, 49, 50, 51, 52, 55, 57, 58, 59, 60, 65, 67, 68, 71, 72, 74,
         //                        77, 78, 80, 82, 83, 88, 89, 90, 94, 100, 107, 108, 109, 111, 112, 114, 115, 116, 118, 119, 121, 123, 124, 126, 129, 133, 134, 135, 137, 138, 144, 147, 148,
@@ -425,18 +502,8 @@ public class TimeComplexity {
         //        ArrayList<Integer> B = TimeComplexity.convertArrayToList(arr1);
         //        System.out.println(TimeComplexity.commonElements(A, B));
 
-//        System.out.println(TimeComplexity.nextSmallestPalindrome("1342451"));
-//        System.out.println(TimeComplexity.nextSmallestPalindrome("1342421"));
-//        System.out.println(TimeComplexity.nextSmallestPalindrome("1349421"));
-//        System.out.println(TimeComplexity.nextSmallestPalindrome("134451"));
-//        System.out.println(TimeComplexity.nextSmallestPalindrome("13951"));
-//        System.out.println(TimeComplexity.nextSmallestPalindrome("139951"));
-        System.out.println(TimeComplexity.nextSmallestPalindrome("4026061117300483012903885770893074783710083450145995410543800173874703980775883092103840037111606204"));
-//        System.out.println(TimeComplexity.nextSmallestPalindrome("138851"));
-//        System.out.println(TimeComplexity.nextSmallestPalindrome("1389851"));
-//        System.out.println(TimeComplexity.nextSmallestPalindrome("1299941"));
-//        System.out.println(TimeComplexity.nextSmallestPalindrome("13799751"));
-//        System.out.println(TimeComplexity.nextSmallestPalindrome("1367997651"));
+        int[] arr1 = new int[]{5, 5, 2, 5, 8};
+        ArrayList<Integer> B = TimeComplexity.convertArrayToList(arr1);
+        System.out.println(TimeComplexity.balancedArray(B));
     }
-
 }
