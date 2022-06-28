@@ -1,11 +1,8 @@
 package com.div.missionfaang.scaler;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
-public class TimeComplexity {
+public class Scaler {
 
     static int calcLoops(int n) {
         int count = 0;
@@ -32,7 +29,7 @@ public class TimeComplexity {
         }
         boolean isGreaterThanFirstElem = (B > A.get(0));
         boolean isLesserThanLastElem = (B < A.get(A.size() - 1));
-        int pivot = TimeComplexity.findPivot(A);
+        int pivot = Scaler.findPivot(A);
         int start = (isGreaterThanFirstElem) ? 0 : pivot + 1;
         int end = (isLesserThanLastElem) ? A.size() - 1 : pivot;
         while (start <= end && start < A.size() && end > -1) {
@@ -227,7 +224,7 @@ public class TimeComplexity {
                                 center = "0";
                             } else {
                                 updateLeft = false;
-                                center = String.valueOf(TimeComplexity.getNextIntCharacter(center.charAt(0)));
+                                center = String.valueOf(Scaler.getNextIntCharacter(center.charAt(0)));
                                 StringBuilder strToCopy = new StringBuilder(left.substring(0, i + 1)).reverse();
                                 right = right.substring(0, j);
                                 right += strToCopy.toString();
@@ -240,7 +237,7 @@ public class TimeComplexity {
                                 if (left.charAt(k) != '9') {
                                     carryForward = false;
                                 }
-                                char charToChange = TimeComplexity.getNextIntCharacter(left.charAt(k));
+                                char charToChange = Scaler.getNextIntCharacter(left.charAt(k));
                                 left = left.substring(0, k) + charToChange
                                         + left.substring(k + 1);
                                 k--;
@@ -260,13 +257,13 @@ public class TimeComplexity {
                         if (left.charAt(k) != '9') {
                             carryForward = false;
                         }
-                        char charToChange = TimeComplexity.getNextIntCharacter(left.charAt(k));
+                        char charToChange = Scaler.getNextIntCharacter(left.charAt(k));
                         left = left.substring(0, k) + charToChange
                                 + left.substring(k + 1);
                         k--;
                     }
                 } else {
-                    left = left.substring(0, left.length() - 1) + TimeComplexity.getNextIntCharacter(left.charAt(left.length() - 1));
+                    left = left.substring(0, left.length() - 1) + Scaler.getNextIntCharacter(left.charAt(left.length() - 1));
                 }
             }
         }
@@ -473,37 +470,94 @@ public class TimeComplexity {
         return count;
     }
 
-    public static void main(String[] args) {
-        //        int[] arr = { 186, 192, 193, 202, 204, 2, 3, 6, 10, 11, 12, 17, 21, 28, 29, 30, 31, 32, 37, 38, 39, 40, 41, 47, 49, 50, 51, 52, 55, 57, 58, 59, 60, 65, 67, 68, 71, 72, 74,
-        //                        77, 78, 80, 82, 83, 88, 89, 90, 94, 100, 107, 108, 109, 111, 112, 114, 115, 116, 118, 119, 121, 123, 124, 126, 129, 133, 134, 135, 137, 138, 144, 147, 148,
-        //                        150, 151, 154, 156, 159, 161, 163, 165, 166, 167, 168, 169, 174, 178, 180, 182, 183, 185 };
-        //        ArrayList<Integer> list = TimeComplexity.convertArrayToList(arr);
-        //        System.out.println(TimeComplexity.findPivot(list));
-        //        System.out.println(TimeComplexity.search(list, 6));
-        //        System.out.println(generateMatrix(1));
-        //        ArrayList<String> A = new ArrayList<>();
-        //        A.add("aaaaa");
-        //        A.add("aaab");
-        //        A.add("ab");
-        //        A.add("b");
-        //        System.out.println(TimeComplexity.prefixMatching(A, "b"));
-        //
-        //        arr = new int[] { 683, 354, 95, 937, 78, 246, 319, 516, 913, 112 };
-        //        list = TimeComplexity.convertArrayToList(arr);
-        //        System.out.println(TimeComplexity.maxMod(list));
-        //
-        //        System.out.println(TimeComplexity.nextSmallestPalindrome("2345745"));
-        //        System.out.println(TimeComplexity.nextSmallestPalindrome("999"));
-        //        System.out.println(TimeComplexity.nextSmallestPalindrome("1001"));
-        //
-        //        int[] arr = new int[] { 2, 1, 4, 10 };
-        //        int[] arr1 = new int[] { 3, 6, 2, 10, 10 };
-        //        ArrayList<Integer> A = TimeComplexity.convertArrayToList(arr);
-        //        ArrayList<Integer> B = TimeComplexity.convertArrayToList(arr1);
-        //        System.out.println(TimeComplexity.commonElements(A, B));
+    private static int squareRoot(Integer A) {
+        long start = 1;
+        long end = A;
+        while (start <= end) {
+            long mid = (start + end) / 2;
+            if (mid * mid == Long.valueOf(A)) {
+                return (int) mid;
+            } else if (mid * mid > A) {
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+        return -1;
+    }
 
-        int[] arr1 = new int[]{5, 5, 2, 5, 8};
-        ArrayList<Integer> B = TimeComplexity.convertArrayToList(arr1);
-        System.out.println(TimeComplexity.balancedArray(B));
+    private static void summation() {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        System.out.println((N * (N + 1)) / 2);
+    }
+
+    private static void isPerfectNumber() {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        for (int i = 0; i < n; i++) {
+            int N = sc.nextInt();
+            int count = 1;
+            int pivot = (int) Math.ceil(Math.sqrt(N));
+            for (int j = 2; j <= pivot; j++) {
+                if (N % j == 0 && (j <= N / j)) {
+                    count += j;
+                    if (N / j != j) {
+                        count += N / j;
+                    }
+                }
+            }
+            System.out.println((count == N) ? "YES" : "NO");
+        }
+    }
+
+    private static void isPrime() {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        int pivot = (int) Math.ceil(Math.sqrt(N));
+        boolean isPrime = true;
+        for (int j = 2; j <= pivot; j++) {
+            if (N % j == 0) {
+                isPrime = false;
+                break;
+            }
+        }
+        System.out.println(isPrime ? "YES" : "NO");
+    }
+
+    public static void main(String[] args) {
+//        int[] arr = {186, 192, 193, 202, 204, 2, 3, 6, 10, 11, 12, 17, 21, 28, 29, 30, 31, 32, 37, 38, 39, 40, 41, 47, 49, 50, 51, 52, 55, 57, 58, 59, 60, 65, 67, 68, 71, 72, 74,
+//                77, 78, 80, 82, 83, 88, 89, 90, 94, 100, 107, 108, 109, 111, 112, 114, 115, 116, 118, 119, 121, 123, 124, 126, 129, 133, 134, 135, 137, 138, 144, 147, 148,
+//                150, 151, 154, 156, 159, 161, 163, 165, 166, 167, 168, 169, 174, 178, 180, 182, 183, 185};
+//        ArrayList<Integer> list = Scaler.convertArrayToList(arr);
+//        System.out.println(Scaler.findPivot(list));
+//        System.out.println(Scaler.search(list, 6));
+//        System.out.println(generateMatrix(1));
+//        ArrayList<String> A = new ArrayList<>();
+//        A.add("aaaaa");
+//        A.add("aaab");
+//        A.add("ab");
+//        A.add("b");
+//        System.out.println(Scaler.prefixMatching(A, "b"));
+//
+//        arr = new int[]{683, 354, 95, 937, 78, 246, 319, 516, 913, 112};
+//        list = Scaler.convertArrayToList(arr);
+//        System.out.println(Scaler.maxMod(list));
+//
+//        System.out.println(Scaler.nextSmallestPalindrome("2345745"));
+//        System.out.println(Scaler.nextSmallestPalindrome("999"));
+//        System.out.println(Scaler.nextSmallestPalindrome("1001"));
+//
+//        int[] arr = new int[]{2, 1, 4, 10};
+//        int[] arr1 = new int[]{3, 6, 2, 10, 10};
+//        ArrayList<Integer> A = Scaler.convertArrayToList(arr);
+//        ArrayList<Integer> B = Scaler.convertArrayToList(arr1);
+//        System.out.println(Scaler.commonElements(A, B));
+//
+//        int[] arr1 = new int[]{5, 5, 2, 5, 8};
+//        ArrayList<Integer> B = Scaler.convertArrayToList(arr1);
+//        System.out.println(Scaler.balancedArray(B));
+        Scaler.isPrime();
+
     }
 }
