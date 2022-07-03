@@ -10,7 +10,6 @@ public class ArrayClass1 {
     public static void main(String[] args) {
         int[] arr1 = new int[]{1, 2, 3, 7, 1, 2, 3};
         ArrayList<Integer> array = Scaler.convertArrayToList(arr1);
-        System.out.println(ArrayClass1.findBalancingArrayIndices(array));
     }
 
     private static void rotateArray() {
@@ -82,7 +81,7 @@ public class ArrayClass1 {
         System.out.println(max + " " + min);
     }
 
-    private static ArrayList<Integer> reverseArrary(List<Integer> A) {
+    private static ArrayList<Integer> reverseArray(List<Integer> A) {
         ArrayList<Integer> resultArray = new ArrayList<>(A.size());
         for (int j = A.size() - 1; j > -1; j--) {
             resultArray.add(A.get(j));
@@ -145,100 +144,46 @@ public class ArrayClass1 {
         }
     }
 
-    private static int equilibriumIndex(ArrayList<Integer> A) {
-        int index = -1;
-        Integer arraySummation = 0;
+    private static int timeToEquality(ArrayList<Integer> A) {
+        Integer max = Integer.MIN_VALUE;
         for (Integer integer : A) {
-            arraySummation += integer;
-        }
-
-        Integer leftSum = 0;
-        Integer rightSum = arraySummation - A.get(0);
-
-        for (int i = 0; i < A.size() - 1; i++) {
-            if (leftSum.equals(rightSum)) {
-                index = i;
-                break;
-            } else {
-                leftSum += A.get(i);
-                rightSum -= A.get(i + 1);
+            if (integer > max) {
+                max = integer;
             }
         }
-        if (leftSum == 0 && index == -1) {
-            index = A.size() - 1;
-        }
-        return index;
-    }
-
-    private static int pickFromBothSides(ArrayList<Integer> A, int B) {
-        ArrayList<Integer> prefixSum = new ArrayList<>();
-        prefixSum.add(A.get(0));
-        for (int i = 1; i < A.size(); i++) {
-            prefixSum.add(A.get(i) + prefixSum.get(i - 1));
-        }
-
-        if (B == A.size()) {
-            return prefixSum.get(A.size() - 1);
-        }
-
-        int max = (prefixSum.get(A.size() - 1) - prefixSum.get(A.size() - B - 1));
-        for (int i = 0; i < B - 1; i++) {
-            int startIndex = A.size() - (B - i);
-            int endIndex = A.size() - 1;
-            int currentSum = prefixSum.get(i) + (prefixSum.get(endIndex) - prefixSum.get(startIndex));
-            if (currentSum > max) {
-                max = currentSum;
-            }
-        }
-        if (prefixSum.get(B - 1) > max) {
-            return prefixSum.get(B - 1);
-        }
-        return max;
-    }
-
-    private static int findBalancingArrayIndices(ArrayList<Integer> A) {
         int count = 0;
-        if (A.size() < 3) {
-            return 0;
-        }
-
-        Integer leftOddSum = 0;
-        Integer leftEvenSum = A.get(0);
-        Integer rightOddSum = 0;
-        Integer rightEvenSum = 0;
-        for (int i = 1; i < A.size(); i++) {
-            if (i % 2 != 0) {
-                rightOddSum += A.get(i);
-            } else {
-                rightEvenSum += A.get(i);
-            }
-        }
-
-        if (rightEvenSum.equals(rightOddSum)) {
-            count++;
-        }
-
-        for (int i = 1; i < A.size() - 1; i++) {
-
-            if (i % 2 != 0) {
-                rightOddSum -= A.get(i);
-            } else {
-                rightEvenSum -= A.get(i);
-            }
-
-            if (leftEvenSum + rightOddSum == rightEvenSum + leftOddSum) {
-                count++;
-            }
-            if (i % 2 != 0) {
-                leftOddSum += A.get(i);
-            } else {
-                leftEvenSum += A.get(i);
-            }
-        }
-        if (leftOddSum.equals(leftEvenSum)) {
-            count++;
+        for (Integer integer : A) {
+            count += max - integer;
         }
         return count;
+    }
+
+    private static ArrayList<Integer> productArray(ArrayList<Integer> A) {
+        ArrayList<Integer> zerothIndices = new ArrayList<>();
+        Integer finalProduct = 1;
+        for (int i = 0; i < A.size(); i++) {
+            if (A.get(i) != 0) {
+                finalProduct *= A.get(i);
+            } else {
+                zerothIndices.add(i);
+            }
+        }
+        ArrayList<Integer> resultantArray = new ArrayList<>();
+        if (zerothIndices.size() == 1) {
+            for (int i = 0; i < A.size(); i++) {
+                resultantArray.add(0);
+            }
+            resultantArray.set(zerothIndices.get(0), finalProduct);
+        } else if (zerothIndices.size() > 1) {
+            for (int i = 0; i < A.size(); i++) {
+                resultantArray.add(0);
+            }
+        } else {
+            for (Integer element : A) {
+                resultantArray.add(finalProduct / element);
+            }
+        }
+        return resultantArray;
     }
 
     public int goodPair(ArrayList<Integer> A, int B) {
