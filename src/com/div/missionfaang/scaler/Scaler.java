@@ -351,7 +351,7 @@ public class Scaler {
         return indices;
     }
 
-    private static ArrayList<Integer> convertArrayToList(int[] arr) {
+    static ArrayList<Integer> convertArrayToList(int[] arr) {
         ArrayList<Integer> list = new ArrayList<>();
         for (int i : arr) {
             list.add(i);
@@ -390,7 +390,7 @@ public class Scaler {
                 oddCount++;
             }
         }
-        return (oddCount < evenCount) ? oddCount : evenCount;
+        return Math.min(oddCount, evenCount);
     }
 
     public static int maxBalancedBinaryString(String A) {
@@ -557,7 +557,7 @@ public class Scaler {
 //        int[] arr1 = new int[]{5, 5, 2, 5, 8};
 //        ArrayList<Integer> B = Scaler.convertArrayToList(arr1);
 //        System.out.println(Scaler.balancedArray(B));
-        Scaler.isPrime();
+//        Scaler.isPrime();
 
     }
 }

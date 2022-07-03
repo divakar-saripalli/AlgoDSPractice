@@ -8,33 +8,19 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LeftRotation {
-	public static List<Integer> rotateLeft(int d, List<Integer> arr) {
-		// Write your code here
+	private static void rotateLeft(int d, List<Integer> arr) {
 
 		if (d < 2 || d > arr.size()) {
-			return arr;
+			return;
 		}
 
-		// List<Integer> newList = new ArrayList<>(arr.size());
-		//
-		// for(int i = d; i < arr.size(); i++){
-		// newList.add(i-d, arr.get(i));
-		// }
-		// for(int i=0; i < d; i++ ){
-		// newList.add((arr.size() - d)+i, arr.get(i));
-		// }
-		//
-		// System.out.println(newList.toString());
-		// return newList;
-
-		reverseArray(arr, 0, d - 1);
-		reverseArray(arr, d, arr.size() - 1);
-		reverseArray(arr, 0, arr.size() - 1);
-		System.out.println(arr.toString());
-		return arr;
+		LeftRotation.reverseArray(arr, 0, d - 1);
+		LeftRotation.reverseArray(arr, d, arr.size() - 1);
+		LeftRotation.reverseArray(arr, 0, arr.size() - 1);
+		System.out.println(arr);
 	}
 
-	public static void reverseArray(List<Integer> arr, int start, int end) {
+	private static void reverseArray(List<Integer> arr, int start, int end) {
 		while (start < end) {
 			int temp = arr.get(start);
 			arr.set(start, arr.get(end));
@@ -50,10 +36,9 @@ public class LeftRotation {
 
 		int d = Integer.parseInt(firstMultipleInput[1]);
 
-		List<Integer> arr = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
-				.map(Integer::parseInt).collect(Collectors.toList());
+		List<Integer> arr = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" ")).map(Integer::parseInt).collect(Collectors.toList());
 
-		rotateLeft(d, arr);
+		LeftRotation.rotateLeft(d, arr);
 		bufferedReader.close();
 	}
 }
