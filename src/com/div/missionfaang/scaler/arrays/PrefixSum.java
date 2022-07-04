@@ -1,4 +1,6 @@
-package com.div.missionfaang.scaler;
+package com.div.missionfaang.scaler.arrays;
+
+import com.div.missionfaang.scaler.Scaler;
 
 import java.util.ArrayList;
 
@@ -54,7 +56,7 @@ public class PrefixSum {
         return max;
     }
 
-    static int findBalancingArrayIndices(ArrayList<Integer> A) {
+    private static int findBalancingArrayIndices(ArrayList<Integer> A) {
         int count = 0;
         if (A.size() < 3) {
             return 0;

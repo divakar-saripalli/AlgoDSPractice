@@ -1,4 +1,6 @@
-package com.div.missionfaang.scaler;
+package com.div.missionfaang.scaler.arrays;
+
+import com.div.missionfaang.scaler.Scaler;
 
 import java.util.ArrayList;
 import java.util.Collections;

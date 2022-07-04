@@ -1,6 +1,9 @@
 package com.div.missionfaang.scaler;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 public class Scaler {
 
@@ -351,7 +354,7 @@ public class Scaler {
         return indices;
     }
 
-    static ArrayList<Integer> convertArrayToList(int[] arr) {
+    public static ArrayList<Integer> convertArrayToList(int[] arr) {
         ArrayList<Integer> list = new ArrayList<>();
         for (int i : arr) {
             list.add(i);
@@ -470,59 +473,31 @@ public class Scaler {
         return count;
     }
 
-    private static int squareRoot(Integer A) {
-        long start = 1;
-        long end = A;
-        while (start <= end) {
-            long mid = (start + end) / 2;
-            if (mid * mid == Long.valueOf(A)) {
-                return (int) mid;
-            } else if (mid * mid > A) {
-                end = mid - 1;
-            } else {
-                start = mid + 1;
-            }
-        }
-        return -1;
-    }
-
-    private static void summation() {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        System.out.println((N * (N + 1)) / 2);
-    }
-
-    private static void isPerfectNumber() {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        for (int i = 0; i < n; i++) {
-            int N = sc.nextInt();
-            int count = 1;
-            int pivot = (int) Math.ceil(Math.sqrt(N));
-            for (int j = 2; j <= pivot; j++) {
-                if (N % j == 0 && (j <= N / j)) {
-                    count += j;
-                    if (N / j != j) {
-                        count += N / j;
-                    }
+    private static ArrayList<Integer> ponnyAndMobilePhones(ArrayList<Integer> A, ArrayList<Integer> B) {
+        ArrayList<Integer> resultantArray = new ArrayList<>();
+        if (A.size() == 1) {
+            for (Integer integer : B) {
+                if (integer >= A.get(0)) {
+                    resultantArray.add(1);
                 }
             }
-            System.out.println((count == N) ? "YES" : "NO");
+            return resultantArray;
         }
-    }
 
-    private static void isPrime() {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int pivot = (int) Math.ceil(Math.sqrt(N));
-        boolean isPrime = true;
-        for (int j = 2; j <= pivot; j++) {
-            if (N % j == 0) {
-                isPrime = false;
-                break;
-            }
+        Collections.sort(A);
+        ArrayList<Integer> prefixSumArray = new ArrayList<>();
+        prefixSumArray.add(A.get(0));
+        for (int i = 1; i < A.size(); i++) {
+            prefixSumArray.add(prefixSumArray.get(i - 1) + A.get(i));
         }
-        System.out.println(isPrime ? "YES" : "NO");
+
+        int mid = A.size() / 2;
+        for (Integer integer : B) {
+//            while ()
+
+        }
+
+        return resultantArray;
     }
 
     public static void main(String[] args) {
