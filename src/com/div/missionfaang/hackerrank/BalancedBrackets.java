@@ -44,18 +44,7 @@ public class BalancedBrackets {
         return s.length() != 0 ? "NO" : "YES";
     }
 
-//	private static final Scanner scanner = new Scanner(System.in);
-
     public static void main(String[] args) throws IOException {
-//		int t = scanner.nextInt();
-//		scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-//
-//		for (int tItr = 0; tItr < t; tItr++) {
-//			String s = scanner.nextLine();
-//			System.out.println(isBalanced("([])(){}(())()()"));
-//		}
-//		scanner.close();
-
         System.out.println(BalancedBrackets.isBalanced("[((([])([]){}){}){}([])[]((())"));
     }
 }
