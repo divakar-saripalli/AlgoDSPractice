@@ -74,6 +74,7 @@ public class PrefixSum {
             }
         }
 
+        // Checks the condition if the first index is a special index
         if (rightEvenSum.equals(rightOddSum)) {
             count++;
         }
@@ -95,6 +96,8 @@ public class PrefixSum {
                 leftEvenSum += A.get(i);
             }
         }
+
+        // Checks the condition if the last index is a special index
         if (leftOddSum.equals(leftEvenSum)) {
             count++;
         }
