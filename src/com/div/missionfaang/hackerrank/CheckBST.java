@@ -12,7 +12,7 @@ public class CheckBST {
             return true;
         }
         for (int i = 1; i < list.size(); i++) {
-            if (list.get(i - 1).intValue() >= list.get(i).intValue()) {
+            if (list.get(i - 1) >= list.get(i)) {
                 return false;
             }
         }
