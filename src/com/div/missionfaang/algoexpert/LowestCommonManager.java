@@ -5,8 +5,8 @@ import java.util.List;
 
 public class LowestCommonManager {
 
-	public static OrgChart getLowestCommonManager(OrgChart topManager, OrgChart reportOne, OrgChart reportTwo) {
-		// Write your code here.
+    private static OrgChart getLowestCommonManager(OrgChart topManager, OrgChart reportOne, OrgChart reportTwo) {
+        // Write your code here.
 //		HashMap<OrgChart, OrgChart> reporteeManagerMap = new HashMap<>();
 //		buildParentMap(topManager, reporteeManagerMap);
 //
@@ -26,36 +26,36 @@ public class LowestCommonManager {
 //		}
 //
 //		return topManager; // Replace this line.
-		ArrayList<OrgChart> reportOneHierarchy = new ArrayList<>();
-		buildParentMap(topManager, reportOne, reportOneHierarchy);
+        ArrayList<OrgChart> reportOneHierarchy = new ArrayList<>();
+        LowestCommonManager.buildParentMap(topManager, reportOne, reportOneHierarchy);
 
-		ArrayList<OrgChart> reportTwoHierarchy = new ArrayList<>();
-		buildParentMap(topManager, reportTwo, reportTwoHierarchy);
+        ArrayList<OrgChart> reportTwoHierarchy = new ArrayList<>();
+        LowestCommonManager.buildParentMap(topManager, reportTwo, reportTwoHierarchy);
 
-		if (reportOneHierarchy.contains(reportTwo)) {
-			return reportTwo;
-		}
+        if (reportOneHierarchy.contains(reportTwo)) {
+            return reportTwo;
+        }
 
-		if (reportTwoHierarchy.contains(reportOne)) {
-			return reportOne;
-		}
+        if (reportTwoHierarchy.contains(reportOne)) {
+            return reportOne;
+        }
 
-		int i = reportOneHierarchy.size();
-		int j = reportTwoHierarchy.size();
-		for (; i > 0 && j > 0; i--, j--) {
-			if (!reportOneHierarchy.get(i - 1).equals(reportTwoHierarchy.get(j - 1))) {
-				if (i < reportOneHierarchy.size()) {
-					return reportOneHierarchy.get(i);
-				}
-			}
-		}
-		if (i > 0 && i < reportOneHierarchy.size()) {
-			return reportOneHierarchy.get(i);
-		} else if (j > 0 && j < reportTwoHierarchy.size()) {
-			return reportTwoHierarchy.get(j);
-		}
-		return topManager;
-	}
+        int i = reportOneHierarchy.size();
+        int j = reportTwoHierarchy.size();
+        for (; i > 0 && j > 0; i--, j--) {
+            if (!reportOneHierarchy.get(i - 1).equals(reportTwoHierarchy.get(j - 1))) {
+                if (i < reportOneHierarchy.size()) {
+                    return reportOneHierarchy.get(i);
+                }
+            }
+        }
+        if (i > 0 && i < reportOneHierarchy.size()) {
+            return reportOneHierarchy.get(i);
+        } else if (j > 0 && j < reportTwoHierarchy.size()) {
+            return reportTwoHierarchy.get(j);
+        }
+        return topManager;
+    }
 
 //	public static void buildParentMap(OrgChart topManager, HashMap<OrgChart, OrgChart> map) {
 //		if (!topManager.directReports.isEmpty()) {
@@ -66,44 +66,21 @@ public class LowestCommonManager {
 //		}
 //	}
 
-	public static void buildParentMap(OrgChart topManager, OrgChart reportee, ArrayList<OrgChart> managersHierarchy) {
-		if (topManager.directReports.contains(reportee)) {
-			managersHierarchy.add(topManager);
-			return;
-		}
-		for (OrgChart reporter : topManager.directReports) {
-			buildParentMap(reporter, reportee, managersHierarchy);
-			if (!managersHierarchy.isEmpty()) {
-				managersHierarchy.add(topManager);
-				return;
-			}
-		}
-	}
+    private static void buildParentMap(OrgChart topManager, OrgChart reportee, ArrayList<OrgChart> managersHierarchy) {
+        if (topManager.directReports.contains(reportee)) {
+            managersHierarchy.add(topManager);
+            return;
+        }
+        for (OrgChart reporter : topManager.directReports) {
+            LowestCommonManager.buildParentMap(reporter, reportee, managersHierarchy);
+            if (!managersHierarchy.isEmpty()) {
+                managersHierarchy.add(topManager);
+                return;
+            }
+        }
+    }
 
-	static class OrgChart {
-		public char name;
-		public List<OrgChart> directReports;
-
-		OrgChart(char name) {
-			this.name = name;
-			this.directReports = new ArrayList<OrgChart>();
-		}
-
-		// This method is for testing only.
-		public void addDirectReports(OrgChart[] directReports) {
-			for (OrgChart directReport : directReports) {
-				this.directReports.add(directReport);
-			}
-		}
-
-		@Override
-		public String toString() {
-			// TODO Auto-generated method stub
-			return "" + name;
-		}
-	}
-
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
 //		{"directReports": ["B", "C", "D", "E", "F"], "id": "A", "name": "A"},
 //	      {"directReports": ["G", "H", "I"], "id": "B", "name": "B"},
@@ -132,70 +109,93 @@ public class LowestCommonManager {
 //	      {"directReports": [], "id": "Y", "name": "Y"},
 //	      {"directReports": [], "id": "Z", "name": "Z"}
 
-		OrgChart A = new OrgChart('A');
-		OrgChart B = new OrgChart('B');
-		OrgChart C = new OrgChart('C');
-		OrgChart D = new OrgChart('D');
-		OrgChart E = new OrgChart('E');
-		OrgChart F = new OrgChart('F');
-		OrgChart G = new OrgChart('G');
-		OrgChart H = new OrgChart('H');
-		OrgChart I = new OrgChart('I');
-		OrgChart J = new OrgChart('J');
-		OrgChart K = new OrgChart('K');
-		OrgChart L = new OrgChart('L');
-		OrgChart M = new OrgChart('M');
-		OrgChart N = new OrgChart('N');
-		OrgChart O = new OrgChart('O');
-		OrgChart P = new OrgChart('P');
-		OrgChart Q = new OrgChart('Q');
-		OrgChart R = new OrgChart('R');
-		OrgChart S = new OrgChart('S');
-		OrgChart T = new OrgChart('T');
-		OrgChart U = new OrgChart('U');
-		OrgChart V = new OrgChart('V');
-		OrgChart W = new OrgChart('W');
-		OrgChart X = new OrgChart('X');
-		OrgChart Y = new OrgChart('Y');
-		OrgChart Z = new OrgChart('Z');
+        OrgChart A = new OrgChart('A');
+        OrgChart B = new OrgChart('B');
+        OrgChart C = new OrgChart('C');
+        OrgChart D = new OrgChart('D');
+        OrgChart E = new OrgChart('E');
+        OrgChart F = new OrgChart('F');
+        OrgChart G = new OrgChart('G');
+        OrgChart H = new OrgChart('H');
+        OrgChart I = new OrgChart('I');
+        OrgChart J = new OrgChart('J');
+        OrgChart K = new OrgChart('K');
+        OrgChart L = new OrgChart('L');
+        OrgChart M = new OrgChart('M');
+        OrgChart N = new OrgChart('N');
+        OrgChart O = new OrgChart('O');
+        OrgChart P = new OrgChart('P');
+        OrgChart Q = new OrgChart('Q');
+        OrgChart R = new OrgChart('R');
+        OrgChart S = new OrgChart('S');
+        OrgChart T = new OrgChart('T');
+        OrgChart U = new OrgChart('U');
+        OrgChart V = new OrgChart('V');
+        OrgChart W = new OrgChart('W');
+        OrgChart X = new OrgChart('X');
+        OrgChart Y = new OrgChart('Y');
+        OrgChart Z = new OrgChart('Z');
 
-		A.directReports.add(B);
-		A.directReports.add(C);
-		A.directReports.add(D);
-		A.directReports.add(E);
-		A.directReports.add(F);
+        A.directReports.add(B);
+        A.directReports.add(C);
+        A.directReports.add(D);
+        A.directReports.add(E);
+        A.directReports.add(F);
 
-		B.directReports.add(G);
-		B.directReports.add(H);
-		B.directReports.add(I);
+        B.directReports.add(G);
+        B.directReports.add(H);
+        B.directReports.add(I);
 
-		C.directReports.add(J);
+        C.directReports.add(J);
 
-		D.directReports.add(K);
-		D.directReports.add(L);
+        D.directReports.add(K);
+        D.directReports.add(L);
 
-		F.directReports.add(M);
-		F.directReports.add(N);
+        F.directReports.add(M);
+        F.directReports.add(N);
 
-		H.directReports.add(O);
-		H.directReports.add(P);
-		H.directReports.add(Q);
-		H.directReports.add(R);
+        H.directReports.add(O);
+        H.directReports.add(P);
+        H.directReports.add(Q);
+        H.directReports.add(R);
 
-		K.directReports.add(S);
+        K.directReports.add(S);
 
-		P.directReports.add(T);
-		P.directReports.add(U);
+        P.directReports.add(T);
+        P.directReports.add(U);
 
-		R.directReports.add(V);
+        R.directReports.add(V);
 
-		V.directReports.add(W);
-		V.directReports.add(X);
-		V.directReports.add(Y);
+        V.directReports.add(W);
+        V.directReports.add(X);
+        V.directReports.add(Y);
 
-		X.directReports.add(Z);
+        X.directReports.add(Z);
 
-		System.out.println(getLowestCommonManager(A, T, H).name);
+        System.out.println(LowestCommonManager.getLowestCommonManager(A, T, H).name);
 
-	}
+    }
+
+    static class OrgChart {
+        public char name;
+        List<OrgChart> directReports;
+
+        OrgChart(char name) {
+            this.name = name;
+            directReports = new ArrayList<>();
+        }
+
+        // This method is for testing only.
+        public void addDirectReports(OrgChart[] directReports) {
+            for (OrgChart directReport : directReports) {
+                this.directReports.add(directReport);
+            }
+        }
+
+        @Override
+        public String toString() {
+            // TODO Auto-generated method stub
+            return "" + name;
+        }
+    }
 }

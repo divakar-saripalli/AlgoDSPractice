@@ -6,6 +6,6 @@ import java.util.Map;
 
 public class MinMaxStackOptimized {
 
-	List<Map<String, Integer>> minMaxStack = new ArrayList<Map<String, Integer>>();
+    List<Map<String, Integer>> minMaxStack = new ArrayList<>();
 
 }

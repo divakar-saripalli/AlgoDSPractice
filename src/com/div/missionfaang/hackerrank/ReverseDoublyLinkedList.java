@@ -5,103 +5,103 @@ import java.util.Scanner;
 
 public class ReverseDoublyLinkedList {
 
-	static class DoublyLinkedListNode {
-		public int data;
-		public DoublyLinkedListNode next;
-		public DoublyLinkedListNode prev;
+    private static final Scanner scanner = new Scanner(System.in);
 
-		public DoublyLinkedListNode(int nodeData) {
-			this.data = nodeData;
-			this.next = null;
-			this.prev = null;
-		}
-	}
+    private static void printDoublyLinkedList(DoublyLinkedListNode node, String sep) throws IOException {
+        while (node != null) {
+            System.out.println((node.data));
 
-	static class DoublyLinkedList {
-		public DoublyLinkedListNode head;
-		public DoublyLinkedListNode tail;
+            node = node.next;
 
-		public DoublyLinkedList() {
-			this.head = null;
-			this.tail = null;
-		}
+            if (node != null) {
+                System.out.println(sep);
+            }
+        }
+    }
 
-		public void insertNode(int nodeData) {
+    /*
+     * For your reference:
+     *
+     * DoublyLinkedListNode { int data; DoublyLinkedListNode next;
+     * DoublyLinkedListNode prev; }
+     *
+     */
+    private static DoublyLinkedListNode reverse(DoublyLinkedListNode head) {
+        if (head != null) {
+            while (head.next != null) {
+                DoublyLinkedListNode currentNode = head;
+                head = head.next;
+                DoublyLinkedListNode temp = currentNode.prev;
+                currentNode.prev = currentNode.next;
+                currentNode.next = temp;
+            }
+            DoublyLinkedListNode temp = head.prev;
+            head.prev = head.next;
+            head.next = temp;
+        }
+        return head;
+    }
 
-			DoublyLinkedListNode node = new DoublyLinkedListNode(nodeData);
+    // Complete the reverse function below.
 
-			if (this.head == null) {
-				this.head = node;
-			} else {
-				this.tail.next = node;
-				node.prev = this.tail;
-			}
+    public static void main(String[] args) throws IOException {
+        int t = ReverseDoublyLinkedList.scanner.nextInt();
+        ReverseDoublyLinkedList.scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-			this.tail = node;
-		}
-	}
+        for (int tItr = 0; tItr < t; tItr++) {
+            DoublyLinkedList llist = new DoublyLinkedList();
 
-	public static void printDoublyLinkedList(DoublyLinkedListNode node, String sep) throws IOException {
-		while (node != null) {
-			System.out.println((String.valueOf(node.data)));
+            int llistCount = ReverseDoublyLinkedList.scanner.nextInt();
+            ReverseDoublyLinkedList.scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-			node = node.next;
+            for (int i = 0; i < llistCount; i++) {
+                int llistItem = ReverseDoublyLinkedList.scanner.nextInt();
+                ReverseDoublyLinkedList.scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-			if (node != null) {
-				System.out.println(sep);
-			}
-		}
-	}
+                llist.insertNode(llistItem);
+            }
 
-	// Complete the reverse function below.
+            DoublyLinkedListNode llist1 = ReverseDoublyLinkedList.reverse(llist.head);
 
-	/*
-	 * For your reference:
-	 *
-	 * DoublyLinkedListNode { int data; DoublyLinkedListNode next;
-	 * DoublyLinkedListNode prev; }
-	 *
-	 */
-	static DoublyLinkedListNode reverse(DoublyLinkedListNode head) {
-		if (head != null) {
-			while (head.next != null) {
-				DoublyLinkedListNode currentNode = head;
-				head = head.next;
-				DoublyLinkedListNode temp = currentNode.prev;
-				currentNode.prev = currentNode.next;
-				currentNode.next = temp;
-			}
-			DoublyLinkedListNode temp = head.prev;
-			head.prev = head.next;
-			head.next = temp;
-		}
-		return head;
-	}
+            ReverseDoublyLinkedList.printDoublyLinkedList(llist1, " ");
+        }
 
-	private static final Scanner scanner = new Scanner(System.in);
+        ReverseDoublyLinkedList.scanner.close();
+    }
 
-	public static void main(String[] args) throws IOException {
-		int t = scanner.nextInt();
-		scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+    static class DoublyLinkedListNode {
+        public int data;
+        public DoublyLinkedListNode next;
+        DoublyLinkedListNode prev;
 
-		for (int tItr = 0; tItr < t; tItr++) {
-			DoublyLinkedList llist = new DoublyLinkedList();
+        DoublyLinkedListNode(int nodeData) {
+            data = nodeData;
+            next = null;
+            prev = null;
+        }
+    }
 
-			int llistCount = scanner.nextInt();
-			scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+    static class DoublyLinkedList {
+        DoublyLinkedListNode head;
+        DoublyLinkedListNode tail;
 
-			for (int i = 0; i < llistCount; i++) {
-				int llistItem = scanner.nextInt();
-				scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+        DoublyLinkedList() {
+            head = null;
+            tail = null;
+        }
 
-				llist.insertNode(llistItem);
-			}
+        void insertNode(int nodeData) {
 
-			DoublyLinkedListNode llist1 = reverse(llist.head);
+            DoublyLinkedListNode node = new DoublyLinkedListNode(nodeData);
 
-			printDoublyLinkedList(llist1, " ");
-		}
+            if (head == null) {
+                head = node;
+            } else {
+                tail.next = node;
+                node.prev = tail;
+            }
 
-		scanner.close();
-	}
+            tail = node;
+        }
+    }
 }

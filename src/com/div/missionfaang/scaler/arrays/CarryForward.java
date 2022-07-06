@@ -92,8 +92,8 @@ public class CarryForward {
     }
 
     private static ArrayList<Integer> leaderInArray(ArrayList<Integer> A) {
-        HashSet<Integer> set = new HashSet<>();
         if (!A.isEmpty()) {
+            HashSet<Integer> set = new HashSet<>();
             set.add(A.get(A.size() - 1));
             Integer max = A.get(A.size() - 1);
             for (int i = A.size() - 2; i > -1; i--) {
@@ -103,15 +103,13 @@ public class CarryForward {
                 }
             }
             return new ArrayList<>(set);
-        } else {
-            return new ArrayList<>();
         }
+        return new ArrayList<>();
     }
 
     public static void main(String[] args) {
         int[] arr1 = new int[]{1, 2, 3, 7, 1, 2, 3};
         ArrayList<Integer> array = Scaler.convertArrayToList(arr1);
-//        System.out.println(CarryForward.closestMinMax(array));
         System.out.println(CarryForward.specialSubsequences("ABCGAG"));
     }
 

@@ -8,13 +8,13 @@ public class TrieDataStructure {
 }
 
 class TrieNode {
-	Map<Character, TrieNode> children = new HashMap<>();
+    private final Map<Character, TrieNode> children = new HashMap<>();
 
-	public TrieNode getChild(Character c) {
-		return children.get(c);
-	}
+    public TrieNode getChild(Character c) {
+        return children.get(c);
+    }
 
-	public void addChild(TrieNode child, Character key) {
-		children.put(key, child);
-	}
+    public void addChild(TrieNode child, Character key) {
+        children.put(key, child);
+    }
 }

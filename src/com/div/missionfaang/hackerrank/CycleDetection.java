@@ -6,123 +6,123 @@ import java.util.Scanner;
 
 public class CycleDetection {
 
-	static class SinglyLinkedListNode {
-		public int data;
-		public SinglyLinkedListNode next;
+    private static final Scanner scanner = new Scanner(System.in);
 
-		public SinglyLinkedListNode(int nodeData) {
-			this.data = nodeData;
-			this.next = null;
-		}
-	}
+    public static void printSinglyLinkedList(SinglyLinkedListNode node, String sep, BufferedWriter bufferedWriter)
+            throws IOException {
+        while (node != null) {
+            bufferedWriter.write(String.valueOf(node.data));
 
-	static class SinglyLinkedList {
-		public SinglyLinkedListNode head;
-		public SinglyLinkedListNode tail;
+            node = node.next;
 
-		public SinglyLinkedList() {
-			this.head = null;
-			this.tail = null;
-		}
+            if (node != null) {
+                bufferedWriter.write(sep);
+            }
+        }
+    }
 
-		public void insertNode(int nodeData) {
-			SinglyLinkedListNode node = new SinglyLinkedListNode(nodeData);
+    /*
+     * For your reference:
+     *
+     * SinglyLinkedListNode { int data; SinglyLinkedListNode next; }
+     *
+     */
+    private static boolean hasCycle(SinglyLinkedListNode head) {
+        if (head.next != null) {
+            SinglyLinkedListNode slowPointer = head;
+            SinglyLinkedListNode fastPointer = null;
+            fastPointer = slowPointer.next;
+            while (fastPointer != slowPointer) {
+                if (fastPointer.next != null) {
+                    fastPointer = fastPointer.next;
+                    if (fastPointer != slowPointer) {
+                        if (fastPointer.next != null) {
+                            fastPointer = fastPointer.next;
+                            if (fastPointer == slowPointer) {
+                                return true;
+                            }
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
+                if (slowPointer.next != null) {
+                    slowPointer = slowPointer.next;
+                } else {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-			if (this.head == null) {
-				this.head = node;
-			} else {
-				this.tail.next = node;
-			}
+    // Complete the hasCycle function below.
 
-			this.tail = node;
-		}
-	}
+    public static void main(String[] args) throws IOException {
+        int tests = CycleDetection.scanner.nextInt();
+        CycleDetection.scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+        for (int testsItr = 0; testsItr < tests; testsItr++) {
+            int index = CycleDetection.scanner.nextInt();
+            CycleDetection.scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+            SinglyLinkedList llist = new SinglyLinkedList();
+            int llistCount = CycleDetection.scanner.nextInt();
+            CycleDetection.scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+            for (int i = 0; i < llistCount; i++) {
+                int llistItem = CycleDetection.scanner.nextInt();
+                CycleDetection.scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+                llist.insertNode(llistItem);
+            }
+            SinglyLinkedListNode extra = new SinglyLinkedListNode(-1);
+            SinglyLinkedListNode temp = llist.head;
+            for (int i = 0; i < llistCount; i++) {
+                if (i == index) {
+                    extra = temp;
+                }
+                if (i != llistCount - 1) {
+                    temp = temp.next;
+                }
+            }
+            temp.next = extra;
+            System.out.println(CycleDetection.hasCycle(llist.head));
+        }
+        CycleDetection.scanner.close();
+    }
 
-	public static void printSinglyLinkedList(SinglyLinkedListNode node, String sep, BufferedWriter bufferedWriter)
-			throws IOException {
-		while (node != null) {
-			bufferedWriter.write(String.valueOf(node.data));
+    static class SinglyLinkedListNode {
+        public int data;
+        public SinglyLinkedListNode next;
 
-			node = node.next;
+        SinglyLinkedListNode(int nodeData) {
+            data = nodeData;
+            next = null;
+        }
+    }
 
-			if (node != null) {
-				bufferedWriter.write(sep);
-			}
-		}
-	}
+    static class SinglyLinkedList {
+        SinglyLinkedListNode head;
+        SinglyLinkedListNode tail;
 
-	// Complete the hasCycle function below.
+        SinglyLinkedList() {
+            head = null;
+            tail = null;
+        }
 
-	/*
-	 * For your reference:
-	 *
-	 * SinglyLinkedListNode { int data; SinglyLinkedListNode next; }
-	 *
-	 */
-	static boolean hasCycle(SinglyLinkedListNode head) {
-		if (head.next != null) {
-			SinglyLinkedListNode slowPointer = head;
-			SinglyLinkedListNode fastPointer = null;
-			fastPointer = slowPointer.next;
-			while (fastPointer != slowPointer) {
-				if (fastPointer.next != null) {
-					fastPointer = fastPointer.next;
-					if (fastPointer != slowPointer) {
-						if (fastPointer.next != null) {
-							fastPointer = fastPointer.next;
-							if (fastPointer == slowPointer) {
-								return true;
-							}
-						} else {
-							return false;
-						}
-					} else {
-						return true;
-					}
-				} else {
-					return false;
-				}
-				if (slowPointer.next != null) {
-					slowPointer = slowPointer.next;
-				} else {
-					return false;
-				}
-			}
-			return true;
-		} else {
-			return false;
-		}
-	}
+        void insertNode(int nodeData) {
+            SinglyLinkedListNode node = new SinglyLinkedListNode(nodeData);
 
-	private static final Scanner scanner = new Scanner(System.in);
+            if (head == null) {
+                head = node;
+            } else {
+                tail.next = node;
+            }
 
-	public static void main(String[] args) throws IOException {
-		int tests = scanner.nextInt();
-		scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-		for (int testsItr = 0; testsItr < tests; testsItr++) {
-			int index = scanner.nextInt();
-			scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-			SinglyLinkedList llist = new SinglyLinkedList();
-			int llistCount = scanner.nextInt();
-			scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-			for (int i = 0; i < llistCount; i++) {
-				int llistItem = scanner.nextInt();
-				scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-				llist.insertNode(llistItem);
-			}
-			SinglyLinkedListNode extra = new SinglyLinkedListNode(-1);
-			SinglyLinkedListNode temp = llist.head;
-			for (int i = 0; i < llistCount; i++) {
-				if (i == index) {
-					extra = temp;
-				}
-				if (i != llistCount - 1) {
-					temp = temp.next;
-				}
-			}
-			temp.next = extra;
-			System.out.println(hasCycle(llist.head));
-		}
-		scanner.close();
-	}
+            tail = node;
+        }
+    }
 }

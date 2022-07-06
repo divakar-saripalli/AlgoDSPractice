@@ -5,48 +5,48 @@ import java.util.Stack;
 
 public class BalancedBrackets {
 
-	// Complete the isBalanced function below.
-	static String isBalanced(String s) {
+    // Complete the isBalanced function below.
+    private static String isBalanced(String s) {
 
-		Stack<Character> brackets = new Stack<>();
-		for (int i = 0; i < s.length(); i++) {
-			Character c = s.charAt(i);
-			if (c.equals('(') || c.equals('{') || c.equals('[')) {
-				brackets.push(c);
-			} else if (c.equals(')') || c.equals('}') || c.equals(']')) {
-				if (brackets.isEmpty()) {
-					return "NO";
-				}
-				Character c1 = brackets.peek();
-				if (Math.abs(c1 - c) > 2) {
-					return "NO";
-				} else {
-					brackets.pop();
-				}
-			}
-		}
-		return brackets.isEmpty() ? "YES" : "NO";
-	}
+        Stack<Character> brackets = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            Character c = s.charAt(i);
+            if (c.equals('(') || c.equals('{') || c.equals('[')) {
+                brackets.push(c);
+            } else if (c.equals(')') || c.equals('}') || c.equals(']')) {
+                if (brackets.isEmpty()) {
+                    return "NO";
+                }
+                Character c1 = brackets.peek();
+                if (Math.abs(c1 - c) > 2) {
+                    return "NO";
+                } else {
+                    brackets.pop();
+                }
+            }
+        }
+        return brackets.isEmpty() ? "YES" : "NO";
+    }
 
-	static String isBalanced1(String s) {
+    static String isBalanced1(String s) {
 
-		if (s.length() % 2 != 0) {
-			return "NO";
-		}
+        if (s.length() % 2 != 0) {
+            return "NO";
+        }
 
-		int n = 0;
-		while (s.length() != n) {
-			n = s.length();
-			s = s.replace("[]", "");
-			s = s.replace("{}", "");
-			s = s.replace("()", "");
-		}
-		return s.length() != 0 ? "NO" : "YES";
-	}
+        int n = 0;
+        while (s.length() != n) {
+            n = s.length();
+            s = s.replace("[]", "");
+            s = s.replace("{}", "");
+            s = s.replace("()", "");
+        }
+        return s.length() != 0 ? "NO" : "YES";
+    }
 
 //	private static final Scanner scanner = new Scanner(System.in);
 
-	public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
 //		int t = scanner.nextInt();
 //		scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 //
@@ -56,6 +56,6 @@ public class BalancedBrackets {
 //		}
 //		scanner.close();
 
-		System.out.println(isBalanced("[((([])([]){}){}){}([])[]((())"));
-	}
+        System.out.println(BalancedBrackets.isBalanced("[((([])([]){}){}){}([])[]((())"));
+    }
 }

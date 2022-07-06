@@ -2,8 +2,8 @@ package com.div.missionfaang.algoexpert;
 
 public class LongestPalindromeSubstring {
 
-	public static String longestPalindromicSubstring(String str) {
-		// Write your code here.
+    private static String longestPalindromicSubstring(String str) {
+        // Write your code here.
 //		if (str.length() < 2) {
 //			return str;
 //		}
@@ -12,10 +12,10 @@ public class LongestPalindromeSubstring {
 //		boolean foundPalindrome = false;
 //		for (int i = 0; i < end; i++) {
 //		}
-		return "";
-	}
+        return "";
+    }
 
-	public static void main(String[] args) {
-		System.out.println(longestPalindromicSubstring("abaxyzzyxf"));
-	}
+    public static void main(String[] args) {
+        System.out.println(LongestPalindromeSubstring.longestPalindromicSubstring("abaxyzzyxf"));
+    }
 }

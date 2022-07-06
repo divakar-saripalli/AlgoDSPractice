@@ -5,147 +5,147 @@ import java.util.Scanner;
 
 public class FindMergePointSinglyLinkedList {
 
-	static class SinglyLinkedListNode {
-		public int data;
-		public SinglyLinkedListNode next;
+    private static final Scanner scanner = new Scanner(System.in);
 
-		public SinglyLinkedListNode(int nodeData) {
-			this.data = nodeData;
-			this.next = null;
-		}
-	}
+    private static void printSinglyLinkedList(SinglyLinkedListNode node) {
+        while (node != null) {
+            System.out.print(node.data + ", ");
+            node = node.next;
+        }
+    }
 
-	static class SinglyLinkedList {
-		public SinglyLinkedListNode head;
-		public SinglyLinkedListNode tail;
+    /*
+     * For your reference:
+     *
+     * SinglyLinkedListNode { int data; SinglyLinkedListNode next; }
+     *
+     */
+    private static int findMergeNode(SinglyLinkedListNode head1, SinglyLinkedListNode head2) {
+        int list1Length = FindMergePointSinglyLinkedList.length(head1);
+        int list2Length = FindMergePointSinglyLinkedList.length(head2);
+        int difference = Math.abs(list1Length - list2Length);
+        System.out.println("Difference in length :: " + difference);
+        System.out.println("List1 in length :: " + list1Length);
+        System.out.println("List2 in length :: " + list2Length);
+        FindMergePointSinglyLinkedList.printSinglyLinkedList(head1);
+        FindMergePointSinglyLinkedList.printSinglyLinkedList(head2);
+        if (list1Length == 0 || list2Length == 0) {
+            return 0;
+        }
+        if (list2Length > list1Length) {
+            SinglyLinkedListNode temp = head1;
+            head1 = head2;
+            head2 = temp;
+        }
+        for (int i = 0; i < difference; i++) {
+            head1 = head1.next;
+        }
 
-		public SinglyLinkedList() {
-			this.head = null;
-			this.tail = null;
-		}
+        while (head1 != null && head2 != null) {
+            if (head1 == head2) {
+                return head1.data;
+            }
+            head1 = head1.next;
+            head2 = head2.next;
+        }
+        return 0;
 
-		public void insertNode(int nodeData) {
-			SinglyLinkedListNode node = new SinglyLinkedListNode(nodeData);
+    }
 
-			if (this.head == null) {
-				this.head = node;
-			} else {
-				this.tail.next = node;
-			}
+    // Complete the findMergeNode function below.
 
-			this.tail = node;
-		}
-	}
+    private static int length(SinglyLinkedListNode head) {
+        int length = 0;
+        while (head.next != null) {
+            length++;
+            head = head.next;
+        }
+        return length;
+    }
 
-	public static void printSinglyLinkedList(SinglyLinkedListNode node) {
-		while (node != null) {
-			System.out.print(String.valueOf(node.data) + ", ");
-			node = node.next;
-		}
-	}
+    public static void main(String[] args) throws IOException {
+        int tests = FindMergePointSinglyLinkedList.scanner.nextInt();
+        FindMergePointSinglyLinkedList.scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-	// Complete the findMergeNode function below.
+        for (int testsItr = 0; testsItr < tests; testsItr++) {
+            int index = FindMergePointSinglyLinkedList.scanner.nextInt();
+            FindMergePointSinglyLinkedList.scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-	/*
-	 * For your reference:
-	 *
-	 * SinglyLinkedListNode { int data; SinglyLinkedListNode next; }
-	 *
-	 */
-	static int findMergeNode(SinglyLinkedListNode head1, SinglyLinkedListNode head2) {
-		int list1Length = length(head1);
-		int list2Length = length(head2);
-		int difference = Math.abs(list1Length - list2Length);
-		System.out.println("Difference in length :: " + difference);
-		System.out.println("List1 in length :: " + list1Length);
-		System.out.println("List2 in length :: " + list2Length);
-		printSinglyLinkedList(head1);
-		printSinglyLinkedList(head2);
-		if (list1Length == 0 || list2Length == 0) {
-			return 0;
-		}
-		if (list2Length > list1Length) {
-			SinglyLinkedListNode temp = head1;
-			head1 = head2;
-			head2 = temp;
-		}
-		for (int i = 0; i < difference; i++) {
-			head1 = head1.next;
-		}
+            SinglyLinkedList llist1 = new SinglyLinkedList();
 
-		while (head1 != null && head2 != null) {
-			if (head1 == head2) {
-				return head1.data;
-			}
-			head1 = head1.next;
-			head2 = head2.next;
-		}
-		return 0;
+            int llist1Count = FindMergePointSinglyLinkedList.scanner.nextInt();
+            FindMergePointSinglyLinkedList.scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-	}
+            for (int i = 0; i < llist1Count; i++) {
+                int llist1Item = FindMergePointSinglyLinkedList.scanner.nextInt();
+                FindMergePointSinglyLinkedList.scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-	static int length(SinglyLinkedListNode head) {
-		int length = 0;
-		while (head.next != null) {
-			length++;
-			head = head.next;
-		}
-		return length;
-	}
+                llist1.insertNode(llist1Item);
+            }
 
-	private static final Scanner scanner = new Scanner(System.in);
+            SinglyLinkedList llist2 = new SinglyLinkedList();
 
-	public static void main(String[] args) throws IOException {
-		int tests = scanner.nextInt();
-		scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+            int llist2Count = FindMergePointSinglyLinkedList.scanner.nextInt();
+            FindMergePointSinglyLinkedList.scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-		for (int testsItr = 0; testsItr < tests; testsItr++) {
-			int index = scanner.nextInt();
-			scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+            for (int i = 0; i < llist2Count; i++) {
+                int llist2Item = FindMergePointSinglyLinkedList.scanner.nextInt();
+                FindMergePointSinglyLinkedList.scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-			SinglyLinkedList llist1 = new SinglyLinkedList();
+                llist2.insertNode(llist2Item);
+            }
 
-			int llist1Count = scanner.nextInt();
-			scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+            SinglyLinkedListNode ptr1 = llist1.head;
+            SinglyLinkedListNode ptr2 = llist2.head;
 
-			for (int i = 0; i < llist1Count; i++) {
-				int llist1Item = scanner.nextInt();
-				scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+            for (int i = 0; i < llist1Count; i++) {
+                if (i < index) {
+                    ptr1 = ptr1.next;
+                }
+            }
 
-				llist1.insertNode(llist1Item);
-			}
+            for (int i = 0; i < llist2Count; i++) {
+                if (i != llist2Count - 1) {
+                    ptr2 = ptr2.next;
+                }
+            }
 
-			SinglyLinkedList llist2 = new SinglyLinkedList();
+            ptr2.next = ptr1;
 
-			int llist2Count = scanner.nextInt();
-			scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+            System.out.println(FindMergePointSinglyLinkedList.findMergeNode(llist1.head, llist2.head));
+        }
+        FindMergePointSinglyLinkedList.scanner.close();
+    }
 
-			for (int i = 0; i < llist2Count; i++) {
-				int llist2Item = scanner.nextInt();
-				scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+    static class SinglyLinkedListNode {
+        public int data;
+        public SinglyLinkedListNode next;
 
-				llist2.insertNode(llist2Item);
-			}
+        SinglyLinkedListNode(int nodeData) {
+            data = nodeData;
+            next = null;
+        }
+    }
 
-			SinglyLinkedListNode ptr1 = llist1.head;
-			SinglyLinkedListNode ptr2 = llist2.head;
+    static class SinglyLinkedList {
+        SinglyLinkedListNode head;
+        SinglyLinkedListNode tail;
 
-			for (int i = 0; i < llist1Count; i++) {
-				if (i < index) {
-					ptr1 = ptr1.next;
-				}
-			}
+        SinglyLinkedList() {
+            head = null;
+            tail = null;
+        }
 
-			for (int i = 0; i < llist2Count; i++) {
-				if (i != llist2Count - 1) {
-					ptr2 = ptr2.next;
-				}
-			}
+        void insertNode(int nodeData) {
+            SinglyLinkedListNode node = new SinglyLinkedListNode(nodeData);
 
-			ptr2.next = ptr1;
+            if (head == null) {
+                head = node;
+            } else {
+                tail.next = node;
+            }
 
-			System.out.println(findMergeNode(llist1.head, llist2.head));
-		}
-		scanner.close();
-	}
+            tail = node;
+        }
+    }
 }
