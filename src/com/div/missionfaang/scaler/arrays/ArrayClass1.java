@@ -9,11 +9,6 @@ import java.util.Scanner;
 
 public class ArrayClass1 {
 
-    public static void main(String[] args) {
-        int[] arr1 = new int[]{1, 2, 3, 7, 1, 2, 3};
-        ArrayList<Integer> array = Scaler.convertArrayToList(arr1);
-    }
-
     private static void rotateArray() {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
@@ -197,5 +192,104 @@ public class ArrayClass1 {
             }
         }
         return 0;
+    }
+
+    private static int longestConsecutiveOnesWith1Swap(String A) {
+        int totalOnes = 0;
+        int maxOnes = 0;
+        int leftOnes = 0;
+        int rightOnes = 0;
+        for (int i = 0; i < A.length() && A.charAt(i) == '1'; i++) {
+            leftOnes++;
+        }
+        for (int i = leftOnes + 1; i < A.length() && A.charAt(i) == '1'; i++) {
+            rightOnes++;
+        }
+        maxOnes = leftOnes + rightOnes;
+        totalOnes = leftOnes + rightOnes;
+        if (A.length() - 1 <= maxOnes) {
+            return maxOnes;
+        }
+
+        return 0;
+    }
+
+    private static ArrayList<Integer> alternatingSubarrays(ArrayList<Integer> A, int B) {
+        ArrayList<Integer> indices = new ArrayList<>();
+
+        if (B == 0) {
+            for (int i = 0; i < A.size(); i++) {
+                indices.add(i);
+            }
+            return indices;
+        }
+
+        if (A.size() < 3) {
+            return indices;
+        }
+
+        int start = 0;
+        int length = (2 * B) + 1;
+        int currentLength = 1;
+        int i = start;
+
+        while (start < A.size() - 1 && i < A.size() - 1) {
+            if (A.get(i).equals(A.get(i + 1))) {
+                i++;
+                start = i;
+                currentLength = 1;
+                continue;
+            }
+            currentLength++;
+            if (currentLength == length) {
+                indices.add(start + B);
+                start++;
+                currentLength--;
+            }
+            i++;
+        }
+
+        return indices;
+    }
+
+    private static void starPattern() {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+
+        //logic to print the first half pattern
+        for (int i = 1; i <= N; i++) {
+            for (int j = 1; j <= N - i + 1; j++) {
+                System.out.print("*");
+            }
+            //loop calculates space
+            for (int k = 1; k <= 2 * i - 2; k++) {
+                System.out.print(" ");
+            }
+            for (int j = 1; j <= N - i + 1; j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+        //logic to print the second half pattern
+        for (int i = N; i >= 1; i--) {
+            for (int j = i; j <= N; j++) {
+                System.out.print("*");
+            }
+            //loop calculates space
+            for (int k = 1; k <= (2 * i) - 2; k++) {
+                System.out.print(" ");
+            }
+            for (int j = i; j <= N; j++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] arr1 = new int[]{0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1};
+        ArrayList<Integer> array = Scaler.convertArrayToList(arr1);
+        System.out.println(ArrayClass1.alternatingSubarrays(array, 1));
+        ArrayClass1.starPattern();
     }
 }
