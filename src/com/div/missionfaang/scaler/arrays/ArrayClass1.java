@@ -195,23 +195,45 @@ public class ArrayClass1 {
     }
 
     private static int longestConsecutiveOnesWith1Swap(String A) {
-        int totalOnes = 0;
-        int maxOnes = 0;
+        int totalOnes;
+        int maxOnes;
         int leftOnes = 0;
         int rightOnes = 0;
+        if (!A.contains("1")) {
+            return 0;
+        }
+
+        if (!A.contains("0")) {
+            return A.length();
+        }
+
+        if (A.indexOf('0') == A.lastIndexOf('0')) {
+            return A.length() - 1;
+        }
+
         for (int i = 0; i < A.length() && A.charAt(i) == '1'; i++) {
             leftOnes++;
         }
         for (int i = leftOnes + 1; i < A.length() && A.charAt(i) == '1'; i++) {
             rightOnes++;
         }
-        maxOnes = leftOnes + rightOnes;
+        maxOnes = leftOnes + rightOnes + 1;
         totalOnes = leftOnes + rightOnes;
-        if (A.length() - 1 <= maxOnes) {
-            return maxOnes;
+
+        for (int i = totalOnes + 1; i < A.length(); ) {
+            leftOnes = rightOnes;
+            rightOnes = 0;
+            int j = i + 1;
+            while (j < A.length() && A.charAt(j) != '0') {
+                j++;
+                rightOnes++;
+            }
+            totalOnes += rightOnes;
+            maxOnes = Math.max(maxOnes, leftOnes + rightOnes + 1);
+            i = j;
         }
 
-        return 0;
+        return Math.min(totalOnes, maxOnes);
     }
 
     private static ArrayList<Integer> alternatingSubarrays(ArrayList<Integer> A, int B) {
@@ -289,7 +311,12 @@ public class ArrayClass1 {
     public static void main(String[] args) {
         int[] arr1 = new int[]{0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1};
         ArrayList<Integer> array = Scaler.convertArrayToList(arr1);
-        System.out.println(ArrayClass1.alternatingSubarrays(array, 1));
-        ArrayClass1.starPattern();
+//        System.out.println(ArrayClass1.alternatingSubarrays(array, 1));
+//        ArrayClass1.starPattern();
+//        11010110000000000
+//        1011110111101010100010010110
+//        111011010010100000011010011001000100101110010000010
+//        0000000010
+        System.out.println(ArrayClass1.longestConsecutiveOnesWith1Swap("0000000010"));
     }
 }
