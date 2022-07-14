@@ -228,10 +228,15 @@ public class TwoDimensionalArrays {
 
     private static ArrayList<ArrayList<Integer>> matrixMultiplication(ArrayList<ArrayList<Integer>> A, ArrayList<ArrayList<Integer>> B) {
         ArrayList<ArrayList<Integer>> result = new ArrayList<>();
-        for (int i = 0; i < A.size(); i++) {
-            result.add(new ArrayList<>());
+        for (ArrayList<Integer> integers : A) {
+            ArrayList<Integer> newRow = new ArrayList<>();
+            result.add(newRow);
             for (int j = 0; j < B.get(0).size(); j++) {
-                result.get(i).add(0);
+                int resultantCell = 0;
+                for (int k = 0; k < B.size(); k++) {
+                    resultantCell += integers.get(k) * B.get(k).get(j);
+                }
+                newRow.add(resultantCell);
             }
         }
         return result;

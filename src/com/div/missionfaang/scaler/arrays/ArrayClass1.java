@@ -308,15 +308,54 @@ public class ArrayClass1 {
         }
     }
 
+    private static int christmasTree(ArrayList<Integer> A, ArrayList<Integer> B) {
+        if (A.size() == 3) {
+            int cost = 0;
+            if (A.get(0) < A.get(1) && A.get(1) < A.get(2)) {
+                for (Integer integer : B) {
+                    cost += integer;
+                }
+                return cost;
+            } else {
+                return -1;
+            }
+        }
+        int minCost = Integer.MAX_VALUE;
+        for (int i = 1; i < A.size() - 1; i++) {
+            int j = i - 1;
+            int k = j + 1;
+            int leftLeastCost = Integer.MAX_VALUE;
+            int rightLeastCost = Integer.MAX_VALUE;
+            while (j > -1) {
+                if (A.get(j) < A.get(i)) {
+                    leftLeastCost = Math.min(leftLeastCost, B.get(j));
+                }
+                j--;
+            }
+            while (k < A.size()) {
+                if (A.get(k) > A.get(i)) {
+                    rightLeastCost = Math.min(rightLeastCost, B.get(k));
+                }
+                k++;
+            }
+            int currentCost = Integer.MAX_VALUE;
+            if (leftLeastCost < Integer.MAX_VALUE && rightLeastCost < Integer.MAX_VALUE) {
+                currentCost = leftLeastCost + rightLeastCost + B.get(i);
+            }
+            minCost = Math.min(minCost, currentCost);
+        }
+
+        return minCost;
+    }
+
     public static void main(String[] args) {
-        int[] arr1 = new int[]{0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1};
+        int[] arr1 = new int[]{5, 9, 10, 4, 7, 8};
+        int[] arr2 = new int[]{5, 6, 4, 7, 2, 5};
         ArrayList<Integer> array = Scaler.convertArrayToList(arr1);
+        ArrayList<Integer> array1 = Scaler.convertArrayToList(arr2);
 //        System.out.println(ArrayClass1.alternatingSubarrays(array, 1));
 //        ArrayClass1.starPattern();
-//        11010110000000000
-//        1011110111101010100010010110
-//        111011010010100000011010011001000100101110010000010
-//        0000000010
-        System.out.println(ArrayClass1.longestConsecutiveOnesWith1Swap("0000000010"));
+//        System.out.println(ArrayClass1.longestConsecutiveOnesWith1Swap("0000000010"));
+        System.out.println(ArrayClass1.christmasTree(array, array1));
     }
 }
