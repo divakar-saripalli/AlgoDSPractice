@@ -128,12 +128,20 @@ public class BitManipulation {
     }
 
     private static Long subarrayWithBitwiseOr1(int A, ArrayList<Integer> B) {
-//        long sum = 0;
-//        for (Integer integer : B) {
-//            sum += integer;
-//        }
-//        return sum - B;
-        return 0L;
+        int sum = 0;
+        for (int i = 0; i < A; i++) {
+            if (B.get(i) == 1) {
+                sum += A - i;
+            } else {
+                for (int j = i; j < A; j++) {
+                    if (B.get(j) == 1) {
+                        sum += A - j;
+                        break;
+                    }
+                }
+            }
+        }
+        return (long) sum;
     }
 
     private static ArrayList<Integer> singleNumber3(ArrayList<Integer> A) {
@@ -141,10 +149,25 @@ public class BitManipulation {
         for (Integer integer : A) {
             xor ^= integer;
         }
+
+        // The XOR calculated by now is XOR of two unique elements in the array.
+        // That would mean that the last set-bit in the XOR is set for one
+        // of the two unique numbers and not for the other unique number.
+        // To find the unique numbers, we generate a mask which has the only
+        // one bit set. The place of the set bit is equal to the last set-bit
+        // of the above XOR result. To generate the mask, the idea followed is
+        // ANDing the XOR result with (XOR result - 1). This would toggle all the
+        // bits to the right of last set-bit. Now XORing the resultant with the
+        // original XOR result would set only the last set bit and remaining to 0.
         int mask = (xor & xor - 1) ^ xor;
         int unique1 = 0;
         int unique2 = 0;
 
+        // Once the mask is found, AND the mask with all the elements of the array again.
+        // The elements with the bit set would have a value greater than or equal to 1.
+        // XORing all those elements would result in one unique element.
+        // Similarly, XORing all the elements whose AND with mask is 0 will result in
+        // another unique number.
         for (Integer integer : A) {
             if ((integer & mask) >= 1) {
                 unique1 ^= integer;
