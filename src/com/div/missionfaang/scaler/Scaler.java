@@ -500,6 +500,42 @@ public class Scaler {
         return resultantArray;
     }
 
+    private static int minimumDistance(String A) {
+        char searchChar = 'x';
+        int startIndex = 0;
+        for (int i = 0; i < A.length(); i++) {
+            startIndex = i;
+            if (A.charAt(i) == 'x') {
+                searchChar = 'o';
+                break;
+            } else if (A.charAt(i) == 'o') {
+                break;
+            }
+        }
+        if (startIndex == A.length() - 1) {
+            return -1;
+        }
+
+        int minDistance = Integer.MAX_VALUE;
+        for (int i = startIndex; i < A.length(); i++) {
+            if (A.charAt(i) == searchChar) {
+                minDistance = Math.min(i - startIndex + 1, minDistance);
+                startIndex = i;
+                if (searchChar == 'x') {
+                    searchChar = 'o';
+                } else {
+                    searchChar = 'x';
+                }
+            } else if (A.charAt(i) == 'x' || A.charAt(i) == 'o') {
+                startIndex = i;
+            }
+        }
+        if (minDistance == Integer.MAX_VALUE) {
+            return -1;
+        }
+        return minDistance;
+    }
+
     public static void main(String[] args) {
 //        int[] arr = {186, 192, 193, 202, 204, 2, 3, 6, 10, 11, 12, 17, 21, 28, 29, 30, 31, 32, 37, 38, 39, 40, 41, 47, 49, 50, 51, 52, 55, 57, 58, 59, 60, 65, 67, 68, 71, 72, 74,
 //                77, 78, 80, 82, 83, 88, 89, 90, 94, 100, 107, 108, 109, 111, 112, 114, 115, 116, 118, 119, 121, 123, 124, 126, 129, 133, 134, 135, 137, 138, 144, 147, 148,
