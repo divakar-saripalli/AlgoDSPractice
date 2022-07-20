@@ -136,19 +136,29 @@ public class SubArrays {
         int maxCount = -1;
         int currentCount = 0;
         for (int i = 0; i < A.size(); i++) {
+            // Process when a negative number is encountered.
             if (A.get(i) < 0) {
+                // Found that current length is maximum as of now.
                 if (maxCount < currentCount) {
                     maxCount = currentCount;
                     startIndex = currentStartIndex;
                     endIndex = currentEndIndex;
                 }
+                // In either case, whether max subarray is found or not
+                // when negative number is encountered, reset the start and end indices.
+                // Also reset the current subarray length to 0.
                 currentEndIndex = currentStartIndex = i + 1;
                 currentCount = 0;
             } else {
+                // Just increase the current subarray length.
                 currentCount++;
+
+                // Also keep track of the current index being processed.
                 currentEndIndex = i;
             }
         }
+
+        // Handle the case where the subarray is till the end of original array.
         if (maxCount < currentCount) {
             startIndex = currentStartIndex;
             endIndex = currentEndIndex;
