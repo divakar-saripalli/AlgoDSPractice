@@ -185,6 +185,14 @@ public class BitManipulation {
         return A & ((long) Math.pow(2, 31) - 1 << (B));
     }
 
+    private static int compressBits(ArrayList<Integer> A) {
+        int result = 0;
+        for (Integer integer : A) {
+            result ^= integer;
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
 //        System.out.println(BitManipulation.helpFromSam(3));
 //        System.out.println(BitManipulation.unsetXBits(53L, 5));

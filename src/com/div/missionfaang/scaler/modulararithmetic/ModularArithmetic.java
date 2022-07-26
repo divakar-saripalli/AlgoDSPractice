@@ -71,8 +71,38 @@ public class ModularArithmetic {
         return 1;
     }
 
+    private static int nthMagicNumber(int A) {
+        int sum = 0;
+        while (A >= 1) {
+            int pow = (int) (Math.log(A) / Math.log(2));
+            A = (int) (A - Math.pow(2, pow));
+            sum += Math.pow(5, pow + 1);
+        }
+        return sum;
+    }
+
+    private static int excelColumnToNumber(String A) {
+        int sum = 0;
+        for (int i = A.length() - 1, j = 0; i > -1; i--, j++) {
+            sum += (A.charAt(i) - 64) * ((int) Math.pow(26, j));
+        }
+        return sum;
+    }
+
+    private static int checkIfRectanglesOverlap(int A, int B, int C, int D, int E, int F, int G, int H) {
+        if (C <= E || D <= F || A >= G || B >= H) {
+            return 0;
+        }
+        return 1;
+    }
+
+    private static int isLeapYear(int A) {
+        return (A % 4 == 0) ? ((A % 100 == 0) ? ((A % 400 == 0) ? 1 : 0) : 1) : 0;
+    }
+
     public static void main(String[] args) {
 //        System.out.println(ModularArithmetic.divisibilityBy8("0"));
-        System.out.println(ModularArithmetic.concatenateThreeNumbers(74, 86, 54));
+//        System.out.println(ModularArithmetic.concatenateThreeNumbers(74, 86, 54));
+        System.out.println(ModularArithmetic.nthMagicNumber(35));
     }
 }
