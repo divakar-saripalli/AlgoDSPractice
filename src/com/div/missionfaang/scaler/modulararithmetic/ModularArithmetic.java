@@ -128,6 +128,14 @@ public class ModularArithmetic {
         return list;
     }
 
+    private static int findMod(String A, int B) {
+        if (A.length() < 3) {
+            return Integer.parseInt(A) % B;
+        } else {
+            return Integer.parseInt(A.substring(A.length() - 3)) % B;
+        }
+    }
+
     public static void main(String[] args) {
 //        System.out.println(ModularArithmetic.divisibilityBy8("0"));
 //        System.out.println(ModularArithmetic.concatenateThreeNumbers(74, 86, 54));
