@@ -100,40 +100,36 @@ public class ModularArithmetic {
 
     private static ArrayList<Integer> repeatedNumber(List<Integer> A) {
         ArrayList<Integer> list = new ArrayList<>();
-        int repeatedNumber = 0;
-        for (int i = 0; i < A.size(); i++) {
-            if (A.get(i) > 0 && A.get(A.get(i) - 1) > 0) {
-                A.set(A.get(i) - 1, A.get(A.get(i) - 1) * (-1));
-            } else {
-                repeatedNumber = A.get(i) * -1;
-                list.add(repeatedNumber);
-                break;
-            }
-        }
+        long sumOfN = ((long) A.size() * (A.size() + 1)) / 2;
+        long sumOfNSquares = ((long) A.size() * (A.size() + 1) * ((2L * A.size()) + 1)) / 6;
 
-        for (int i = 0; i < A.size(); i++) {
-            if (A.get(i) < 0) {
-                A.set(i, A.get(i) * (-1));
-            }
-        }
-
-        int mask = 0;
-        for (int i = 1; i <= A.size(); i++) {
-            mask ^= i;
-        }
+        long actualSumOfN = 0;
+        long actualSumOfNSquares = 0;
         for (Integer integer : A) {
-            mask ^= integer;
+            actualSumOfN += integer;
+            actualSumOfNSquares += ((long) integer * integer);
         }
-        list.add(mask ^ repeatedNumber);
+        long abDifference = actualSumOfN - sumOfN;
+        long abSquaresDifference = actualSumOfNSquares - sumOfNSquares;
+        long abSummation = abSquaresDifference / abDifference;
+
+        int element1 = (int) ((abSummation + abDifference) / 2);
+        list.add(element1);
+        list.add((int) (abSummation - element1));
+
         return list;
     }
 
     private static int findMod(String A, int B) {
-        if (A.length() < 3) {
-            return Integer.parseInt(A) % B;
-        } else {
-            return Integer.parseInt(A.substring(A.length() - 3)) % B;
+        long result = 0;
+        long placeValue = 1;
+        for (int i = A.length() - 1, j = 0; i > -1; i--, j++) {
+            if (j != 0) {
+                placeValue = ((placeValue % B) * (10 % B)) % B;
+            }
+            result = ((result % B) + ((Integer.parseInt("" + A.charAt(i)) * placeValue) % B)) % B;
         }
+        return (int) result % B;
     }
 
     public static void main(String[] args) {

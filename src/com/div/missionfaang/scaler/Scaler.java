@@ -362,6 +362,19 @@ public class Scaler {
         return list;
     }
 
+    public static ArrayList<ArrayList<Integer>> convert2DArrayTo2DList(int[][] arr) {
+        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
+        for (int[] i : arr) {
+            ArrayList<Integer> newlist = new ArrayList<>();
+            for (int j : i) {
+                newlist.add(j);
+            }
+            list.add(newlist);
+        }
+        return list;
+    }
+
+
     public static int checkIfRectangle(int A, int B, int C, int D) {
         if (A == B && A == C && A == D) {
             return 1;

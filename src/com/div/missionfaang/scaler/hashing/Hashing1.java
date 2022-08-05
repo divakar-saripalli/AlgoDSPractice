@@ -1,5 +1,7 @@
 package com.div.missionfaang.scaler.hashing;
 
+import com.div.missionfaang.scaler.Scaler;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -74,7 +76,59 @@ public class Hashing1 {
         return -1;
     }
 
-    public static void main(String[] args) {
+    private static int kOccurrences(int A, int B, ArrayList<Integer> C) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int sum = 0;
+        boolean found = false;
+        for (Integer integer : C) {
+            if (!map.containsKey(integer)) {
+                map.put(integer, 1);
+            } else {
+                map.put(integer, map.get(integer) + 1);
+            }
+        }
 
+        for (Integer integer : C) {
+            if (map.containsKey(integer) && map.get(integer) == B) {
+                sum += integer;
+                sum %= ((int) Math.pow(10, 9)) + 7;
+                found = true;
+                map.remove(integer);
+            }
+        }
+
+        if (found) {
+            return (sum);
+        }
+        return -1;
+    }
+
+    private static ArrayList<Integer> codingContestVowelsInRange(String A, ArrayList<ArrayList<Integer>> B) {
+        ArrayList<Integer> prefixSum = new ArrayList<>();
+        int count = 0;
+        for (int i = 0; i < A.length(); i++) {
+            if (A.charAt(i) == 'a' || A.charAt(i) == 'e' || A.charAt(i) == 'i' || A.charAt(i) == 'o' || A.charAt(i) == 'u') {
+                count++;
+            }
+            prefixSum.add(count);
+        }
+        ArrayList<Integer> list = new ArrayList<>();
+        for (ArrayList<Integer> integers : B) {
+            if (integers.get(0) > 0) {
+                list.add(prefixSum.get(integers.get(1)) - prefixSum.get(integers.get(0) - 1));
+            } else {
+                list.add(prefixSum.get(integers.get(1)));
+            }
+        }
+        return list;
+    }
+
+    public static void main(String[] args) {
+        int[] arr1 = new int[]{0, 0, 1};
+        ArrayList<Integer> array = Scaler.convertArrayToList(arr1);
+
+        int[][] arr2 = new int[][]{{0, 2}};
+        ArrayList<ArrayList<Integer>> arrayLists = Scaler.convert2DArrayTo2DList(arr2);
+        System.out.println(Hashing1.codingContestVowelsInRange("eaucqt", arrayLists));
     }
 }
