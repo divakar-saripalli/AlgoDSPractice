@@ -4,6 +4,8 @@ import com.div.missionfaang.scaler.Scaler;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class SortingProblems {
 
@@ -46,9 +48,39 @@ public class SortingProblems {
         return -1;
     }
 
+    private static String largestNumber(List<Integer> A) {
+        List<Integer> list = A;
+        list.sort(new DigitComparator());
+        System.out.println("Sorted array :: " + A);
+        boolean validNumber = false;
+        StringBuilder result = new StringBuilder();
+        for (int i = A.size() - 1; i > -1; i--) {
+            result.append(list.get(i));
+            if (!validNumber && Integer.parseInt(result.toString()) == 0) {
+                result = new StringBuilder();
+            } else {
+                validNumber = true;
+            }
+        }
+        return (result.toString().isEmpty()) ? "0" : result.toString();
+    }
+
     public static void main(String[] args) {
-        int[] arr = new int[]{1, 2, 7, 0, 9, 3, 6, 0, 6};
+        int[] arr = new int[]{363123231, 1061335445, 302234324, 400546535, 302143556, 910134425, 2042414166, 901143563};
         ArrayList<Integer> array = Scaler.convertArrayToList(arr);
-        System.out.println(SortingProblems.nobleInteger(array));
+        System.out.println(SortingProblems.largestNumber(array));
+    }
+}
+
+class DigitComparator implements Comparator<Integer> {
+    @Override
+    public int compare(Integer a, Integer b) {
+        String a1 = String.valueOf(a);
+        String b1 = String.valueOf(b);
+        long diff = Long.parseLong(a1 + b1) - Long.parseLong(b1 + a1);
+        if (diff == 0) {
+            return (int) diff;
+        }
+        return diff > 0 ? 1 : -1;
     }
 }

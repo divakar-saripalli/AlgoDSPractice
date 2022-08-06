@@ -1,6 +1,7 @@
 package com.div.missionfaang.scaler.strings;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class StringProblems {
     private static ArrayList<Character> toLower(ArrayList<Character> A) {
@@ -74,16 +75,31 @@ public class StringProblems {
 
     private static int changeCharacter(String A, int B) {
         int count = 0;
-        int mask = (int) (Math.pow(2, 26) - 1);
-        for (int i = 0, j = 0; i < A.length() && j < B; i++) {
-            int currentCharNumber = A.charAt(i) - 97;
-            int validator = 1 << currentCharNumber;
-            int andResult = mask & validator;
-            if ((andResult >> currentCharNumber) % 2 != 0) {
-                count++;
+        int distinctCharsCount = 0;
+        int[] charCounter = new int[26];
+        for (int i = 0; i < A.length(); i++) {
+            charCounter[A.charAt(i) - 97]++;
+        }
+        for (int j : charCounter) {
+            if (j > 0) {
+                distinctCharsCount++;
             }
         }
-        return count;
+        if (B == 0) {
+            return distinctCharsCount;
+        }
+        Arrays.sort(charCounter);
+        int charsToChangeCount = 0;
+        for (int i = 0; i < charCounter.length - 1; i++) {
+            if (charCounter[i] > 0 && charCounter[i] < B) {
+                count += charCounter[i];
+                charsToChangeCount++;
+            }
+            if (count + charCounter[i + 1] > B) {
+                break;
+            }
+        }
+        return distinctCharsCount - charsToChangeCount;
     }
 
     private static String longestCommonPrefix(ArrayList<String> A) {
@@ -105,6 +121,6 @@ public class StringProblems {
     }
 
     public static void main(String[] args) {
-        System.out.println(StringProblems.stringOperations("lLdfRVCgbkND"));
+        System.out.println(StringProblems.changeCharacter("umeaylnlfd", 1));
     }
 }
