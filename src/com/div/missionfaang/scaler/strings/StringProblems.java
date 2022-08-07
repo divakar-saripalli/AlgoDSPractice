@@ -120,7 +120,50 @@ public class StringProblems {
         return A.get(0).substring(0, charPosition + 1);
     }
 
+    private static String longestPalindrome(String A) {
+        if (A.isEmpty()) {
+            return A;
+        }
+        if (A.length() < 3) {
+            return A.equals(new StringBuilder(A).reverse().toString()) ? A : "" + A.charAt(0);
+        }
+        int longestPalindromeLength = Integer.MIN_VALUE;
+        int longestPalindromeStartIndex = A.length();
+        int longestPalindromeEndIndex = A.length();
+        for (int i = 1; i < A.length() - 1; i++) {
+            int pointer1 = i;
+            int pointer2 = i;
+            while (pointer1 > -1 && pointer2 < A.length() && A.charAt(pointer1) == A.charAt(pointer2)) {
+                pointer1--;
+                pointer2++;
+            }
+            if (longestPalindromeLength < (pointer2 - pointer1 - 1)) {
+                longestPalindromeLength = pointer2 - pointer1 - 1;
+                longestPalindromeStartIndex = pointer1 + 1;
+                longestPalindromeEndIndex = pointer2 - 1;
+            }
+        }
+
+        for (int i = 1; i < A.length() - 1; i++) {
+            int pointer1 = i;
+            int pointer2 = i + 1;
+            while (pointer1 > -1 && pointer2 < A.length() && A.charAt(pointer1) == A.charAt(pointer2)) {
+                pointer1--;
+                pointer2++;
+            }
+            if (longestPalindromeLength < (pointer2 - pointer1 - 1)) {
+                longestPalindromeLength = pointer2 - pointer1 - 1;
+                longestPalindromeStartIndex = pointer1 + 1;
+                longestPalindromeEndIndex = pointer2 - 1;
+            }
+        }
+        return A.substring(longestPalindromeStartIndex, longestPalindromeEndIndex + 1);
+    }
+
     public static void main(String[] args) {
-        System.out.println(StringProblems.changeCharacter("umeaylnlfd", 1));
+        System.out.println(StringProblems.longestPalindrome("cccb"));
+//        System.out.println(StringProblems.longestPalindrome("aaaabaaa"));
+//        System.out.println(StringProblems.longestPalindrome("abb"));
+//        System.out.println(StringProblems.longestPalindrome("abbcccbbbcaaccbababcbcabca"));
     }
 }
