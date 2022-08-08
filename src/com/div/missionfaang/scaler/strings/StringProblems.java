@@ -162,8 +162,5 @@ public class StringProblems {
 
     public static void main(String[] args) {
         System.out.println(StringProblems.longestPalindrome("cccb"));
-//        System.out.println(StringProblems.longestPalindrome("aaaabaaa"));
-//        System.out.println(StringProblems.longestPalindrome("abb"));
-//        System.out.println(StringProblems.longestPalindrome("abbcccbbbcaaccbababcbcabca"));
     }
 }
