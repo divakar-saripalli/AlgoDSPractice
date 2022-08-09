@@ -18,12 +18,6 @@ public class RecursionProblems {
         System.out.print(s.charAt(0));
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String N = sc.nextLine();
-        RecursionProblems.printReverseString(N);
-    }
-
     private int checkPalindrome(String A) {
         if (A.length() == 1) {
             return 1;
@@ -54,5 +48,11 @@ public class RecursionProblems {
             return 1;
         }
         return A * findFactorial(A - 1);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String N = sc.nextLine();
+        RecursionProblems.printReverseString(N);
     }
 }
