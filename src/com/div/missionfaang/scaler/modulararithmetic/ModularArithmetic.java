@@ -4,6 +4,7 @@ import com.div.missionfaang.scaler.Scaler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class ModularArithmetic {
 
@@ -190,6 +191,23 @@ public class ModularArithmetic {
             result = ((result % B) + ((Integer.parseInt("" + A.charAt(i)) * placeValue) % B)) % B;
         }
         return (int) result % B;
+    }
+
+    private static void lcm() {
+        Scanner sc = new Scanner(System.in);
+        int N = sc.nextInt();
+        for (int i = 0; i < N; i++) {
+            int A = sc.nextInt();
+            int B = sc.nextInt();
+            int lcm = Math.max(A, B);
+            while (true) {
+                if (lcm % A == 0 && lcm % B == 0) {
+                    System.out.println(lcm);
+                    break;
+                }
+                ++lcm;
+            }
+        }
     }
 
     public static void main(String[] args) {

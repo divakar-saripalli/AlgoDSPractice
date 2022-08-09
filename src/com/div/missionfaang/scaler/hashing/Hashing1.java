@@ -123,6 +123,10 @@ public class Hashing1 {
         return list;
     }
 
+    public int colorful(int A) {
+        return 1;
+    }
+
     public static void main(String[] args) {
         int[] arr1 = new int[]{0, 0, 1};
         ArrayList<Integer> array = Scaler.convertArrayToList(arr1);
