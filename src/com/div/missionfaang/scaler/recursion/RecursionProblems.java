@@ -1,14 +1,19 @@
 package com.div.missionfaang.scaler.recursion;
 
-import java.util.Scanner;
-
 public class RecursionProblems {
 
     private static int sumOfDigits(int A) {
-        if (A < 10) {
-            return A;
+        if (A > 10) {
+            A = RecursionProblems.sumOfDigits(A / 10) + (A % 10);
         }
-        return RecursionProblems.sumOfDigits(A / 10) + (A % 10);
+        return A;
+    }
+
+    private static int sumOfDigitsToSingleDigit(int A) {
+        while (A > 10) {
+            A = RecursionProblems.sumOfDigits(A);
+        }
+        return (A == 10) ? 1 : 0;
     }
 
     private static void printReverseString(String s) {
@@ -51,8 +56,8 @@ public class RecursionProblems {
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String N = sc.nextLine();
-        RecursionProblems.printReverseString(N);
+//        Scanner sc = new Scanner(System.in);
+//        String N = sc.nextLine();
+        System.out.println(RecursionProblems.sumOfDigitsToSingleDigit(83557));
     }
 }

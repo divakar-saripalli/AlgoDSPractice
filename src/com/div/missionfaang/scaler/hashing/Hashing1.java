@@ -5,6 +5,7 @@ import com.div.missionfaang.scaler.Scaler;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class Hashing1 {
 
@@ -122,6 +123,22 @@ public class Hashing1 {
         }
         return list;
     }
+
+//    public ArrayList<Integer> largestContinuousSubsequenceZeroSum(ArrayList<Integer> A) {
+//    }
+
+    private static int checkPalindrome(String A) {
+        HashSet<Character> set = new HashSet<>();
+        for (int i = 0; i < A.length(); i++) {
+            if (set.contains(A.charAt(i))) {
+                set.remove(A.charAt(i));
+            } else {
+                set.add(A.charAt(i));
+            }
+        }
+        return set.size() > 1 ? 0 : 1;
+    }
+
 
     public int colorful(int A) {
         return 1;
