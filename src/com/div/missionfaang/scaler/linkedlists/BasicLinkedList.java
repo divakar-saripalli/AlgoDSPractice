@@ -4,48 +4,59 @@ import java.util.Scanner;
 
 public class BasicLinkedList {
 
-    public static CustomLinkedList head = new CustomLinkedList();
-
-//    static {
-//        BasicLinkedList.head = new CustomLinkedList();
-//    }
+    private static LinkedListNode root = null;
 
     private static void insert_node(int position, int value) {
         // @params position, integer
         // @params value, integer
-        int tempPos = 0;
-        CustomLinkedList node = BasicLinkedList.head;
-        while (tempPos < position && node.pointer != null) {
-            node = node.pointer;
-            tempPos++;
-        }
-        if (tempPos == position) {
-            CustomLinkedList temp = node.pointer;
-            node.pointer = new CustomLinkedList();
-            node.pointer.value = value;
-            node.pointer.pointer = temp;
+        if (position == 1) {
+            LinkedListNode node = new LinkedListNode();
+            node.value = value;
+            node.pointer = BasicLinkedList.root;
+            BasicLinkedList.root = node;
+        } else {
+            int tempPos = 2;
+            LinkedListNode node = BasicLinkedList.root;
+
+            while (tempPos < position && node != null) {
+                node = node.pointer;
+                tempPos++;
+            }
+            if (tempPos == position && node != null) {
+                LinkedListNode temp = node.pointer;
+                node.pointer = new LinkedListNode();
+                node.pointer.value = value;
+                node.pointer.pointer = temp;
+            }
         }
     }
 
     private static void delete_node(int position) {
         // @params position, integer
-        int tempPos = 0;
-        CustomLinkedList node = BasicLinkedList.head;
-        while (tempPos < position && node.pointer != null) {
-            node = node.pointer;
-            tempPos++;
-        }
-        if (tempPos == position && node.pointer != null) {
-            node.pointer = node.pointer.pointer;
+        if (position == 1) {
+            BasicLinkedList.root = BasicLinkedList.root.pointer;
+        } else {
+            int tempPos = 2;
+            LinkedListNode node = BasicLinkedList.root;
+            while (tempPos < position && node != null) {
+                node = node.pointer;
+                tempPos++;
+            }
+            if (tempPos == position && node != null && node.pointer != null) {
+                node.pointer = node.pointer.pointer;
+            }
         }
     }
 
     private static void print_ll() {
         // Output each element followed by a space
-        CustomLinkedList node = BasicLinkedList.head;
+        LinkedListNode node = BasicLinkedList.root;
         while (node != null) {
-            System.out.print(node.value + " ");
-            System.out.println();
+            if (node.pointer != null) {
+                System.out.print(node.value + " ");
+            } else {
+                System.out.print(node.value);
+            }
             node = node.pointer;
         }
     }
@@ -56,25 +67,29 @@ public class BasicLinkedList {
         for (int i = 0; i < N; i++) {
             String c = sc.nextLine();
             switch (c) {
-                case "i": {
+                case "i" -> {
                     int pos = sc.nextInt();
                     int val = sc.nextInt();
                     BasicLinkedList.insert_node(pos, val);
                     break;
                 }
-                case "d": {
+                case "d" -> {
                     int pos = sc.nextInt();
                     BasicLinkedList.delete_node(pos);
                     break;
                 }
-                case "p":
-                    BasicLinkedList.print_ll();
+                case "p" -> BasicLinkedList.print_ll();
             }
         }
     }
 
-    static class CustomLinkedList {
+    static class LinkedListNode {
         int value;
-        CustomLinkedList pointer;
+        LinkedListNode pointer;
+
+        LinkedListNode() {
+            value = 0;
+            pointer = null;
+        }
     }
 }
