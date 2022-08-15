@@ -2,10 +2,7 @@ package com.div.missionfaang.scaler.sorting;
 
 import com.div.missionfaang.scaler.Scaler;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class SortingProblems {
 
@@ -63,6 +60,46 @@ public class SortingProblems {
             }
         }
         return (result.toString().isEmpty()) ? "0" : result.toString();
+    }
+
+    public int leastPiercingVerticalLine(int A, int B, ArrayList<Integer> C) {
+        HashMap<Integer, Integer> lengthsCount = new HashMap<>();
+        int currentLength = 0;
+        for (Integer integer : C) {
+            currentLength += integer;
+            if (currentLength < B) {
+                if (lengthsCount.containsKey(currentLength)) {
+                    lengthsCount.put(currentLength, lengthsCount.get(currentLength) + 1);
+                } else {
+                    lengthsCount.put(currentLength, 1);
+                }
+            } else {
+                currentLength = 0;
+            }
+        }
+
+        int mostCommonLength = Integer.MIN_VALUE;
+        int keyToLook = 0;
+        for (Integer key : lengthsCount.keySet()) {
+            if (lengthsCount.get(key) > mostCommonLength) {
+                mostCommonLength = lengthsCount.get(key);
+                keyToLook = key;
+            }
+        }
+
+        for (Integer integer : C) {
+            currentLength += integer;
+            if (currentLength < B) {
+                if (lengthsCount.containsKey(currentLength)) {
+                    lengthsCount.put(currentLength, lengthsCount.get(currentLength) + 1);
+                } else {
+                    lengthsCount.put(currentLength, 1);
+                }
+            } else {
+                currentLength = 0;
+            }
+        }
+        return lengthsCount.size();
     }
 
     public static void main(String[] args) {

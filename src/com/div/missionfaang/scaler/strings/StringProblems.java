@@ -103,21 +103,26 @@ public class StringProblems {
     }
 
     private static String longestCommonPrefix(ArrayList<String> A) {
-        if (A.size() < 2) {
-            return A.toString();
+        if (A.size() == 1) {
+            return A.get(0);
+        }
+        if (A.size() == 0) {
+            return "";
         }
         boolean isCommon = true;
         int charPosition = -1;
         while (isCommon) {
             charPosition++;
             for (int i = 1; i < A.size(); i++) {
-                if (A.get(0).charAt(charPosition) != A.get(i).charAt(charPosition)) {
+                if (!(charPosition < A.get(0).length()) ||
+                        !(charPosition < A.get(i).length()) ||
+                        A.get(0).charAt(charPosition) != A.get(i).charAt(charPosition)) {
                     isCommon = false;
                     break;
                 }
             }
         }
-        return A.get(0).substring(0, charPosition + 1);
+        return (charPosition > 0) ? A.get(0).substring(0, charPosition) : "";
     }
 
     private static String longestPalindrome(String A) {

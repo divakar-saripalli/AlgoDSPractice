@@ -67,18 +67,22 @@ public class BasicLinkedList {
         for (int i = 0; i < N; i++) {
             String c = sc.nextLine();
             switch (c) {
-                case "i" -> {
+                case "i": {
                     int pos = sc.nextInt();
                     int val = sc.nextInt();
                     BasicLinkedList.insert_node(pos, val);
                     break;
                 }
-                case "d" -> {
+                case "d": {
                     int pos = sc.nextInt();
                     BasicLinkedList.delete_node(pos);
                     break;
                 }
-                case "p" -> BasicLinkedList.print_ll();
+                case "p":
+                    BasicLinkedList.print_ll();
+                    break;
+                default:
+                    break;
             }
         }
     }

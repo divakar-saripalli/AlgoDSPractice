@@ -55,9 +55,25 @@ public class RecursionProblems {
         return A * findFactorial(A - 1);
     }
 
+    private static int pow(int A, int B, int C) {
+        if (B == 0) {
+            if (A > 0) {
+                return A % C;
+            } else {
+                return A % (-1 * C);
+            }
+        }
+        if (A > 0) {
+            return ((A % C) * RecursionProblems.pow(A, B - 1, C) % C) % C;
+        } else {
+            return ((A % (-1 * C)) * RecursionProblems.pow(A, B - 1, C) % C) % C;
+        }
+    }
+
     public static void main(String[] args) {
 //        Scanner sc = new Scanner(System.in);
 //        String N = sc.nextLine();
-        System.out.println(RecursionProblems.sumOfDigitsToSingleDigit(83557));
+//        System.out.println(RecursionProblems.sumOfDigitsToSingleDigit(83557));
+        System.out.println(RecursionProblems.pow(-1, 1, 20));
     }
 }

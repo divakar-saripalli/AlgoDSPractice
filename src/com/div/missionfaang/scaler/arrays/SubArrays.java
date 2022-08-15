@@ -95,14 +95,6 @@ public class SubArrays {
         return maxSum;
     }
 
-    public static Long subarraySumContributionTechnique(ArrayList<Integer> A) {
-        long sum = 0L;
-        for (int i = 0; i < A.size(); i++) {
-            sum += (long) (i + 1) * (A.size() - i) * A.get(i);
-        }
-        return sum;
-    }
-
     private static int goodSubarrays(ArrayList<Integer> A, int B) {
         int count = 0;
         ArrayList<Integer> prefixSumArray = new ArrayList<>();

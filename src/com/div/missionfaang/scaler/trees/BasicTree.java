@@ -66,6 +66,22 @@ public class BasicTree {
             return 1 + nodesCount(A.left) + nodesCount(A.right);
         }
     }
+
+    public int countGreaterNodes(TreeNode A) {
+        return 1 + countNodes(A, A.val);
+    }
+
+    private int countNodes(TreeNode A, int max) {
+        if (A == null) {
+            return 0;
+        }
+
+        if (A.val > max) {
+            return 1 + countNodes(A.left, A.val) + countNodes(A.right, A.val);
+        } else {
+            return countNodes(A.left, max) + countNodes(A.right, max);
+        }
+    }
 }
 
 class TreeNode {
