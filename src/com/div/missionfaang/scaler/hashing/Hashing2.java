@@ -1,13 +1,12 @@
 package com.div.missionfaang.scaler.hashing;
 
+import com.div.missionfaang.scaler.Scaler;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 public class Hashing2 {
-    public static void main(String[] args) {
-
-    }
 
     public ArrayList<Integer> subarrayWithGivenSum(ArrayList<Integer> A, int B) {
         int sum = 0;
@@ -58,5 +57,44 @@ public class Hashing2 {
             }
         }
         return 0;
+    }
+
+    private static ArrayList<Integer> twoSum(List<Integer> A, int B) {
+        ArrayList<Integer> result = new ArrayList<>();
+        if (A.size() < 2) {
+            return result;
+        }
+        if (A.size() == 2 && (A.get(0) + A.get(1) == B)) {
+            result.add(0);
+            result.add(1);
+            return result;
+        }
+
+        HashSet<Integer> set = new HashSet<>();
+        int index2 = 1;
+        for (Integer integer : A) {
+            if (set.contains(integer)) {
+                int index = 1;
+                for (Integer integer1 : A) {
+                    if (integer1 == (B - integer)) {
+                        result.add(index);
+                        break;
+                    }
+                    index++;
+                }
+                result.add(index2);
+                break;
+            } else {
+                set.add(B - integer);
+                index2++;
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = new int[]{4, 7, -4, 2, 2, 2, 3, -5, -3, 9, -4, 9, -7, 7, -1, 9, 9, 4, 1, -4, -2, 3, -3, -5, 4, -7, 7, 9, -4, 4, -8};
+        ArrayList<Integer> array = Scaler.convertArrayToList(arr);
+        System.out.println(Hashing2.twoSum(array, -3));
     }
 }

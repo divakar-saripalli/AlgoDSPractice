@@ -6,6 +6,29 @@ import java.util.*;
 
 public class SortingProblems {
 
+    private static ArrayList<Integer> sortColors(ArrayList<Integer> A) {
+        int red = 0;
+        int white = 0;
+        for (Integer integer : A) {
+            if (integer == 0) {
+                red++;
+            } else if (integer == 1) {
+                white++;
+            }
+        }
+
+        for (int i = 0; i < A.size(); i++) {
+            if (i < red) {
+                A.set(i, 0);
+            } else if (i < (white + red)) {
+                A.set(i, 1);
+            } else {
+                A.set(i, 2);
+            }
+        }
+        return A;
+    }
+
     private static int elementRemoval(ArrayList<Integer> A) {
         Collections.sort(A);
         Collections.reverse(A);
@@ -103,9 +126,10 @@ public class SortingProblems {
     }
 
     public static void main(String[] args) {
-        int[] arr = new int[]{363123231, 1061335445, 302234324, 400546535, 302143556, 910134425, 2042414166, 901143563};
+//        int[] arr = new int[]{363123231, 1061335445, 302234324, 400546535, 302143556, 910134425, 2042414166, 901143563};
+        int[] arr = new int[]{2, 0, 0, 1, 0, 0, 2, 2, 1, 1, 0, 0, 1, 0, 2, 1, 1, 0, 1, 0, 1, 2, 2, 2, 0, 0, 1, 0, 2, 1, 1, 2, 1, 2, 2, 1, 0, 2, 2, 1, 1, 1, 0, 1, 0, 1, 0, 2, 1, 2, 0, 2, 0, 1, 1, 0, 2, 2, 1, 2, 0, 2, 1, 1, 1, 2, 0, 1, 0, 2, 2, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 2, 1, 1, 0, 2, 1, 2, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 1, 1, 0, 2, 1, 2, 2, 2, 1, 2, 2, 0, 1, 0, 1, 2, 1, 1, 0, 1, 2, 0, 1, 0, 2, 2, 1, 2, 1, 0, 2, 2, 1, 1, 0, 2, 1, 2};
         ArrayList<Integer> array = Scaler.convertArrayToList(arr);
-        System.out.println(SortingProblems.largestNumber(array));
+        System.out.println(SortingProblems.sortColors(array));
     }
 }
 

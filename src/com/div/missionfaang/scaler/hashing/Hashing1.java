@@ -10,38 +10,7 @@ import java.util.HashSet;
 public class Hashing1 {
 
     private static ArrayList<Integer> commonElements(ArrayList<Integer> A, ArrayList<Integer> B) {
-//        HashMap<Integer, Integer> array1NumbersCountMap = new HashMap<>();
-//        HashMap<Integer, Integer> array2NumbersCountMap = new HashMap<>();
-//
-//        for (Integer integer : A) {
-//            if (!array1NumbersCountMap.containsKey(integer)) {
-//                array1NumbersCountMap.put(integer, 1);
-//            } else {
-//                array1NumbersCountMap.put(integer, array1NumbersCountMap.get(integer) + 1);
-//            }
-//        }
-//
-//        for (Integer integer : B) {
-//            if (!array2NumbersCountMap.containsKey(integer)) {
-//                array2NumbersCountMap.put(integer, 1);
-//            } else {
-//                array2NumbersCountMap.put(integer, array2NumbersCountMap.get(integer) + 1);
-//            }
-//        }
-//
-//        ArrayList<Integer> result = new ArrayList<>();
-//
-//        Set<Integer> array1Keys = array1NumbersCountMap.keySet();
-//        
-//        for (Integer integer : array1Keys){
-//            if(array1NumbersCountMap.get(integer).equals(array2NumbersCountMap.get(integer))){
-//                result.add(integer);
-//            }
-//        }
-//        
-//        return result;
-
-        ArrayList<Integer> result = new ArrayList<>();
+         ArrayList<Integer> result = new ArrayList<>();
         Collections.sort(A);
         Collections.sort(B);
         for (int i = 0, j = 0; i < A.size() && j < B.size(); ) {
@@ -124,7 +93,8 @@ public class Hashing1 {
         return list;
     }
 
-//    public ArrayList<Integer> largestContinuousSubsequenceZeroSum(ArrayList<Integer> A) {
+//    private static ArrayList<Integer> largestContinuousSubsequenceZeroSum(ArrayList<Integer> A) {
+//
 //    }
 
     private static int checkPalindrome(String A) {
@@ -144,12 +114,37 @@ public class Hashing1 {
         return 1;
     }
 
+    private static int subarrayWithZeroSum(ArrayList<Integer> A) {
+        if (A.size() == 1) {
+            return (A.get(0) == 0) ? 1 : 0;
+        }
+        if (A.size() == 2) {
+            return ((A.get(0) + A.get(1)) == 0) ? 1 : 0;
+        }
+        ArrayList<Long> prefixSum = new ArrayList<>();
+        prefixSum.add(Long.valueOf(A.get(0)));
+        for (int i = 1; i < A.size(); i++) {
+            prefixSum.add(A.get(i) + prefixSum.get(i - 1));
+        }
+
+        HashSet<Long> set = new HashSet<>();
+        set.add(prefixSum.get(0));
+        for (int i = 1; i < prefixSum.size(); i++) {
+            if (set.contains(prefixSum.get(i)) || prefixSum.get(i) == 0) {
+                return 1;
+            } else {
+                set.add(prefixSum.get(i));
+            }
+        }
+        return 0;
+    }
+
     public static void main(String[] args) {
-        int[] arr1 = new int[]{0, 0, 1};
+        int[] arr1 = new int[]{96, -71, 18, 66, -39, -32, -16, -83, -11, -92, 55, 66, 93, 5, 50, -45, 66, -28, 69, -4, -34, -87, -32, 7, -53, 33, -12, -94, -80, -71, 48, -93, 62};
         ArrayList<Integer> array = Scaler.convertArrayToList(arr1);
 
-        int[][] arr2 = new int[][]{{0, 2}};
-        ArrayList<ArrayList<Integer>> arrayLists = Scaler.convert2DArrayTo2DList(arr2);
-        System.out.println(Hashing1.codingContestVowelsInRange("eaucqt", arrayLists));
+//        int[][] arr2 = new int[][]{{0, 2}};
+//        ArrayList<ArrayList<Integer>> arrayLists = Scaler.convert2DArrayTo2DList(arr2);
+        System.out.println(Hashing1.subarrayWithZeroSum(array));
     }
 }
