@@ -1,9 +1,6 @@
 package com.div.missionfaang.scaler;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Scaler {
 
@@ -360,6 +357,10 @@ public class Scaler {
             list.add(i);
         }
         return list;
+    }
+
+    public static ArrayList<String> convertArrayToList(String[] arr) {
+        return new ArrayList<>(Arrays.asList(arr));
     }
 
     public static ArrayList<ArrayList<Integer>> convert2DArrayTo2DList(int[][] arr) {

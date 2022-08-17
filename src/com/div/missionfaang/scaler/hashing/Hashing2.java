@@ -2,9 +2,7 @@ package com.div.missionfaang.scaler.hashing;
 
 import com.div.missionfaang.scaler.Scaler;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class Hashing2 {
 
@@ -92,9 +90,49 @@ public class Hashing2 {
         return result;
     }
 
+    private static int isDictionary(ArrayList<String> A, String B) {
+        String originalOrder = A.toString();
+        A.sort(new StringComparator(B));
+        String sortedOrder = A.toString();
+        return (originalOrder.equals(sortedOrder)) ? 1 : 0;
+    }
+
     public static void main(String[] args) {
         int[] arr = new int[]{4, 7, -4, 2, 2, 2, 3, -5, -3, 9, -4, 9, -7, 7, -1, 9, 9, 4, 1, -4, -2, 3, -3, -5, 4, -7, 7, 9, -4, 4, -8};
         ArrayList<Integer> array = Scaler.convertArrayToList(arr);
-        System.out.println(Hashing2.twoSum(array, -3));
+
+        String[] strArray = new String[]{"fine", "none", "no"};
+        ArrayList<String> strArrayList = Scaler.convertArrayToList(strArray);
+        String newAlphabet = "qwertyuiopasdfghjklzxcvbnm";
+        System.out.println(Hashing2.isDictionary(strArrayList, newAlphabet));
+    }
+}
+
+class StringComparator implements Comparator<String> {
+
+    private final HashMap<Character, Integer> alphabetMap = new HashMap<>();
+
+    StringComparator(String newAlphabet) {
+        for (int i = 0; i < newAlphabet.length(); i++) {
+            alphabetMap.put(newAlphabet.charAt(i), i);
+        }
+    }
+
+    @Override
+    public int compare(String o1, String o2) {
+        for (int i = 0; i < Math.min(o1.length(), o2.length()); i++) {
+            if (alphabetMap.get(o1.charAt(i)) < alphabetMap.get(o2.charAt(i))) {
+                return -1;
+            }
+            if (alphabetMap.get(o1.charAt(i)) > alphabetMap.get(o2.charAt(i))) {
+                return 1;
+            }
+        }
+        if (o2.length() < o1.length()) {
+            return 1;
+        } else if (o2.length() > o1.length()) {
+            return -1;
+        }
+        return 0;
     }
 }

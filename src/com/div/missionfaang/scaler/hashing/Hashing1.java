@@ -139,12 +139,61 @@ public class Hashing1 {
         return 0;
     }
 
+    private static ArrayList<Integer> longestContinuousSequenceZeroSum(ArrayList<Integer> A) {
+        ArrayList<Integer> result = new ArrayList<>();
+        if (A.size() == 1) {
+            return result;
+        }
+        if (A.size() == 2) {
+            return ((A.get(0) + A.get(1)) == 0) ? A : result;
+        }
+        ArrayList<Long> prefixSum = new ArrayList<>();
+        prefixSum.add(Long.valueOf(A.get(0)));
+        for (int i = 1; i < A.size(); i++) {
+            prefixSum.add(A.get(i) + prefixSum.get(i - 1));
+        }
+
+        HashSet<Long> set = new HashSet<>();
+        set.add(prefixSum.get(0));
+        int maxSize = Integer.MIN_VALUE;
+        int start = -1;
+        int end = -1;
+        if (prefixSum.get(0) == 0) {
+            start = 0;
+            end = 0;
+        }
+        for (int i = 1; i < prefixSum.size(); i++) {
+            if (set.contains(prefixSum.get(i)) || prefixSum.get(i) == 0) {
+                int index = 0;
+                if (prefixSum.get(i) != 0) {
+                    for (int j = 0; j < prefixSum.size(); j++) {
+                        if (prefixSum.get(j).equals(prefixSum.get(i))) {
+                            index = j + 1;
+                            break;
+                        }
+                    }
+                }
+                if (maxSize < (i - index)) {
+                    maxSize = i - index;
+                    start = index;
+                    end = i;
+                }
+            }
+            set.add(prefixSum.get(i));
+        }
+        for (int i = start; i <= end && i > -1; i++) {
+            result.add(A.get(i));
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
-        int[] arr1 = new int[]{96, -71, 18, 66, -39, -32, -16, -83, -11, -92, 55, 66, 93, 5, 50, -45, 66, -28, 69, -4, -34, -87, -32, 7, -53, 33, -12, -94, -80, -71, 48, -93, 62};
+//        int[] arr1 = new int[]{96, -71, 18, 66, -39, -32, -16, -83, -11, -92, 55, 66, 93, 5, 50, -45, 66, -28, 69, -4, -34, -87, -32, 7, -53, 33, -12, -94, -80, -71, 48, -93, 62};
+        int[] arr1 = new int[]{-19, 8, 2, -8, 19, 5, -2, -23};
         ArrayList<Integer> array = Scaler.convertArrayToList(arr1);
 
 //        int[][] arr2 = new int[][]{{0, 2}};
 //        ArrayList<ArrayList<Integer>> arrayLists = Scaler.convert2DArrayTo2DList(arr2);
-        System.out.println(Hashing1.subarrayWithZeroSum(array));
+        System.out.println(Hashing1.longestContinuousSequenceZeroSum(array));
     }
 }
