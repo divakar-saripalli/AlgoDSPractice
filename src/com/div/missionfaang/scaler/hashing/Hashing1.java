@@ -2,10 +2,7 @@ package com.div.missionfaang.scaler.hashing;
 
 import com.div.missionfaang.scaler.Scaler;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 public class Hashing1 {
 
@@ -185,6 +182,42 @@ public class Hashing1 {
             result.add(A.get(i));
         }
         return result;
+    }
+
+    private static int shaggyAndDistances(ArrayList<Integer> A) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int minDistance = Integer.MAX_VALUE;
+        map.put(A.get(0), 0);
+        for (int i = 1; i < A.size(); i++) {
+            if (map.containsKey(A.get(i))) {
+                minDistance = Math.min(minDistance, i - map.get(A.get(i)));
+            }
+            map.put(A.get(i), i);
+        }
+        if (minDistance == Integer.MAX_VALUE) {
+            return -1;
+        }
+        return minDistance;
+    }
+
+    private static int colorful(int A) {
+        HashSet<Integer> set = new HashSet<>();
+        while (A > 10) {
+            int digit = A % 10;
+            if (digit == 0) {
+                return 0;
+            }
+            set.add(digit);
+            A = A / 10;
+        }
+        set.add(A);
+        int digitsCount = set.size();
+        int divisor = 100;
+        for (Iterator<Integer> it = set.iterator(); it.hasNext(); ) {
+            Integer digit = it.next();
+
+
+        }
     }
 
     public static void main(String[] args) {
