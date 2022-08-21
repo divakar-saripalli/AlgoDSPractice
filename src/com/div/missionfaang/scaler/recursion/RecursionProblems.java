@@ -56,17 +56,21 @@ public class RecursionProblems {
     }
 
     private static int pow(int A, int B, int C) {
-        if (B == 0) {
-            if (A > 0) {
-                return A % C;
-            } else {
-                return A % (-1 * C);
-            }
+        if (A == 0) {
+            return 0;
         }
-        if (A > 0) {
-            return ((A % C) * RecursionProblems.pow(A, B - 1, C) % C) % C;
+        if (B == 0) {
+            return 1;
+        }
+        if (B == 1) {
+            return C + (A % C);
+        }
+        int val = ((A % C) * RecursionProblems.pow(A, B / 2, C) % C) % C;
+        long square = (long) val * val;
+        if (A > 0 || B % 2 == 0) {
+            return (int) (C + (square % C));
         } else {
-            return ((A % (-1 * C)) * RecursionProblems.pow(A, B - 1, C) % C) % C;
+            return (int) (C + (-1 * (((square % C) * (A % C)) % C)));
         }
     }
 
