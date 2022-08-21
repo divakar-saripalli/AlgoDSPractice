@@ -1,4 +1,4 @@
-package com.div.missionfaang.scaler.arrays;
+package com.div.missionfaang.scaler.intermediate.arrays;
 
 import java.util.ArrayList;
 

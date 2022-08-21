@@ -1,4 +1,4 @@
-package com.div.missionfaang.scaler.sorting;
+package com.div.missionfaang.scaler.intermediate.sorting;
 
 import com.div.missionfaang.scaler.Scaler;
 

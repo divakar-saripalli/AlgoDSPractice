@@ -1,4 +1,4 @@
-package com.div.missionfaang.scaler.linkedlists;
+package com.div.missionfaang.scaler.intermediate.linkedlists;
 
 import java.util.ArrayList;
 import java.util.Scanner;

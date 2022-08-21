@@ -1,4 +1,4 @@
-package com.div.missionfaang.scaler.trees;
+package com.div.missionfaang.scaler.intermediate.trees;
 
 import java.util.ArrayList;
 

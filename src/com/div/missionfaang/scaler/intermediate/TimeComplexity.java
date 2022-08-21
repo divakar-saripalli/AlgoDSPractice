@@ -1,4 +1,4 @@
-package com.div.missionfaang.scaler;
+package com.div.missionfaang.scaler.intermediate;
 
 import java.util.Scanner;
 

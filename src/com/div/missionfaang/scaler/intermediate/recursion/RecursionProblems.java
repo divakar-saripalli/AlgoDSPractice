@@ -1,4 +1,4 @@
-package com.div.missionfaang.scaler.recursion;
+package com.div.missionfaang.scaler.intermediate.recursion;
 
 public class RecursionProblems {
 

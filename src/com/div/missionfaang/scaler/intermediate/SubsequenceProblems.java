@@ -1,11 +1,8 @@
-package com.div.missionfaang.scaler.subsequence;
+package com.div.missionfaang.scaler.intermediate;
 
 import java.util.ArrayList;
 
 public class SubsequenceProblems {
-    public static void main(String[] args) {
-
-    }
 
     public String littlePonnyAnd2Subsequences(String A) {
         int firstMin = 0;
@@ -52,5 +49,9 @@ public class SubsequenceProblems {
             subsequenceCount %= 1000000007;
         }
         return subsequenceCount;
+    }
+
+    public static void main(String[] args) {
+
     }
 }

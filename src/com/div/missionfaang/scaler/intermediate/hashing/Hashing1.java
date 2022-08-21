@@ -1,8 +1,11 @@
-package com.div.missionfaang.scaler.hashing;
+package com.div.missionfaang.scaler.intermediate.hashing;
 
 import com.div.missionfaang.scaler.Scaler;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class Hashing1 {
 
@@ -104,11 +107,6 @@ public class Hashing1 {
             }
         }
         return set.size() > 1 ? 0 : 1;
-    }
-
-
-    public int colorful(int A) {
-        return 1;
     }
 
     private static int subarrayWithZeroSum(ArrayList<Integer> A) {
@@ -213,11 +211,10 @@ public class Hashing1 {
         set.add(A);
         int digitsCount = set.size();
         int divisor = 100;
-        for (Iterator<Integer> it = set.iterator(); it.hasNext(); ) {
-            Integer digit = it.next();
-
-
+        for (Integer digit : set) {
+            System.out.println(digit);
         }
+        return 1;
     }
 
     public static void main(String[] args) {

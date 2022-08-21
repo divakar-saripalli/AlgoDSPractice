@@ -1,4 +1,4 @@
-package com.div.missionfaang.scaler.modulararithmetic;
+package com.div.missionfaang.scaler.intermediate.modulararithmetic;
 
 import com.div.missionfaang.scaler.Scaler;
 

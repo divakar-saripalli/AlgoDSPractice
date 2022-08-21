@@ -1,4 +1,4 @@
-package com.div.missionfaang.scaler.hashing;
+package com.div.missionfaang.scaler.intermediate.hashing;
 
 import com.div.missionfaang.scaler.Scaler;
 

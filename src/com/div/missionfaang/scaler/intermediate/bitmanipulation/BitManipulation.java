@@ -1,4 +1,4 @@
-package com.div.missionfaang.scaler.bitmanipulation;
+package com.div.missionfaang.scaler.intermediate.bitmanipulation;
 
 import com.div.missionfaang.scaler.Scaler;
 
