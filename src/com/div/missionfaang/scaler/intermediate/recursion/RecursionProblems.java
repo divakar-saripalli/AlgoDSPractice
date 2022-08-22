@@ -62,22 +62,43 @@ public class RecursionProblems {
         if (B == 0) {
             return 1;
         }
-        if (B == 1) {
-            return C + (A % C);
+        if (A < 0) {
+            A = (A + C) % C;
         }
-        int val = ((A % C) * RecursionProblems.pow(A, B / 2, C) % C) % C;
-        long square = (long) val * val;
-        if (A > 0 || B % 2 == 0) {
-            return (int) (C + (square % C));
+        long hp = RecursionProblems.pow(A, B / 2, C);
+        long ia = ((hp * hp) % C);
+        if (B % 2 == 0) {
+            return (int) ia;
         } else {
-            return (int) (C + (-1 * (((square % C) * (A % C)) % C)));
+            return (int) ((ia * A) % C);
         }
+    }
+
+    private static int kthSymbol(int A, int B) {
+        return RecursionProblems.kthSymbol(A).toString().charAt(B - 1) == '0' ? 0 : 1;
+    }
+
+    private static StringBuffer kthSymbol(int A) {
+        if (A == 1) {
+            return new StringBuffer("0");
+        }
+        StringBuffer buf = RecursionProblems.kthSymbol(A - 1);
+        for (int i = 0; i < buf.length(); i++) {
+            if (buf.charAt(i) == '0') {
+                buf.append('1');
+            } else {
+                buf.append('0');
+            }
+            i++;
+        }
+        return buf;
     }
 
     public static void main(String[] args) {
 //        Scanner sc = new Scanner(System.in);
 //        String N = sc.nextLine();
 //        System.out.println(RecursionProblems.sumOfDigitsToSingleDigit(83557));
-        System.out.println(RecursionProblems.pow(-1, 1, 20));
+//        System.out.println(RecursionProblems.pow(-1, 1, 20));
+        System.out.println(RecursionProblems.kthSymbol(2, 2));
     }
 }

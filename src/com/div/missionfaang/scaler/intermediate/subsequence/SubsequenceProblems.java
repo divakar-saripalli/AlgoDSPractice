@@ -51,6 +51,22 @@ public class SubsequenceProblems {
         return subsequenceCount;
     }
 
+    public String findSubSequence(String A, String B) {
+        if (A.length() > B.length()) {
+            return "NO";
+        }
+        int i = 0;
+        int j = 0;
+        while (i < A.length() && j < B.length()) {
+            while (j < B.length() && B.charAt(j) != A.charAt(i)) {
+                j++;
+            }
+            i++;
+            j++;
+        }
+        return (i == A.length()) ? "YES" : "NO";
+    }
+
     public static void main(String[] args) {
 
     }
