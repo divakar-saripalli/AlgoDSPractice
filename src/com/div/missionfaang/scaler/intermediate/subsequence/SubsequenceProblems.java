@@ -51,6 +51,21 @@ public class SubsequenceProblems {
         return subsequenceCount;
     }
 
+    public int maxOddEvenSubsequence(ArrayList<Integer> A) {
+        int count = 1;
+        boolean checkForOdd = (A.get(0) % 2 == 0);
+        for (int i = 0; i < A.size(); i++) {
+            if (checkForOdd && A.get(i) % 2 != 0) {
+                count++;
+                checkForOdd = false;
+            } else if (!checkForOdd && A.get(i) % 2 == 0) {
+                count++;
+                checkForOdd = true;
+            }
+        }
+        return count;
+    }
+
     public String findSubSequence(String A, String B) {
         if (A.length() > B.length()) {
             return "NO";

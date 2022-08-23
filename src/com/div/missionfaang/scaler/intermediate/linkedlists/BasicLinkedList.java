@@ -83,6 +83,8 @@ public class BasicLinkedList {
                             temp = temp.next;
                         }
                         temp.next = new ListNode(integers.get(1));
+                    } else {
+                        root = new ListNode(integers.get(1));
                     }
                     break;
                 case 2:
