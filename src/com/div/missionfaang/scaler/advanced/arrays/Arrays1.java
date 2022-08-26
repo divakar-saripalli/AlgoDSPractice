@@ -1,5 +1,7 @@
 package com.div.missionfaang.scaler.advanced.arrays;
 
+import com.div.missionfaang.scaler.ArrayUtility;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +25,6 @@ public class Arrays1 {
         return beggarsPots;
     }
 
-    public static void main(String[] args) {
-
-    }
-
     public int kadaneAlgorithm(List<Integer> A) {
         int sum = 0;
         int max = Integer.MIN_VALUE;
@@ -40,18 +38,48 @@ public class Arrays1 {
         return max;
     }
 
+    private static int trap(List<Integer> A) {
+
+        if (A.size() < 3) {
+            return 0;
+        }
+
+        List<Integer> leftMaxArray = new ArrayList<>();
+        List<Integer> rightMaxArray = new ArrayList<>();
+        int sum = 0;
+
+        leftMaxArray.add(A.get(0));
+        for (int i = 1; i < A.size(); i++) {
+            leftMaxArray.add(Math.max(leftMaxArray.get(i - 1), A.get(i)));
+        }
+
+        rightMaxArray.add(A.get(A.size() - 1));
+        for (int i = A.size() - 2; i > -1; i--) {
+            rightMaxArray.add(0, Math.max(rightMaxArray.get(0), A.get(i)));
+        }
+
+        for (int i = 0; i < A.size(); i++) {
+            sum += Math.min(leftMaxArray.get(i), rightMaxArray.get(i)) - A.get(i);
+        }
+        return sum;
+    }
+
+    public static void main(String[] args) {
+        int[] arr1 = new int[]{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
+        ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
+        System.out.println(Arrays1.trap(array));
+    }
+
     public ArrayList<Integer> plusOne(ArrayList<Integer> A) {
         boolean carry = false;
         int i = A.size();
         do {
             i--;
             if (i < 0) {
-                if (!carry) {
-                    break;
-                } else {
+                if (carry) {
                     A.add(0, 1);
-                    break;
                 }
+                break;
             }
             if (A.get(i) == 9) {
                 A.set(i, 0);
@@ -72,5 +100,35 @@ public class Arrays1 {
             A.subList(0, leadingZeros).clear();
         }
         return A;
+    }
+
+    public ArrayList<Integer> maxNonNegativeSubArray(ArrayList<Integer> A) {
+        int maxCount = 0;
+        int count = 0;
+        int start = -1;
+        int end = -1;
+        int maxStart = -1;
+        int maxEnd = -1;
+        for (int i = 0; i < A.size(); i++) {
+            if (A.get(i) > -1) {
+                count++;
+                if (start == -1) {
+                    start = i;
+                }
+            } else {
+                if (maxCount < count) {
+                    maxCount = count;
+                    maxStart = start;
+                    maxEnd = end;
+                }
+                count = 0;
+                start = i;
+            }
+            end = i;
+        }
+        if (maxStart >= 0) {
+            return new ArrayList<>(A.subList(maxStart, maxEnd + 1));
+        }
+        return new ArrayList<>();
     }
 }

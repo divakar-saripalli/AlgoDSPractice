@@ -1,6 +1,6 @@
 package com.div.missionfaang.scaler.intermediate.bitmanipulation;
 
-import com.div.missionfaang.scaler.Scaler;
+import com.div.missionfaang.scaler.ArrayUtility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -197,7 +197,7 @@ public class BitManipulation {
 //        System.out.println(BitManipulation.helpFromSam(3));
 //        System.out.println(BitManipulation.unsetXBits(53L, 5));
         int[] arr1 = new int[]{186, 256, 102, 377, 186, 377};
-        ArrayList<Integer> array = Scaler.convertArrayToList(arr1);
+        ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
         System.out.println(BitManipulation.singleNumber3(array));
     }
 }

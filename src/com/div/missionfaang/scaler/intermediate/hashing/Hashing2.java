@@ -1,6 +1,6 @@
 package com.div.missionfaang.scaler.intermediate.hashing;
 
-import com.div.missionfaang.scaler.Scaler;
+import com.div.missionfaang.scaler.ArrayUtility;
 
 import java.util.*;
 
@@ -185,10 +185,10 @@ public class Hashing2 {
 
     public static void main(String[] args) {
         int[] arr = new int[]{4, 7, -4, 2, 2, 2, 3, -5, -3, 9, -4, 9, -7, 7, -1, 9, 9, 4, 1, -4, -2, 3, -3, -5, 4, -7, 7, 9, -4, 4, -8};
-        ArrayList<Integer> array = Scaler.convertArrayToList(arr);
+        ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr);
 
         String[] strArray = new String[]{"fine", "none", "no"};
-        ArrayList<String> strArrayList = Scaler.convertArrayToList(strArray);
+        ArrayList<String> strArrayList = ArrayUtility.convertArrayToList(strArray);
         String newAlphabet = "qwertyuiopasdfghjklzxcvbnm";
         System.out.println(Hashing2.isDictionary(strArrayList, newAlphabet));
     }

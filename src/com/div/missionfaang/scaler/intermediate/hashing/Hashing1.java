@@ -1,6 +1,6 @@
 package com.div.missionfaang.scaler.intermediate.hashing;
 
-import com.div.missionfaang.scaler.Scaler;
+import com.div.missionfaang.scaler.ArrayUtility;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -220,7 +220,7 @@ public class Hashing1 {
     public static void main(String[] args) {
 //        int[] arr1 = new int[]{96, -71, 18, 66, -39, -32, -16, -83, -11, -92, 55, 66, 93, 5, 50, -45, 66, -28, 69, -4, -34, -87, -32, 7, -53, 33, -12, -94, -80, -71, 48, -93, 62};
         int[] arr1 = new int[]{-19, 8, 2, -8, 19, 5, -2, -23};
-        ArrayList<Integer> array = Scaler.convertArrayToList(arr1);
+        ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
 
 //        int[][] arr2 = new int[][]{{0, 2}};
 //        ArrayList<ArrayList<Integer>> arrayLists = Scaler.convert2DArrayTo2DList(arr2);

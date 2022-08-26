@@ -1,6 +1,6 @@
 package com.div.missionfaang.scaler.intermediate.arrays;
 
-import com.div.missionfaang.scaler.Scaler;
+import com.div.missionfaang.scaler.ArrayUtility;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -351,8 +351,8 @@ public class ArrayClass1 {
     public static void main(String[] args) {
         int[] arr1 = new int[]{5, 9, 10, 4, 7, 8};
         int[] arr2 = new int[]{5, 6, 4, 7, 2, 5};
-        ArrayList<Integer> array = Scaler.convertArrayToList(arr1);
-        ArrayList<Integer> array1 = Scaler.convertArrayToList(arr2);
+        ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
+        ArrayList<Integer> array1 = ArrayUtility.convertArrayToList(arr2);
 //        System.out.println(ArrayClass1.alternatingSubarrays(array, 1));
 //        ArrayClass1.starPattern();
 //        System.out.println(ArrayClass1.longestConsecutiveOnesWith1Swap("0000000010"));

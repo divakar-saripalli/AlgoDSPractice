@@ -1,5 +1,7 @@
 package com.div.missionfaang.scaler.intermediate.arrays;
 
+import com.div.missionfaang.scaler.ArrayUtility;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -78,18 +80,6 @@ public class TwoDimensionalArrays {
         for (ArrayList<Integer> row : matrix) {
             System.out.println(row);
         }
-    }
-
-    private static ArrayList<ArrayList<Integer>> convert2DArrayTo2DList(int[][] arr) {
-        ArrayList<ArrayList<Integer>> matrix = new ArrayList<>();
-        for (int[] row : arr) {
-            ArrayList<Integer> list = new ArrayList<>();
-            for (int element : row) {
-                list.add(element);
-            }
-            matrix.add(list);
-        }
-        return matrix;
     }
 
     private static int mainDiagnoalSum(List<ArrayList<Integer>> A) {
@@ -257,7 +247,7 @@ public class TwoDimensionalArrays {
 //        int[][] arr1 = new int[][]{{3, 12, 11, 11, 11, 15}, {3, 12, 11, 11, 11, 15}};
 //        int[][] arr1 = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         int[][] arr1 = new int[][]{{1, 2}, {3, 4}};
-        ArrayList<ArrayList<Integer>> matrix = TwoDimensionalArrays.convert2DArrayTo2DList(arr1);
+        ArrayList<ArrayList<Integer>> matrix = ArrayUtility.convert2DArrayTo2DList(arr1);
 //        TwoDimensionalArrays.printMatrix(TwoDimensionalArrays.addMatrices(matrix, matrix));
 //        System.out.println(TwoDimensionalArrays.columnSum(matrix));
 //        System.out.println(TwoDimensionalArrays.antiDiagonal(matrix));

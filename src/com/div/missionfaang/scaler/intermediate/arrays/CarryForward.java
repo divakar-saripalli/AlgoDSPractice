@@ -1,6 +1,6 @@
 package com.div.missionfaang.scaler.intermediate.arrays;
 
-import com.div.missionfaang.scaler.Scaler;
+import com.div.missionfaang.scaler.ArrayUtility;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -109,7 +109,7 @@ public class CarryForward {
 
     public static void main(String[] args) {
         int[] arr1 = new int[]{1, 2, 3, 7, 1, 2, 3};
-        ArrayList<Integer> array = Scaler.convertArrayToList(arr1);
+        ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
         System.out.println(CarryForward.specialSubsequences("ABCGAG"));
     }
 

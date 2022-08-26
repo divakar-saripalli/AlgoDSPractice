@@ -1,6 +1,6 @@
 package com.div.missionfaang.scaler.intermediate.sorting;
 
-import com.div.missionfaang.scaler.Scaler;
+import com.div.missionfaang.scaler.ArrayUtility;
 
 import java.util.*;
 
@@ -128,7 +128,7 @@ public class SortingProblems {
     public static void main(String[] args) {
 //        int[] arr = new int[]{363123231, 1061335445, 302234324, 400546535, 302143556, 910134425, 2042414166, 901143563};
         int[] arr = new int[]{2, 0, 0, 1, 0, 0, 2, 2, 1, 1, 0, 0, 1, 0, 2, 1, 1, 0, 1, 0, 1, 2, 2, 2, 0, 0, 1, 0, 2, 1, 1, 2, 1, 2, 2, 1, 0, 2, 2, 1, 1, 1, 0, 1, 0, 1, 0, 2, 1, 2, 0, 2, 0, 1, 1, 0, 2, 2, 1, 2, 0, 2, 1, 1, 1, 2, 0, 1, 0, 2, 2, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 2, 1, 1, 0, 2, 1, 2, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 1, 1, 0, 2, 1, 2, 2, 2, 1, 2, 2, 0, 1, 0, 1, 2, 1, 1, 0, 1, 2, 0, 1, 0, 2, 2, 1, 2, 1, 0, 2, 2, 1, 1, 0, 2, 1, 2};
-        ArrayList<Integer> array = Scaler.convertArrayToList(arr);
+        ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr);
         System.out.println(SortingProblems.sortColors(array));
     }
 }
