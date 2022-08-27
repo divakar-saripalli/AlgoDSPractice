@@ -48,7 +48,7 @@ public class Arrays3 {
 
     private static int firstMissingPositive(ArrayList<Integer> A) {
         for (int i = 0; i < A.size(); ) {
-            if (A.get(i) > 0 && A.get(i) < A.size() && A.get(i) != i + 1 && A.get(A.get(i) - 1) != A.get(i)) {
+            if (A.get(i) > 0 && A.get(i) < A.size() && A.get(i) != i + 1 && !A.get(A.get(i) - 1).equals(A.get(i))) {
                 int temp = A.get(i);
                 A.set(i, A.get(temp - 1));
                 A.set(temp - 1, temp);
@@ -63,6 +63,20 @@ public class Arrays3 {
             }
         }
         return A.size() + 1;
+    }
+
+    private static int maxAbsoluteDifference(ArrayList<Integer> A) {
+        int max = Integer.MIN_VALUE;
+        int currentMaxElement = Integer.MIN_VALUE;
+        for (int i = 0; i < A.size(); i++) {
+            for (int j = i + 1; j < A.size(); j++) {
+                if (currentMaxElement < A.get(j)) {
+                    currentMaxElement = A.get(j);
+                    max = Math.max(max, (Math.abs(A.get(i) - A.get(j)) + Math.abs(i - j)));
+                }
+            }
+        }
+        return max;
     }
 
     public static void main(String[] args) {

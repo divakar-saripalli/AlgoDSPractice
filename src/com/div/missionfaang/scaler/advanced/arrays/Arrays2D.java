@@ -102,21 +102,33 @@ public class Arrays2D {
         System.out.println(prefixSumMatrix);
         ArrayList<Integer> result = new ArrayList<>();
         for (int i = 0; i < B.size(); i++) {
-            int sum = prefixSumMatrix.get(D.get(i) - 1).get(E.get(i) - 1);
+            long sum = prefixSumMatrix.get(D.get(i) - 1).get(E.get(i) - 1);
+            if (sum < 0) {
+                sum += 1000000007;
+            }
             sum %= 1000000007;
             if (B.get(i) > 1) {
                 sum -= prefixSumMatrix.get(B.get(i) - 2).get(E.get(i) - 1);
+                if (sum < 0) {
+                    sum += 1000000007;
+                }
                 sum %= 1000000007;
             }
             if (C.get(i) > 1) {
                 sum -= prefixSumMatrix.get(D.get(i) - 1).get(C.get(i) - 2);
+                if (sum < 0) {
+                    sum += 1000000007;
+                }
                 sum %= 1000000007;
             }
             if (B.get(i) > 1 && C.get(i) > 1) {
                 sum += prefixSumMatrix.get(B.get(i) - 2).get(C.get(i) - 2);
+                if (sum < 0) {
+                    sum += 1000000007;
+                }
                 sum %= 1000000007;
             }
-            result.add((sum % 1000000007));
+            result.add((int) (sum % 1000000007));
         }
         return result;
     }
