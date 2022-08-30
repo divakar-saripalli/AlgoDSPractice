@@ -1,5 +1,7 @@
 package com.div.missionfaang.scaler.intermediate.recursion;
 
+import java.util.ArrayList;
+
 public class RecursionProblems {
 
     private static int sumOfDigits(int A) {
@@ -94,11 +96,40 @@ public class RecursionProblems {
         return buf;
     }
 
+    private static ArrayList<Integer> grayCode(int a) {
+        ArrayList<Integer> result = new ArrayList<>();
+        for (int i = 0; i < Math.pow(2, a); i++) {
+            result.add(i);
+        }
+        result.add(0);
+        result.add(1);
+        return RecursionProblems.grayCode(a, result, 1, true);
+    }
+
+    private static ArrayList<Integer> grayCode(int a, ArrayList<Integer> result, int lastValue, boolean anding) {
+        if (lastValue == 0) {
+            return result;
+        }
+        if (anding) {
+            lastValue = lastValue << 1;
+            lastValue = lastValue + 1;
+        } else {
+            lastValue = lastValue & (lastValue - 1);
+        }
+        if (lastValue > 1) {
+            result.add(lastValue);
+        }
+        if (lastValue == Math.pow(2, a) - 1) {
+            anding = false;
+        }
+        return RecursionProblems.grayCode(a, result, lastValue, anding);
+    }
+
     public static void main(String[] args) {
 //        Scanner sc = new Scanner(System.in);
 //        String N = sc.nextLine();
 //        System.out.println(RecursionProblems.sumOfDigitsToSingleDigit(83557));
 //        System.out.println(RecursionProblems.pow(-1, 1, 20));
-        System.out.println(RecursionProblems.kthSymbol(2, 2));
+        System.out.println(RecursionProblems.grayCode(3));
     }
 }

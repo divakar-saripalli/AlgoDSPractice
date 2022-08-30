@@ -64,12 +64,6 @@ public class Arrays1 {
         return sum;
     }
 
-    public static void main(String[] args) {
-        int[] arr1 = new int[]{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
-        ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
-        System.out.println(Arrays1.trap(array));
-    }
-
     public ArrayList<Integer> plusOne(ArrayList<Integer> A) {
         boolean carry = false;
         int i = A.size();
@@ -102,7 +96,7 @@ public class Arrays1 {
         return A;
     }
 
-    public ArrayList<Integer> maxNonNegativeSubArray(ArrayList<Integer> A) {
+    private static ArrayList<Integer> maxNonNegativeSubArray(ArrayList<Integer> A) {
         int maxCount = 0;
         int count = 0;
         int start = -1;
@@ -115,20 +109,35 @@ public class Arrays1 {
                 if (start == -1) {
                     start = i;
                 }
-            } else {
-                if (maxCount < count) {
-                    maxCount = count;
-                    maxStart = start;
-                    maxEnd = end;
-                }
+                end = i;
+            } else if (maxCount < count) {
+                maxCount = count;
+                maxStart = start;
+                maxEnd = end;
+                start = -1;
                 count = 0;
-                start = i;
+            } else if ((maxCount == count) &&
+                    ((maxEnd - maxStart < end - start))) {
+                maxStart = start;
+                maxEnd = end;
+                start = -1;
+                count = 0;
             }
-            end = i;
+        }
+        if (start > 0 && maxCount <= count) {
+
+            maxStart = start;
+            maxEnd = end;
         }
         if (maxStart >= 0) {
             return new ArrayList<>(A.subList(maxStart, maxEnd + 1));
         }
         return new ArrayList<>();
+    }
+
+    public static void main(String[] args) {
+        int[] arr1 = new int[]{756898537, -1973594324, -2038664370, -184803526, 1424268980};
+        ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
+        System.out.println(Arrays1.maxNonNegativeSubArray(array));
     }
 }

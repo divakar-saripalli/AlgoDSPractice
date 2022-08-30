@@ -102,11 +102,9 @@ public class SortingProblems {
         }
 
         int mostCommonLength = Integer.MIN_VALUE;
-        int keyToLook = 0;
         for (Integer key : lengthsCount.keySet()) {
             if (lengthsCount.get(key) > mostCommonLength) {
                 mostCommonLength = lengthsCount.get(key);
-                keyToLook = key;
             }
         }
 

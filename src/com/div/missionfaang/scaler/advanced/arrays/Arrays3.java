@@ -67,14 +67,30 @@ public class Arrays3 {
     }
 
     private static int maxAbsoluteDifference(ArrayList<Integer> A) {
-        int max = Integer.MIN_VALUE;
+//        O(N^2) Approach
+//        int max = Integer.MIN_VALUE;
+//        for (int i = 0; i < A.size(); i++) {
+//            for (int j = i + 1, k = A.size() - 1; j < k; j++, k--) {
+//                max = Math.max(max, (Math.abs(A.get(i) - A.get(j)) + Math.abs(i - j)));
+//                max = Math.max(max, (Math.abs(A.get(i) - A.get(k)) + Math.abs(i - k)));
+//            }
+//        }
+//        return max;
+
+//        O(N) approach
+        int max1 = Integer.MIN_VALUE;
+        int min1 = Integer.MAX_VALUE;
+        int max2 = Integer.MIN_VALUE;
+        int min2 = Integer.MAX_VALUE;
         for (int i = 0; i < A.size(); i++) {
-            for (int j = i + 1, k = A.size() - 1; j < k; j++, k--) {
-                max = Math.max(max, (Math.abs(A.get(i) - A.get(j)) + Math.abs(i - j)));
-                max = Math.max(max, (Math.abs(A.get(i) - A.get(k)) + Math.abs(i - k)));
-            }
+            int val1 = A.get(i) + i;
+            int val2 = A.get(i) - i;
+            max1 = Math.max(max1, val1);
+            max2 = Math.max(max2, val2);
+            min1 = Math.min(min1, val1);
+            min2 = Math.min(min2, val2);
         }
-        return max;
+        return Math.max(max1 - min1, max2 - min2);
     }
 
     private static ArrayList<Interval> mergeOverlappingIntervals(ArrayList<Interval> intervals) {
@@ -85,9 +101,6 @@ public class Arrays3 {
                 intervals.get(i).start = Math.min(intervals.get(i).start, intervals.get(i + 1).start);
                 intervals.get(i).end = Math.max(intervals.get(i).end, intervals.get(i + 1).end);
                 intervals.remove(i + 1);
-                i--;
-            } else if (intervals.get(i).end == intervals.get(i).start) {
-                intervals.remove(i);
                 i--;
             }
         }
@@ -130,6 +143,65 @@ public class Arrays3 {
             }
             return resultantArray;
         }
+    }
+
+    private static int maxOnes(ArrayList<ArrayList<Integer>> A) {
+        int max = Integer.MIN_VALUE;
+        int count = 0;
+        int maxRow = 0;
+        for (int i = 0, j = A.get(0).size() - 1; i < A.size() && j > -1; ) {
+            if (A.get(i).get(j) == 1) {
+                if (count == 0 && max > 0) {
+                    count = max + 1;
+                } else {
+                    count++;
+                }
+                j--;
+            } else {
+                if (count > max) {
+                    maxRow = i;
+                    max = count;
+                }
+                i++;
+                count = 0;
+            }
+        }
+        if (count > max) {
+            return A.size() - 1;
+        }
+        return maxRow;
+    }
+
+    private static int minimumSwaps(ArrayList<Integer> A, int B) {
+        int greaterCount = 0;
+        int lessCount = 0;
+        boolean found = false;
+        int swapCount = 0;
+        for (Integer integer : A) {
+            if (integer > B) {
+                greaterCount++;
+                found = true;
+            }
+            if (integer <= B && found) {
+                lessCount++;
+            }
+        }
+        swapCount = Math.min(greaterCount, lessCount);
+
+        greaterCount = 0;
+        lessCount = 0;
+        found = false;
+        for (int i = A.size() - 1; i >= 0; i--) {
+            if (A.get(i) > B) {
+                greaterCount++;
+                found = true;
+            }
+            if (A.get(i) <= B && found) {
+                lessCount++;
+            }
+        }
+
+        return Math.min(swapCount, Math.min(greaterCount, lessCount));
     }
 
     public static void main(String[] args) {
