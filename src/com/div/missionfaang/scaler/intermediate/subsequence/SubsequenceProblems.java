@@ -1,5 +1,7 @@
 package com.div.missionfaang.scaler.intermediate.subsequence;
 
+import com.div.missionfaang.scaler.ArrayUtility;
+
 import java.util.ArrayList;
 
 public class SubsequenceProblems {
@@ -83,25 +85,27 @@ public class SubsequenceProblems {
     }
 
     private static int subarrayOr(ArrayList<Integer> A) {
-        int sum = 0;
-        int mod = 1000000007;
-        long total = (((long) A.size() * (A.size() + 1)) / 2);
+        long sum = 0;
         for (int i = 0; i < 32; i++) {
+            long total = (((long) A.size() * (A.size() + 1)) / 2);
             int count = 0;
-            for (int j = 0; j < A.size(); j++) {
-                if ((A.get(j) & (1 << i)) == 0) {
+            for (Integer integer : A) {
+                if ((integer & (1 << i)) == 0) {
                     count++;
                 } else {
                     total -= ((long) count * (count + 1)) / 2;
+                    count = 0;
                 }
             }
             total -= ((long) count * (count + 1)) / 2;
             sum += total * (1 << i);
         }
-        return sum % mod;
+        return (int) (sum);
     }
 
     public static void main(String[] args) {
-
+        int[] arr1 = new int[]{1, 2, 3, 4, 5};
+        ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
+        System.out.println(SubsequenceProblems.subarrayOr(array));
     }
 }
