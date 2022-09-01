@@ -54,25 +54,42 @@ public class BitManipulation {
     }
 
     private static long reverse(long a) {
-        int bit;
-        StringBuilder reverseBinary = new StringBuilder();
-        while (a >= 2) {
-            bit = (int) (a % 2);
-            a /= 2;
-            reverseBinary.append(bit);
-        }
-        reverseBinary.append(a);
-        int length = reverseBinary.length();
-        if (length < 32) {
-            reverseBinary.append("0".repeat(Math.max(0, 32 - length)));
-        }
-        a = 0;
-        for (int i = reverseBinary.length() - 1, j = 0; i > -1; i--, j++) {
-            if (reverseBinary.charAt(i) == '1') {
-                a += Math.pow(2, j);
+//        int bit;
+//        StringBuilder reverseBinary = new StringBuilder();
+//        while (a >= 2) {
+//            bit = (int) (a % 2);
+//            a /= 2;
+//            reverseBinary.append(bit);
+//        }
+//        reverseBinary.append(a);
+//        int length = reverseBinary.length();
+//        if (length < 32) {
+//            reverseBinary.append("0".repeat(Math.max(0, 32 - length)));
+//        }
+//        a = 0;
+//        for (int i = reverseBinary.length() - 1, j = 0; i > -1; i--, j++) {
+//            if (reverseBinary.charAt(i) == '1') {
+//                a += Math.pow(2, j);
+//            }
+//        }
+//        return a;
+
+        long result = 0;
+        boolean add1 = ((a & 1) == 1);
+        for (int i = 0, j = 31; i < 32; i++, j--) {
+            if ((a & 1) != 0) {
+                if (i == 0) {
+                    // Because the greatest positive long is (2^31) - 1
+                    result += (1L << j) - 1;
+                } else {
+                    result += 1L << j;
+                }
             }
+            a = a >> 1;
         }
-        return a;
+        // returning result + 1 if the original number is odd because it was reduced by 1 
+        // while calculating the reverse bit above.
+        return (add1) ? result + 1 : result;
     }
 
     private static String interestingArray(ArrayList<Integer> A) {

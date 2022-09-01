@@ -82,6 +82,25 @@ public class SubsequenceProblems {
         return (i == A.length()) ? "YES" : "NO";
     }
 
+    private static int subarrayOr(ArrayList<Integer> A) {
+        int sum = 0;
+        int mod = 1000000007;
+        long total = (((long) A.size() * (A.size() + 1)) / 2);
+        for (int i = 0; i < 32; i++) {
+            int count = 0;
+            for (int j = 0; j < A.size(); j++) {
+                if ((A.get(j) & (1 << i)) == 0) {
+                    count++;
+                } else {
+                    total -= ((long) count * (count + 1)) / 2;
+                }
+            }
+            total -= ((long) count * (count + 1)) / 2;
+            sum += total * (1 << i);
+        }
+        return sum % mod;
+    }
+
     public static void main(String[] args) {
 
     }
