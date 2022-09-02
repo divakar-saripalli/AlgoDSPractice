@@ -3,6 +3,7 @@ package com.div.missionfaang.scaler.intermediate.subsequence;
 import com.div.missionfaang.scaler.ArrayUtility;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class SubsequenceProblems {
 
@@ -103,9 +104,22 @@ public class SubsequenceProblems {
         return (int) (sum);
     }
 
+    private static int sumTheDifference(ArrayList<Integer> A) {
+        Collections.sort(A);
+        int sum = 0;
+        for (int i = 0; i < A.size(); i++) {
+            int diff = A.get(A.size() - 1) - A.get(i);
+            for (int j = A.size() - 2; j >= i; j--) {
+                diff += A.get(A.size() - 1) - A.get(j);
+            }
+            sum += diff;
+        }
+        return sum;
+    }
+
     public static void main(String[] args) {
-        int[] arr1 = new int[]{1, 2, 3, 4, 5};
+        int[] arr1 = new int[]{5, 4, 2};
         ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
-        System.out.println(SubsequenceProblems.subarrayOr(array));
+        System.out.println(SubsequenceProblems.sumTheDifference(array));
     }
 }

@@ -1,6 +1,7 @@
 package com.div.missionfaang.scaler.advanced.bitmanipulation;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BitManipulationAdvanced {
@@ -76,5 +77,14 @@ public class BitManipulationAdvanced {
             }
         }
         return ((count & 1) == 0) ? "Yes" : "No";
+    }
+
+    private static int findMinXor(ArrayList<Integer> A) {
+        Collections.sort(A);
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < A.size() - 1; i++) {
+            min = Math.min(min, (A.get(i) ^ A.get(i + 1)));
+        }
+        return min;
     }
 }

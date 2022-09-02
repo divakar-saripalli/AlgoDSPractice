@@ -97,39 +97,24 @@ public class RecursionProblems {
     }
 
     private static ArrayList<Integer> grayCode(int a) {
-        ArrayList<Integer> result = new ArrayList<>();
-        for (int i = 0; i < Math.pow(2, a); i++) {
-            result.add(i);
-        }
-        result.add(0);
-        result.add(1);
-        return RecursionProblems.grayCode(a, result, 1, true);
-    }
-
-    private static ArrayList<Integer> grayCode(int a, ArrayList<Integer> result, int lastValue, boolean anding) {
-        if (lastValue == 0) {
+        if (a == 1) {
+            ArrayList<Integer> result = new ArrayList<>(2);
+            result.add(0);
+            result.add(1);
             return result;
         }
-        if (anding) {
-            lastValue = lastValue << 1;
-            lastValue = lastValue + 1;
-        } else {
-            lastValue = lastValue & (lastValue - 1);
+        ArrayList<Integer> result = RecursionProblems.grayCode(a - 1);
+        int end = result.size();
+        for (int i = end - 1; i > -1; i--) {
+            result.add(result.get(i) + (1 << (a - 1)));
         }
-        if (lastValue > 1) {
-            result.add(lastValue);
-        }
-        if (lastValue == Math.pow(2, a) - 1) {
-            anding = false;
-        }
-        return RecursionProblems.grayCode(a, result, lastValue, anding);
+        return result;
     }
-
     public static void main(String[] args) {
 //        Scanner sc = new Scanner(System.in);
 //        String N = sc.nextLine();
 //        System.out.println(RecursionProblems.sumOfDigitsToSingleDigit(83557));
 //        System.out.println(RecursionProblems.pow(-1, 1, 20));
-        System.out.println(RecursionProblems.grayCode(3));
+        System.out.println(RecursionProblems.grayCode(4));
     }
 }

@@ -173,35 +173,24 @@ public class Arrays3 {
     }
 
     private static int minimumSwaps(ArrayList<Integer> A, int B) {
-        int greaterCount = 0;
-        int lessCount = 0;
-        boolean found = false;
-        int swapCount = 0;
-        for (Integer integer : A) {
-            if (integer > B) {
-                greaterCount++;
-                found = true;
+        int start = -1;
+        int count = 0;
+        int minDistance = Integer.MAX_VALUE;
+        for (int i = 0; i < A.size(); i++) {
+            if (A.get(i) <= B && start == -1) {
+                start = i;
             }
-            if (integer <= B && found) {
-                lessCount++;
+            count++;
+        }
+        int inPlaceNumbers = 0;
+        for (int i = start + 1; i < A.size(); i++) {
+            if (A.get(i) <= B && (i - start) >= count) {
+
+            } else if (A.get(i) <= B && (i - start) < count) {
+                inPlaceNumbers++;
             }
         }
-        swapCount = Math.min(greaterCount, lessCount);
-
-        greaterCount = 0;
-        lessCount = 0;
-        found = false;
-        for (int i = A.size() - 1; i >= 0; i--) {
-            if (A.get(i) > B) {
-                greaterCount++;
-                found = true;
-            }
-            if (A.get(i) <= B && found) {
-                lessCount++;
-            }
-        }
-
-        return Math.min(swapCount, Math.min(greaterCount, lessCount));
+        return 1;
     }
 
     public static void main(String[] args) {
