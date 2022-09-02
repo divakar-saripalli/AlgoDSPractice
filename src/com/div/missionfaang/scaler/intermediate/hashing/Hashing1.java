@@ -199,20 +199,35 @@ public class Hashing1 {
     }
 
     private static int colorful(int A) {
-        HashSet<Integer> set = new HashSet<>();
-        while (A > 10) {
+        ArrayList<Integer> digits = new ArrayList<>();
+        while (A >= 10) {
             int digit = A % 10;
-            if (digit == 0) {
+            if (digit == 0 || digits.contains(digit)) {
                 return 0;
             }
-            set.add(digit);
+            digits.add(digit);
             A = A / 10;
         }
-        set.add(A);
-        int digitsCount = set.size();
-        int divisor = 100;
-        for (Integer digit : set) {
-            System.out.println(digit);
+        if (digits.contains(A)) {
+            return 0;
+        }
+        digits.add(A);
+        for (int i = 0, j = digits.size() - 1; i < j; i++, j--) {
+            int temp = digits.get(j);
+            digits.set(j, digits.get(i));
+            digits.set(i, temp);
+        }
+        HashSet<Integer> set = new HashSet<>(digits);
+        for (int i = 0; i < digits.size(); i++) {
+            int product = digits.get(i);
+            for (int j = i + 1; j < digits.size(); j++) {
+                if (set.contains(product * digits.get(j))) {
+                    return 0;
+                } else {
+                    set.add(product * digits.get(j));
+                    product *= digits.get(j);
+                }
+            }
         }
         return 1;
     }
@@ -224,6 +239,6 @@ public class Hashing1 {
 
 //        int[][] arr2 = new int[][]{{0, 2}};
 //        ArrayList<ArrayList<Integer>> arrayLists = Scaler.convert2DArrayTo2DList(arr2);
-        System.out.println(Hashing1.longestContinuousSequenceZeroSum(array));
+        System.out.println(Hashing1.colorful(263));
     }
 }
