@@ -81,7 +81,7 @@ public class BitManipulation2Adv {
      * NOTE: INT_MAX = 2^31 - 1
      * <p>
      * Problem Constraints
-     * -231 <= a, b <= 231-1
+     * -2^31 <= a, b <= 2^31-1
      * b != 0
      *
      * @param A
