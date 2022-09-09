@@ -7,6 +7,16 @@ import java.util.List;
 
 public class Arrays3 {
 
+    /**
+     * Given a set of non-overlapping intervals, insert a new interval into the intervals (merge if necessary).
+     * You may assume that the intervals were initially sorted according to their start times.
+     * <p>
+     * Solution:
+     *
+     * @param intervals
+     * @param newInterval
+     * @return
+     */
     private static ArrayList<Interval> insertOrMergeNewInterval(ArrayList<Interval> intervals, Interval newInterval) {
         if (intervals.size() == 0) {
             intervals.add(newInterval);
@@ -47,8 +57,25 @@ public class Arrays3 {
         return newIntervals;
     }
 
+    /**
+     * Given an unsorted integer array, A of size N. Find the first missing positive integer.
+     * Note: Your algorithm should run in O(n) time and use constant space.
+     * <p>
+     * Solution:
+     * <p>
+     * Try placing the value at the index where it belongs. After that,
+     * traverse from the start and find the index which is not having intended value and return index+1.
+     *
+     * @param A
+     * @return
+     */
     private static int firstMissingPositive(ArrayList<Integer> A) {
         for (int i = 0; i < A.size(); ) {
+            // Current element should be greater than 0
+            // Current element should be lesser than Array size
+            // Current element is not its index + 1
+            // Element at the index 0f current element value is also not the current element value, meaning if there are 
+            // duplicates and the same value is not already placed at that index already.
             if (A.get(i) > 0 && A.get(i) < A.size() && A.get(i) != i + 1 && !A.get(A.get(i) - 1).equals(A.get(i))) {
                 int temp = A.get(i);
                 A.set(i, A.get(temp - 1));
@@ -66,6 +93,28 @@ public class Arrays3 {
         return A.size() + 1;
     }
 
+    /**
+     * You are given an array of N integers, A1, A2, .... AN.
+     * <p>
+     * Return the maximum value of f(i, j) for all 1 ≤ i, j ≤ N. f(i, j) is defined as |A[i] - A[j]| + |i - j|, where |x| denotes absolute value of x.
+     * <p>
+     * Solution:
+     * <p>
+     * f(i, j) = |A[i] - A[j]| + |i - j| can be written in 4 ways (Since we are looking at max value,
+     * we don’t even care if the value becomes negative as long as we are also covering the max value in some way).
+     * <p>
+     * (A[i] + i) - (A[j] + j)
+     * -(A[i] - i) + (A[j] - j)
+     * (A[i] - i) - (A[j] - j)
+     * (-A[i] - i) + (A[j] + j) = -(A[i] + i) + (A[j] + j)
+     * Note that case 1 and 4 are equivalent and so are case 2 and 3.
+     * <p>
+     * We can construct two arrays with values: A[i] + i and A[i] - i. Then, for the above 2 cases, we find the maximum value possible.
+     * For that, we just have to store minimum and maximum values of expressions A[i] + i and A[i] - i for all i.
+     *
+     * @param A
+     * @return
+     */
     private static int maxAbsoluteDifference(ArrayList<Integer> A) {
 //        O(N^2) Approach
 //        int max = Integer.MIN_VALUE;
@@ -93,6 +142,12 @@ public class Arrays3 {
         return Math.max(max1 - min1, max2 - min2);
     }
 
+    /**
+     * Given a collection of intervals, merge all overlapping intervals.
+     *
+     * @param intervals
+     * @return
+     */
     private static ArrayList<Interval> mergeOverlappingIntervals(ArrayList<Interval> intervals) {
         intervals = (ArrayList<Interval>) Arrays3.mergeSort(intervals);
 
@@ -126,7 +181,7 @@ public class Arrays3 {
             int j = 0;
 
             while (i + j < array1.size() + array2.size()) {
-                Interval resultantArrayNextValue = null;
+                Interval resultantArrayNextValue;
                 if (i < array1.size() && j < array2.size()) {
                     if (array1.get(i).start < array2.get(j).start) {
                         resultantArrayNextValue = array1.get(i++);
@@ -145,6 +200,29 @@ public class Arrays3 {
         }
     }
 
+    /**
+     * Given a binary sorted matrix A of size N x N. Find the row with the maximum number of 1.
+     * <p>
+     * NOTE:
+     * <p>
+     * If two rows have the maximum number of 1 then return the row which has a lower index.
+     * Rows are numbered from top to bottom and columns are numbered from left to right.
+     * Assume 0-based indexing.
+     * Assume each row to be sorted by values.
+     * Expected time complexity is O(rows).
+     * <p>
+     * Solution:
+     * <p>
+     * If the matrix is sorted, starting from Top-Right or Bottom-Left would give better
+     * suggestion on which direction to go towards.
+     * <p>
+     * Hence, Start from Top left of the matrix. If the value is 1, decrease column by 1.
+     * Otherwise, go to next row.
+     * Increase the count each time you encounter a 1.
+     *
+     * @param A
+     * @return
+     */
     private static int maxOnes(ArrayList<ArrayList<Integer>> A) {
         int max = Integer.MIN_VALUE;
         int count = 0;
@@ -191,6 +269,15 @@ public class Arrays3 {
             }
         }
         return 1;
+    }
+
+    private static int maximumGap(List<Integer> A) {
+        for (int i = 0, j = A.size() - 1; i < j; i++, j--) {
+            if (A.get(i) <= A.get(j)) {
+                return j - i;
+            }
+        }
+        return 0;
     }
 
     public static void main(String[] args) {

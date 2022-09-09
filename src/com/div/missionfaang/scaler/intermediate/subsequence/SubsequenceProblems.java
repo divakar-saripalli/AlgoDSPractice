@@ -85,6 +85,30 @@ public class SubsequenceProblems {
         return (i == A.length()) ? "YES" : "NO";
     }
 
+    /**
+     * Idea is to consider the bits of each integer which could contribute in the ORing.
+     * Count all the consequent 0's and exclude the possible number of sub-arrays.
+     * With the remaining sub-arrays, multiply it with the 2^i.
+     * <p>
+     * For e.g. consider integers 7,2,5,9,1,8
+     * 7 ==> 0111
+     * 2 ==> 0010
+     * 5 ==> 0101
+     * 9 ==> 1001
+     * 1 ==> 0001
+     * 8 ==> 1000
+     * <p>
+     * If we consider right-most bit, integers 2 & 8 have 0's. So the possible sub-arrays they
+     * both together affect are 2. Now add (21 - 2) * (2 ^ 0) = 19 to the sum.
+     * In the next right bit, we have 5, 9, 1, 8 with 0's. They contribute to 10 sub-arrays.
+     * So add (21 - 10) * (2 ^ 1) = 22 to the total sum.
+     * Similar way, for 3rd bit (2nd from left) (21 - 7) * (2 ^ 2) = 56 and for 4th bit also
+     * (21 - 7) * (2 ^ 3) = 112
+     * Total = 112 + 56 + 22 + 19 = 209
+     *
+     * @param A List of integers
+     * @return int Total sum of ORed value of all possible sub arrays.
+     */
     private static int subarrayOr(ArrayList<Integer> A) {
         long sum = 0;
         for (int i = 0; i < 32; i++) {
@@ -105,12 +129,19 @@ public class SubsequenceProblems {
     }
 
     private static int sumTheDifference(ArrayList<Integer> A) {
+        if (A.size() == 1) {
+            return A.get(0);
+        }
         Collections.sort(A);
         int sum = 0;
+        for (Integer integer : A) {
+            sum += integer;
+        }
+        sum += A.get(A.size() - 1) - A.get(0);
         for (int i = 0; i < A.size(); i++) {
             int diff = A.get(A.size() - 1) - A.get(i);
-            for (int j = A.size() - 2; j >= i; j--) {
-                diff += A.get(A.size() - 1) - A.get(j);
+            for (int j = A.size() - 2; j > i; j--) {
+                diff += A.get(j) - A.get(j + 1);
             }
             sum += diff;
         }
@@ -118,8 +149,9 @@ public class SubsequenceProblems {
     }
 
     public static void main(String[] args) {
-        int[] arr1 = new int[]{5, 4, 2};
+        int[] arr1 = new int[]{7, 8, 6, 4, 6};
         ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
+//        System.out.println(SubsequenceProblems.sumTheDifference(array));
         System.out.println(SubsequenceProblems.sumTheDifference(array));
     }
 }

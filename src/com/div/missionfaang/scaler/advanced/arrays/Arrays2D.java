@@ -5,6 +5,19 @@ import com.div.missionfaang.scaler.ArrayUtility;
 import java.util.ArrayList;
 
 public class Arrays2D {
+    /**
+     * Given a 2D Matrix A of dimensions N*N, we need to return the sum of all possible sub-matrices.
+     * <p>
+     * Solution:
+     * <p>
+     * Solution:
+     * <p>
+     * "Sum of all" should trigger to use "Contribution" technique.
+     * In a matrix, the contribution of a cell would be (row + 1) * (col + 1) * (Total rows - current row)  * (Total cols - current column)
+     *
+     * @param A
+     * @return
+     */
     private static int sumOfAllSubMatrices(ArrayList<ArrayList<Integer>> A) {
         int sum = 0;
         for (int i = 0; i < A.size(); i++) {
@@ -97,6 +110,23 @@ public class Arrays2D {
         return -1;
     }
 
+    /**
+     * Given a matrix of integers A of size N x M and multiple queries Q, for each query, find and return the submatrix sum.
+     * <p>
+     * Inputs to queries are top left (b, c) and bottom right (d, e) indexes of submatrix whose sum is to find out.
+     * <p>
+     * NOTE:
+     * <p>
+     * Rows are numbered from top to bottom, and columns are numbered from left to right.
+     * Sum may be large, so return the answer mod 109 + 7.
+     *
+     * @param A
+     * @param B
+     * @param C
+     * @param D
+     * @param E
+     * @return
+     */
     private static ArrayList<Integer> subMatrixSumQueries(ArrayList<ArrayList<Integer>> A, ArrayList<Integer> B, ArrayList<Integer> C, ArrayList<Integer> D, ArrayList<Integer> E) {
         ArrayList<ArrayList<Integer>> prefixSumMatrix = Arrays2D.generatePrefixSumMatrix(A);
         System.out.println(prefixSumMatrix);

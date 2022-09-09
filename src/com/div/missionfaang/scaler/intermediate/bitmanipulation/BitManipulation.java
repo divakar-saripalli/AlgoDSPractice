@@ -7,73 +7,59 @@ import java.util.List;
 
 public class BitManipulation {
 
+    /**
+     * Given two binary strings, return their sum (also a binary string).
+     * Example:
+     * a = "100"
+     * b = "11"
+     * Return a + b = "111".
+     *
+     * @param A binary representation of an integer
+     * @param B binary representation of an integer
+     * @return String binary representation of sum.
+     */
     private static String addBinary(String A, String B) {
-        String bigString = A.length() > B.length() ? A : B;
-        String smallString = A.equals(bigString) ? B : A;
-        StringBuilder result = new StringBuilder();
-        char carry = '0';
-        for (int i = smallString.length() - 1, j = bigString.length() - 1; i > -1; i--, j--) {
-            if (smallString.charAt(i) != bigString.charAt(j)) {
-                if (carry != '1') {
-                    result.insert(0, "1");
-                } else {
-                    result.insert(0, "0");
-                }
-            } else {
-                if (carry != '1') {
-                    result.insert(0, "0");
-                    if (smallString.charAt(i) == '1') {
-                        carry = '1';
-                    }
-                } else {
-                    result.insert(0, "1");
-                    if (smallString.charAt(i) != '1') {
-                        carry = '0';
-                    }
-                }
-            }
-        }
-
-        for (int i = bigString.length() - smallString.length() - 1; i > -1; i--) {
-            if (carry != '1') {
-                result.insert(0, bigString.charAt(i));
-            } else {
-                if (bigString.charAt(i) != '1') {
-                    result.insert(0, "1");
-                    carry = '0';
-                } else {
-                    result.insert(0, "0");
-                }
-            }
-        }
-        if (carry == '1') {
-            result.insert(0, "1");
-        }
-
-        return result.toString();
+        return BitManipulation.addBinaryStrings(A, B);
     }
 
-    private static long reverse(long a) {
-//        int bit;
-//        StringBuilder reverseBinary = new StringBuilder();
-//        while (a >= 2) {
-//            bit = (int) (a % 2);
-//            a /= 2;
-//            reverseBinary.append(bit);
-//        }
-//        reverseBinary.append(a);
-//        int length = reverseBinary.length();
-//        if (length < 32) {
-//            reverseBinary.append("0".repeat(Math.max(0, 32 - length)));
-//        }
-//        a = 0;
-//        for (int i = reverseBinary.length() - 1, j = 0; i > -1; i--, j++) {
-//            if (reverseBinary.charAt(i) == '1') {
-//                a += Math.pow(2, j);
-//            }
-//        }
-//        return a;
+    public static String addBinaryStrings(String A, String B) {
+        if (A.length() > B.length()) {
+            B = "0".repeat(A.length() - B.length()) + B;
+        } else if (B.length() > A.length()) {
+            A = "0".repeat(B.length() - A.length()) + A;
+        }
 
+        StringBuilder result = new StringBuilder();
+        boolean carry = false;
+        for (int i = A.length() - 1; i > -1; i--) {
+            if (A.charAt(i) == B.charAt(i)) {
+                if (carry) {
+                    result.append('1');
+                } else {
+                    result.append('0');
+                }
+                carry = (A.charAt(i) == '1');
+            } else {
+                if (carry) {
+                    result.append('0');
+                } else {
+                    result.append('1');
+                }
+            }
+        }
+        if (carry) {
+            result.append('1');
+        }
+        return result.reverse().toString();
+    }
+
+    /**
+     * Reverse the bits of an 32-bit unsigned integer A.
+     *
+     * @param a integer to be reversed (bits)
+     * @return integer
+     */
+    private static long reverse(long a) {
         long result = 0;
         boolean add1 = ((a & 1) == 1);
         for (int i = 0, j = 31; i < 32; i++, j--) {
@@ -110,16 +96,21 @@ public class BitManipulation {
         return ans;
     }
 
-    public int numberOf1Bits(int A) {
+    /**
+     * Write a function that takes an integer and returns the number of 1 bits it has.
+     * <p>
+     * Any number N ANDing with N-1 will make the last set-bit of N to 0.
+     * So, ANDing a number with number 1 less than it until it becomes 0 will give us
+     * the count of set bits.
+     *
+     * @param A
+     * @return
+     */
+    public static int numberOf1Bits(int A) {
         int count = 0;
-        while (A > 1) {
-            if (A % 2 != 0) {
-                count++;
-            }
-            A = A >> 1;
-        }
-        if (A == 1) {
+        while (A > 0) {
             count++;
+            A = A & (A - 1);
         }
         return count;
     }
@@ -161,6 +152,15 @@ public class BitManipulation {
         return (long) sum;
     }
 
+    /**
+     * Given an array of positive integers A, two integers appear only once, and all the other integers appear twice.
+     * Find the two integers that appear only once.
+     * <p>
+     * Note: Return the two numbers in ascending order.
+     *
+     * @param A
+     * @return ArrayList
+     */
     private static ArrayList<Integer> singleNumber3(ArrayList<Integer> A) {
         int xor = 0;
         for (Integer integer : A) {

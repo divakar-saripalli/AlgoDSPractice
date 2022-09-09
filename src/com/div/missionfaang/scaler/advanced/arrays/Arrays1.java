@@ -97,42 +97,79 @@ public class Arrays1 {
     }
 
     private static ArrayList<Integer> maxNonNegativeSubArray(ArrayList<Integer> A) {
-        int maxCount = 0;
-        int count = 0;
-        int start = -1;
-        int end = -1;
+//        int maxCount = 0;
+//        int count = 0;
+//        int start = -1;
+//        int end = -1;
+//        int maxStart = -1;
+//        int maxEnd = -1;
+//        for (int i = 0; i < A.size(); i++) {
+//            if (A.get(i) > -1) {
+//                count++;
+//                if (start == -1) {
+//                    start = i;
+//                }
+//                end = i;
+//            } else if (maxCount < count) {
+//                maxCount = count;
+//                maxStart = start;
+//                maxEnd = end;
+//                start = -1;
+//                count = 0;
+//            } else if ((maxCount == count) &&
+//                    ((maxEnd - maxStart < end - start))) {
+//                maxStart = start;
+//                maxEnd = end;
+//                start = -1;
+//                count = 0;
+//            }
+//        }
+//        if (start > 0 && maxCount <= count) {
+//
+//            maxStart = start;
+//            maxEnd = end;
+//        }
+//        if (maxStart >= 0) {
+//            return new ArrayList<>(A.subList(maxStart, maxEnd + 1));
+//        }
+//        return new ArrayList<>();
+        ArrayList<Long> prefixSumArray = new ArrayList<>(A.size());
+        prefixSumArray.add(Long.valueOf(A.get(0)));
+        for (int i = 1; i < A.size(); i++) {
+            prefixSumArray.add(prefixSumArray.get(i - 1) + A.get(i));
+        }
+
+        long sum = 0;
+        long maxSum = Long.MIN_VALUE;
+        int start = 0;
+        int end = 0;
         int maxStart = -1;
         int maxEnd = -1;
-        for (int i = 0; i < A.size(); i++) {
-            if (A.get(i) > -1) {
-                count++;
-                if (start == -1) {
-                    start = i;
+        if (prefixSumArray.get(0) > 0) {
+            sum = prefixSumArray.get(0);
+        }
+        for (int i = 1; i < prefixSumArray.size(); i++) {
+            if (A.get(i) < A.get(i - 1)) {
+                // This means we encountered a negative number.
+                if (maxSum < sum) {
+                    maxStart = start;
+                    maxEnd = end;
+                    maxSum = sum;
                 }
+                sum = 0;
+                start = i + 1;
+                end = i + 1;
+            } else {
+                sum += prefixSumArray.get(i);
                 end = i;
-            } else if (maxCount < count) {
-                maxCount = count;
-                maxStart = start;
-                maxEnd = end;
-                start = -1;
-                count = 0;
-            } else if ((maxCount == count) &&
-                    ((maxEnd - maxStart < end - start))) {
-                maxStart = start;
-                maxEnd = end;
-                start = -1;
-                count = 0;
             }
         }
-        if (start > 0 && maxCount <= count) {
 
-            maxStart = start;
-            maxEnd = end;
+        ArrayList<Integer> result = new ArrayList<>();
+        for (int i = maxStart; i <= maxEnd && i > -1; i++) {
+            result.add(A.get(i));
         }
-        if (maxStart >= 0) {
-            return new ArrayList<>(A.subList(maxStart, maxEnd + 1));
-        }
-        return new ArrayList<>();
+        return result;
     }
 
     public static void main(String[] args) {
