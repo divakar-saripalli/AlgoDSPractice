@@ -102,6 +102,14 @@ public class ModularArithmeticAdvanced {
         return (int) (ans % mod);
     }
 
+    private static int primeModuloInverse(int A, int B) {
+        if (B == 1) {
+            return A;
+        }
+        return ModularArithmeticAdvanced.pow(A, B - 2, B);
+    }
+
+
     public static void main(String[] args) {
         int[] arr1 = new int[]{2, 3, 1, 0};
         ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);

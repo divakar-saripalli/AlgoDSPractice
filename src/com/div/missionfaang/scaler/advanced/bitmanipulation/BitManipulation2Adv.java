@@ -112,6 +112,7 @@ public class BitManipulation2Adv {
                 a -= (b << i);
             }
         }
+
         if (dividend >= Integer.MAX_VALUE) {
             if (positive) {
                 return Integer.MAX_VALUE;
@@ -122,16 +123,6 @@ public class BitManipulation2Adv {
             return (int) dividend;
         }
         return (int) (dividend * -1);
-//        while (b != 1 && b != Integer.MAX_VALUE && b != 0) {
-//            if ((a & 1) != 0) {
-//                a++;
-//            }
-//            if ((b & 1) != 0) {
-//                b++;
-//            }
-//            a = a >> 1;
-//            b = b >> 1;
-//        }
     }
 
     /**
