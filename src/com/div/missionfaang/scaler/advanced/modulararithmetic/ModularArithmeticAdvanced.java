@@ -102,11 +102,47 @@ public class ModularArithmeticAdvanced {
         return (int) (ans % mod);
     }
 
+    /**
+     * Given two integers A and B. Find the value of A-1 mod B where B is a prime number and gcd(A, B) = 1.
+     * <p>
+     * A-1 mod B is also known as modular multiplicative inverse of A under modulo B.
+     *
+     * @param A
+     * @param B
+     * @return
+     */
     private static int primeModuloInverse(int A, int B) {
         if (B == 1) {
             return A;
         }
         return ModularArithmeticAdvanced.pow(A, B - 2, B);
+    }
+
+    /**
+     * Given two Integers A, B. You have to calculate (A ^ (B!)) % (1e9 + 7).
+     * <p>
+     * "^" means power,
+     * <p>
+     * "%" means "mod", and
+     * <p>
+     * "!" means factorial.
+     *
+     * @param A
+     * @param B
+     * @return
+     */
+    private static int veryLargePower(int A, int B) {
+        int mod = 1000000007;
+        return (int) (ModularArithmeticAdvanced.powerOfFactorial(A, B, mod)) % mod;
+    }
+
+    private static long powerOfFactorial(int A, int B, int mod) {
+        if (B == 0) {
+            return 1;
+        }
+        long result = ModularArithmeticAdvanced.powerOfFactorial(A, B - 1, mod);
+        result *= ModularArithmeticAdvanced.pow(A, B, mod);
+        return result % mod;
     }
 
 

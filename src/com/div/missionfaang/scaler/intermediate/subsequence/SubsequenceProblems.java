@@ -148,10 +148,57 @@ public class SubsequenceProblems {
         return sum;
     }
 
+    /**
+     * Given a set of distinct integers A, return all possible subsets.
+     * <p>
+     * NOTE:
+     * <p>
+     * Elements in a subset must be in non-descending order.
+     * The solution set must not contain duplicate subsets.
+     * Also, the subsets should be sorted in ascending ( lexicographic ) order.
+     * The list is not necessarily sorted.
+     * <p>
+     * Input : A = [1, 2, 3]
+     * <p>
+     * Output :
+     * <p>
+     * [
+     * []
+     * [1]
+     * [1, 2]
+     * [1, 2, 3]
+     * [1, 3]
+     * [2]
+     * [2, 3]
+     * [3]
+     * ]
+     *
+     * @param A
+     * @return
+     */
+    private static ArrayList<ArrayList<Integer>> subsets(ArrayList<Integer> A) {
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+        Collections.sort(A);
+        ArrayList<Integer> currentList = new ArrayList<>();
+        SubsequenceProblems.subsets(A, result, currentList, 0);
+        result.add(0, currentList);
+        return result;
+    }
+
+    private static void subsets(ArrayList<Integer> A, ArrayList<ArrayList<Integer>> result, ArrayList<Integer> currentList, int currentIndex) {
+        if (currentIndex < A.size()) {
+            currentList = new ArrayList<>(currentList);
+            SubsequenceProblems.subsets(A, result, currentList, currentIndex + 1);
+            currentList.add(A.get(currentIndex));
+            SubsequenceProblems.subsets(A, result, currentList, currentIndex + 1);
+            result.add(0, currentList);
+        }
+    }
+
     public static void main(String[] args) {
-        int[] arr1 = new int[]{7, 8, 6, 4, 6};
+        int[] arr1 = new int[]{12, 13};
         ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
 //        System.out.println(SubsequenceProblems.sumTheDifference(array));
-        System.out.println(SubsequenceProblems.sumTheDifference(array));
+        System.out.println(SubsequenceProblems.subsets(array));
     }
 }
