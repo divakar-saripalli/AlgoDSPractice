@@ -18,7 +18,7 @@ public class RecursionProblems {
      * @return
      */
     private static int sumOfDigits(int A) {
-        if (A > 10) {
+        if (A >= 10) {
             A = RecursionProblems.sumOfDigits(A / 10) + (A % 10);
         }
         return A;

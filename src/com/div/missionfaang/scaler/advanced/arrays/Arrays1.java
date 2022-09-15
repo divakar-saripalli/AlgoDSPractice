@@ -172,9 +172,66 @@ public class Arrays1 {
         return result;
     }
 
+    /**
+     * You are given a binary string A(i.e., with characters 0 and 1) consisting of characters A1, A2, ..., AN.
+     * In a single operation, you can choose two indices, L and R, such that 1 ≤ L ≤ R ≤ N and flip the characters AL, AL+1, ..., AR.
+     * By flipping, we mean changing character 0 to 1 and vice-versa.
+     * <p>
+     * Your aim is to perform AT MOST one operation such that in the final string number of 1s is maximized.
+     * <p>
+     * If you don't want to perform the operation, return an empty array.
+     * Else, return an array consisting of two elements denoting L and R.
+     * If there are multiple solutions, return lexicographically the smallest pair of L and R.
+     * <p>
+     * NOTE: Pair (a, b) is lexicographically smaller than pair (c, d) if a < c or, if a == c and b < d.
+     * <p>
+     * Approach:
+     * <p>
+     * We are supposed to find the subarray which has 0's outnumbering the 1s
+     * and find the maximum subarray among all such sub-arrays.
+     *
+     * @param A
+     * @return
+     */
+    private static ArrayList<Integer> flip(String A) {
+        int maxLeft = -1;
+        int maxRight = -1;
+        int left = 0;
+        int right = -1;
+        int sum = 0;
+        int max = 0;
+        for (int i = 0; i < A.length(); i++) {
+            if (A.charAt(i) == '0') {
+                sum += 1;
+            } else {
+                sum += -1;
+            }
+            if (max < sum) {
+                max = sum;
+                right = i;
+                maxLeft = left;
+                maxRight = right;
+            }
+            if (sum < 0) {
+                sum = 0;
+                left = i + 1;
+            }
+        }
+        if (left < right) {
+            maxLeft = left;
+        }
+        if (maxLeft > -1) {
+            ArrayList<Integer> res = new ArrayList<>();
+            res.add(maxLeft + 1);
+            res.add(maxRight + 1);
+            return res;
+        }
+        return new ArrayList<>();
+    }
+
     public static void main(String[] args) {
         int[] arr1 = new int[]{756898537, -1973594324, -2038664370, -184803526, 1424268980};
         ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
-        System.out.println(Arrays1.maxNonNegativeSubArray(array));
+        System.out.println(Arrays1.flip("1100100"));
     }
 }

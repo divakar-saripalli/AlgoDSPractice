@@ -128,24 +128,64 @@ public class SubsequenceProblems {
         return (int) (sum);
     }
 
+    /**
+     * Given an integer array, A of size N.
+     * You have to find all possible non-empty subsequences of the array of numbers and then, for each subsequence,
+     * find the difference between the largest and smallest numbers in that subsequence. Then add up all the differences to get the number.
+     * <p>
+     * As the number may be large, output the number modulo 1e9 + 7 (1000000007).
+     * <p>
+     * NOTE: Subsequence can be non-contiguous.
+     * <p>
+     * Approach:
+     * <p>
+     * Consider an array [3, 8, 2, 7, 5]
+     * The possible number of subsequences would be 2^n ==> 2^5 in this case. They are
+     * [ [], [2], [2, 3], [2, 3, 5], [2, 3, 5, 7], [2, 3, 5, 7, 8], [2, 3, 5, 8], [2, 3, 7],
+     * [2, 3, 7, 8], [2, 3, 8], [2, 5], [2, 5, 7], [2, 5, 7, 8], [2, 5, 8], [2, 7], [2, 7, 8],
+     * [2, 8], [3], [3, 5], [3, 5, 7], [3, 5, 7, 8], [3, 5, 8], [3, 7], [3, 7, 8], [3, 8], [5],
+     * [5, 7], [5, 7, 8], [5, 8], [7], [7, 8], [8] ]
+     * <p>
+     * Weather we consider subsequences [3, 8] or [3, 8, 7, 5], the highest and least would
+     * remain 8 and 3 respectively.
+     * <p>
+     * Given that sorting the array will not make any difference in finding the difference between
+     * highest and least, because the all the subsequences would contain all the elements.
+     * <p>
+     * After sorting the array, the array would look like [2, 3, 5, 7, 8]
+     * <p>
+     * Now consider the sub-array [2, 3, 5, 7], we can have 2^2 subsequences with 2 as least and 7 as highest. They are
+     * [2, 7], [2, 3, 7], [2, 5, 7], [2, 3, 5, 7].
+     * <p>
+     * To generalize it, 2^(j - i - 1) subsequences.
+     * <p>
+     * So the contribution of (7 - 2) would be 2^(3 - 0 - 1) * (7 - 2) ==> 2^2 * 5
+     * <p>
+     * Now to find the contribution of all the possible difference between max and min of all subsequences,
+     * consider a sorted array [a, b, c, d].
+     * 2^2(d - a) + 2^1(d - b) + 2^0(d - c) + 2^1(c - a) + 2^0(b - a) + 2^0(c - b). This becomes
+     * 2^2(d - a) + 2^1(d - b + c - a) + 2^0(d - c + b - a + c - b). This becomes
+     * 2^2(d - a) + 2^1(d - b + c - a) + 2^0(d - a). This becomes
+     * d(2^2 + 2^1 + 2^0) + c(2^1) - b(2^1) - a(2^2 + 2^1 + 2^0). This can be written as
+     * d(2^3 - 1) + 2c(2^1 - 1) - 2b(2^1 - 1) - a(2^3 - 1). This becomes
+     * (2^3*d + 2^2*c + 2^1*b + 2^0*a) - (2^3*a + 2^2*b + 2^1*c + 2^0*d)
+     *
+     * @param A
+     * @return
+     */
     private static int sumTheDifference(ArrayList<Integer> A) {
         if (A.size() == 1) {
             return A.get(0);
         }
         Collections.sort(A);
-        int sum = 0;
-        for (Integer integer : A) {
-            sum += integer;
+        int maxSum = 0;
+        int minSum = 0;
+        int mod = 1000000007;
+        for (int i = 0, j = A.size() - 1, k = A.size() - 1; i < A.size(); i++, j--, k--) {
+            maxSum = ((maxSum % mod) + (int) (((A.get(j) % mod) * (1L << k) % mod) % mod)) % mod;
+            minSum = ((minSum % mod) + (int) (((A.get(i) % mod) * (1L << k) % mod) % mod)) % mod;
         }
-        sum += A.get(A.size() - 1) - A.get(0);
-        for (int i = 0; i < A.size(); i++) {
-            int diff = A.get(A.size() - 1) - A.get(i);
-            for (int j = A.size() - 2; j > i; j--) {
-                diff += A.get(j) - A.get(j + 1);
-            }
-            sum += diff;
-        }
-        return sum;
+        return (maxSum - minSum + mod) % mod;
     }
 
     /**
@@ -196,7 +236,7 @@ public class SubsequenceProblems {
     }
 
     public static void main(String[] args) {
-        int[] arr1 = new int[]{12, 13};
+        int[] arr1 = new int[]{3, 8, 2, 7, 5};
         ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
 //        System.out.println(SubsequenceProblems.sumTheDifference(array));
         System.out.println(SubsequenceProblems.subsets(array));
