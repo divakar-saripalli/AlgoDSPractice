@@ -163,12 +163,18 @@ public class SubsequenceProblems {
      * <p>
      * Now to find the contribution of all the possible difference between max and min of all subsequences,
      * consider a sorted array [a, b, c, d].
-     * 2^2(d - a) + 2^1(d - b) + 2^0(d - c) + 2^1(c - a) + 2^0(b - a) + 2^0(c - b). This becomes
-     * 2^2(d - a) + 2^1(d - b + c - a) + 2^0(d - c + b - a + c - b). This becomes
-     * 2^2(d - a) + 2^1(d - b + c - a) + 2^0(d - a). This becomes
-     * d(2^2 + 2^1 + 2^0) + c(2^1) - b(2^1) - a(2^2 + 2^1 + 2^0). This can be written as
-     * d(2^3 - 1) + 2c(2^1 - 1) - 2b(2^1 - 1) - a(2^3 - 1). This becomes
-     * (2^3*d + 2^2*c + 2^1*b + 2^0*a) - (2^3*a + 2^2*b + 2^1*c + 2^0*d)
+     * <p>
+     * 2^2(d - a) + 2^1(d - b) + 2^0(d - c) + 2^1(c - a) + 2^0(b - a) + 2^0(c - b). 
+     * <p>
+     * This becomes 2^2(d - a) + 2^1(d - b + c - a) + 2^0(d - c + b - a + c - b).
+     * <p>
+     * This becomes 2^2(d - a) + 2^1(d - b + c - a) + 2^0(d - a). 
+     * <p>
+     * This becomes d(2^2 + 2^1 + 2^0) + c(2^1) - b(2^1) - a(2^2 + 2^1 + 2^0).
+     * <p>
+     * This can be written as d(2^3 - 1) + 2c(2^1 - 1) - 2b(2^1 - 1) - a(2^3 - 1).
+     * <p>
+     * This becomes (2^3*d + 2^2*c + 2^1*b + 2^0*a) - (2^3*a + 2^2*b + 2^1*c + 2^0*d)
      *
      * @param A
      * @return
@@ -181,9 +187,23 @@ public class SubsequenceProblems {
         int maxSum = 0;
         int minSum = 0;
         int mod = 1000000007;
-        for (int i = 0, j = A.size() - 1, k = A.size() - 1; i < A.size(); i++, j--, k--) {
-            maxSum = ((maxSum % mod) + (int) (((A.get(j) % mod) * (1L << k) % mod) % mod)) % mod;
-            minSum = ((minSum % mod) + (int) (((A.get(i) % mod) * (1L << k) % mod) % mod)) % mod;
+        // The loop multiplies the sum every time.
+        // Consider an array [a, b, c]
+        // The required equation is 2^2a + 2b+ c
+        // First iteration ==> ((0x2) + a) % mod.
+        // Since mod is very large, lets not consider it. 
+        // 1st iteration ==> a
+        // 2nd iteration ==> (2xa) + b ==> 2a + b
+        // 3rd iteration ==> 2x(2a + b) + c ==> 2^2a + 2b + c
+        for (Integer integer : A) {
+            minSum = minSum * 2;
+            minSum = (minSum + integer) % mod;
+        }
+
+        // Same loop as above one.
+        for (int j = A.size() - 1; j > -1; j--) {
+            maxSum = maxSum * 2;
+            maxSum = (maxSum + A.get(j)) % mod;
         }
         return (maxSum - minSum + mod) % mod;
     }
@@ -212,6 +232,8 @@ public class SubsequenceProblems {
      * [2, 3]
      * [3]
      * ]
+     * <p>
+     *
      *
      * @param A
      * @return
@@ -223,6 +245,26 @@ public class SubsequenceProblems {
         SubsequenceProblems.subsets(A, result, currentList, 0);
         result.add(0, currentList);
         return result;
+    }
+
+    private static int subSequenceSumProblem(ArrayList<Integer> A, int B) {
+        return (SubsequenceProblems.subSequenceSum(A, B, 0, 0) == B) ? 1 : 0;
+    }
+
+    private static int subSequenceSum(ArrayList<Integer> A, int B, int currentIndex, int currentSum) {
+        if (currentIndex < A.size()) {
+            int value = SubsequenceProblems.subSequenceSum(A, B, currentIndex + 1, currentSum);
+            if (value == B) {
+                return value;
+            }
+            currentSum += A.get(currentIndex);
+
+            value = SubsequenceProblems.subSequenceSum(A, B, currentIndex + 1, currentSum);
+            if (value == B) {
+                return value;
+            }
+        }
+        return currentSum;
     }
 
     private static void subsets(ArrayList<Integer> A, ArrayList<ArrayList<Integer>> result, ArrayList<Integer> currentList, int currentIndex) {
