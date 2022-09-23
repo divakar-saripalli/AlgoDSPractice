@@ -5,7 +5,7 @@ import com.div.missionfaang.scaler.ArrayUtility;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Arrays1 {
+public class AdvArrays1 {
 
     private static ArrayList<Integer> beggarsOutsideTemple(int A, ArrayList<ArrayList<Integer>> B) {
         ArrayList<Integer> beggarsPots = new ArrayList<>(A);
@@ -232,6 +232,6 @@ public class Arrays1 {
     public static void main(String[] args) {
         int[] arr1 = new int[]{756898537, -1973594324, -2038664370, -184803526, 1424268980};
         ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
-        System.out.println(Arrays1.flip("1100100"));
+        System.out.println(AdvArrays1.flip("1100100"));
     }
 }

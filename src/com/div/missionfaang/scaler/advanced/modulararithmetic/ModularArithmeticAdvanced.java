@@ -42,7 +42,7 @@ public class ModularArithmeticAdvanced {
         return (Math.abs(A - B));
     }
 
-    private static int pow(int A, int B, int C) {
+    public static int pow(int A, long B, int C) {
         if (A == 0) {
             return 0;
         }
@@ -126,25 +126,38 @@ public class ModularArithmeticAdvanced {
      * "%" means "mod", and
      * <p>
      * "!" means factorial.
+     * <p>
+     * If p is a prime number
+     * (a^p-1 % p) === 1 % p
+     * (a^p-1 % p) congruent 1 % p
+     * <p>
+     * So, (A^B!) % p could be written as (A^p-1 * A^p-1 * A^p-1...* A^x) % p
+     * <p>
+     * (A^p-1 * A^p-1 * A^p-1...* A^x) % p transfers to 1 * 1 * 1....*A^x
+     * Hence (A^B!) % p becomes A^x % p
+     * <p>
+     * Hence x = B! % (p - 1)
      *
      * @param A
      * @param B
      * @return
      */
     private static int veryLargePower(int A, int B) {
-        int mod = 1000000007;
-        return (int) (ModularArithmeticAdvanced.powerOfFactorial(A, B, mod)) % mod;
-    }
+        if (A == 0) {
+            return 0;
+        }
 
-    private static long powerOfFactorial(int A, int B, int mod) {
         if (B == 0) {
             return 1;
         }
-        long result = ModularArithmeticAdvanced.powerOfFactorial(A, B - 1, mod);
-        result *= ModularArithmeticAdvanced.pow(A, B, mod);
-        return result % mod;
-    }
+        int mod = 1000000007;
 
+        long bFactorial = 1;
+        for (int i = 2; i <= B; i++) {
+            bFactorial = (bFactorial * i) % (mod - 1);
+        }
+        return ModularArithmeticAdvanced.pow(A, bFactorial, mod) % mod;
+    }
 
     public static void main(String[] args) {
         int[] arr1 = new int[]{2, 3, 1, 0};

@@ -61,12 +61,38 @@ public class AdvSorting3 {
      * Note: You can reorder the position of elements within the subset to find the value of the magic number.
      * <p>
      * For Ex:-
+     *  <p>
      * subset 1 = {1, 5, 1},
+     *  <p>
      * subset 2 = {1, 7, 11}
+     *  <p>
      * Magic number = abs(1 - 1) + abs(5 - 7) + abs(1 - 11) = 12
+     *  <p>
      * Return an array B of size 2, where
+     *  <p>
      * B[0] = maximum possible value of Magic number modulo 109 + 7,
+     *  <p>
      * B[1] = minimum possible value of a Magic number modulo 109 + 7.
+     * <p>
+     * Approach: 
+     * <p>
+     * Step 1: Sort the array.
+     * <p>
+     * Step 2: Minimum possible magic number. 
+     *  <p>
+     *          This could be calculated by considering the adjacent numbers in the sorted array
+     * <p>
+     *          as they would be having the least difference. This implies that every alternate
+     * <p>
+     *          elements in the array form a subset.
+     * <p>
+     * Step 3: Maximum possible magic number.
+     *  <p>
+     *          This could be calculated by the difference of rightmost and leftmost cells of array
+     * <p>
+     *          and converging to the middle. This implies that the array is divided exactly half
+     * <p>
+     *          but one of the subarray is reversed and summation is performed.
      *
      * @param A
      * @return

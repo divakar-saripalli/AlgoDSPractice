@@ -1,5 +1,14 @@
 package com.div.missionfaang.scaler.advanced.gcd;
 
+/**
+ * Important GCD formulae:
+ * <p>
+ * gcd(a. b) == gcd(a, b-a)
+ * <p>
+ * gcd(a, b) == gcd(a, b%a)
+ * <p>
+ * lcm(a, b) == (a*b)/gcd(a,b)
+ */
 public class GCD {
 
     /**
@@ -15,19 +24,45 @@ public class GCD {
      */
     private static int divisorGame(int A, int B, int C) {
         int count = 0;
-        long divisor;
+        int divisor = 0;
         if (B % C == 0) {
-            divisor = B;
-        } else if (C % B == 0) {
             divisor = C;
+        } else if (C % B == 0) {
+            divisor = B;
         } else {
-            divisor = ((long) B * C);
+            divisor = GCD.gcd(B, C);
+            divisor *= (B / divisor) * (C / divisor);
         }
         if (A > divisor) {
             A -= (A % divisor);
-            count = (int) (A / divisor);
+            count = A / divisor;
         }
         return count;
+    }
+
+    private static int gcd(int A, int B) {
+        if (A == B) {
+            return A;
+        }
+
+        if (A == 0) {
+            return B;
+        }
+
+        if (B == 0) {
+            return A;
+        }
+
+        if (A == 1 || B == 1) {
+            return 1;
+        }
+
+        if (B < A) {
+            int temp = A;
+            A = B;
+            B = temp;
+        }
+        return GCD.gcd(A, B % A);
     }
 
     public static void main(String[] args) {
