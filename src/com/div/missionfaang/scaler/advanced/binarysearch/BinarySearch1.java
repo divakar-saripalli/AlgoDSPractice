@@ -114,6 +114,53 @@ public class BinarySearch1 {
         return 0;
     }
 
+    /**
+     * Given a sorted array of integers A of size N and an integer B.
+     * <p>
+     * array A is rotated at some pivot unknown to you beforehand.
+     * <p>
+     * (i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2 ).
+     * <p>
+     * You are given a target value B to search. If found in the array, return its index otherwise, return -1.
+     * <p>
+     * You may assume no duplicate exists in the array.
+     * <p>
+     * NOTE: Users are expected to solve this in O(log(N)) time.
+     *
+     * @param A
+     * @param B
+     * @return
+     */
+    private static int rotatedSortedArraySearch(List<Integer> A, int B) {
+        if (A.get(0) == B) {
+            return 0;
+        }
+        if (A.get(A.size() - 1) == B) {
+            return A.size() - 1;
+        }
+        int left = 0;
+        int right = A.size() - 1;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (A.get(mid) == B) {
+                return mid;
+            } else if (A.get(mid) > A.get(0) && A.get(mid) > B && B > A.get(0)) {
+                right = mid - 1;
+            } else if (A.get(mid) > A.get(0) && A.get(mid) > B && B < A.get(0)) {
+                left = mid + 1;
+            } else if (A.get(mid) > A.get(0) && A.get(mid) < B) {
+                left = mid + 1;
+            } else if (A.get(mid) < A.get(A.size() - 1) && A.get(mid) < B && B < A.get(A.size() - 1)) {
+                left = mid + 1;
+            } else if (A.get(mid) < A.get(A.size() - 1) && A.get(mid) > B) {
+                right = mid - 1;
+            } else if (A.get(mid) < A.get(A.size() - 1) && A.get(mid) < B && B > A.get(A.size() - 1)) {
+                right = mid - 1;
+            }
+        }
+        return -1;
+    }
+
     private static double findMedianSortedArrays(List<Integer> a, List<Integer> b) {
         if (a.size() == 0) {
             return (b.size() % 2 != 0) ? b.get(b.size() / 2) : (b.get(b.size() / 2) + b.get(b.size() / 2 - 1)) / 2.0d;
@@ -210,11 +257,11 @@ public class BinarySearch1 {
 //        int[] arr1 = new int[]{-50, -47, -36, -35, 0, 13, 14, 16};
 //        int[] arr2 = new int[]{-31, 1, 9, 23, 30, 39};
 
-        int[] arr1 = new int[]{-1};
+        int[] arr1 = new int[]{38, 40, 41, 43, 45, 47, 28, 29, 31, 33, 34, 36};
         int[] arr2 = new int[]{-1, 0, 4, 11, 18};
 
         ArrayList<Integer> array1 = ArrayUtility.convertArrayToList(arr1);
         ArrayList<Integer> array2 = ArrayUtility.convertArrayToList(arr2);
-        System.out.println(BinarySearch1.findMedianSortedArrays(array1, array2));
+        System.out.println(BinarySearch1.rotatedSortedArraySearch(array1, 47));
     }
 }
