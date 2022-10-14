@@ -3,6 +3,7 @@ package com.div.missionfaang.scaler.advanced.binarysearch;
 import com.div.missionfaang.scaler.ArrayUtility;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BinarySearch2 {
 
@@ -80,6 +81,45 @@ public class BinarySearch2 {
             }
         }
         return (int) ans;
+    }
+
+    private static int kthPrice(List<Integer> A, int B) {
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+
+        for (Integer price : A) {
+            min = Math.min(min, price);
+            max = Math.max(max, price);
+        }
+
+        if (B == 1) {
+            return min;
+        }
+
+        if (B == A.size()) {
+            return max;
+        }
+
+        while (min <= max) {
+            int countOfSmallerNumbers = 0;
+            int countOfEqualNumbers = 0;
+            int mid = (min + max) / 2;
+            for (Integer price : A) {
+                if (price < mid) {
+                    countOfSmallerNumbers++;
+                } else if (price == mid) {
+                    countOfEqualNumbers++;
+                }
+            }
+            if ((((countOfSmallerNumbers + countOfEqualNumbers) == B) && countOfEqualNumbers > 0) || ((countOfSmallerNumbers < B) && (countOfSmallerNumbers + countOfEqualNumbers) > B)) {
+                return mid;
+            } else if ((countOfSmallerNumbers + countOfEqualNumbers) < B) {
+                min = mid + 1;
+            } else {
+                max = mid - 1;
+            }
+        }
+        return Integer.MIN_VALUE;
     }
 
     /**
@@ -177,8 +217,16 @@ public class BinarySearch2 {
                 274, 251, 249, 248, 238, 237, 231, 228, 215, 191, 189, 187, 185, 177, 162, 157, 117, 115, 109, 108, 107, 105, 104, 101,
                 99, 94, 89, 82, 81, 77, 74, 72, 71, 70, 58, 52, 32, 26, 22, 18, 15, 10};
 
-        ArrayList<Integer> array1 = ArrayUtility.convertArrayToList(arr1);
+//        ArrayList<Integer> array1 = ArrayUtility.convertArrayToList(arr1);
 //        System.out.println(BinarySearch2.searchInBitonicArray(array1, 841));
-        System.out.println(BinarySearch2.athMagicalNumber(807414236, 3788, 38141));
+//        System.out.println(BinarySearch2.athMagicalNumber(807414236, 3788, 38141));
+
+        arr1 = new int[]{
+                60, 94, 63, 3, 86, 40, 93, 36, 56, 48, 17, 10, 23, 43, 77, 1, 1, 93, 79, 4,
+                10, 47, 1, 99, 91, 53, 99, 18, 52, 61, 84, 10, 13, 52, 3, 9, 78, 16, 7, 62
+        };
+
+        ArrayList<Integer> array1 = ArrayUtility.convertArrayToList(arr1);
+        System.out.println(BinarySearch2.kthPrice(array1, 22));
     }
 }
