@@ -30,8 +30,12 @@ public class LinkedList1
       }
       start1.next = prev;
       start2.next = curr;
+      if( B == 1 )
+      {
+        A = prev;
+      }
     }
-    return (B == 1) ? start1 : A;
+    return A;
   }
 
   public static void main( String[] args )
@@ -40,7 +44,16 @@ public class LinkedList1
     head.next = new ListNode( 2 );
     head.next.next = new ListNode( 3 );
     ListNode newHead = LinkedList1.reverseBetween( head, 1, 2 );
-
+    while( newHead != null )
+    {
+      System.out.print( newHead );
+      if( newHead.next != null )
+      {
+        System.out.print( "-->" );
+      }
+      newHead = newHead.next;
+    }
+    System.out.println();
   }
 }
 
@@ -53,5 +66,11 @@ class ListNode
   {
     val = x;
     next = null;
+  }
+
+  @Override
+  public String toString()
+  {
+    return val + "";
   }
 }
