@@ -28,16 +28,17 @@ public class ReverseDoublyLinkedList {
      */
     private static DoublyLinkedListNode reverse(DoublyLinkedListNode head) {
         if (head != null) {
-            while (head.next != null) {
-                DoublyLinkedListNode currentNode = head;
-                head = head.next;
-                DoublyLinkedListNode temp = currentNode.prev;
-                currentNode.prev = currentNode.next;
-                currentNode.next = temp;
-            }
-            DoublyLinkedListNode temp = head.prev;
-            head.prev = head.next;
-            head.next = temp;
+          while( head.next != null )
+          {
+            DoublyLinkedListNode currentNode = head;
+            head = head.next;
+            DoublyLinkedListNode temp = currentNode.prev;
+            currentNode.prev = currentNode.next;
+            currentNode.next = temp;
+          }
+          DoublyLinkedListNode temp = head.prev;
+          head.prev = null;
+          head.next = temp;
         }
         return head;
     }

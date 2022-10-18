@@ -5,22 +5,28 @@ import com.div.missionfaang.scaler.ArrayUtility;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdvArrays1 {
+public class Arrays1
+{
 
-    private static ArrayList<Integer> beggarsOutsideTemple(int A, ArrayList<ArrayList<Integer>> B) {
-        ArrayList<Integer> beggarsPots = new ArrayList<>(A);
-        for (int i = 0; i < A; i++) {
-            beggarsPots.add(0);
+    private static ArrayList<Integer> beggarsOutsideTemple( int A, ArrayList<ArrayList<Integer>> B )
+    {
+        ArrayList<Integer> beggarsPots = new ArrayList<>( A );
+        for( int i = 0; i < A; i++ )
+        {
+            beggarsPots.add( 0 );
         }
-        for (ArrayList<Integer> pots : B) {
-            beggarsPots.set(pots.get(0) - 1, beggarsPots.get(pots.get(0) - 1) + pots.get(2));
-            if (pots.get(1) < A) {
-                beggarsPots.set(pots.get(1), beggarsPots.get(pots.get(1)) + (pots.get(2) * -1));
+        for( ArrayList<Integer> pots : B )
+        {
+            beggarsPots.set( pots.get( 0 ) - 1, beggarsPots.get( pots.get( 0 ) - 1 ) + pots.get( 2 ) );
+            if( pots.get( 1 ) < A )
+            {
+                beggarsPots.set( pots.get( 1 ), beggarsPots.get( pots.get( 1 ) ) + (pots.get( 2 ) * -1) );
             }
         }
 
-        for (int i = 1; i < A; i++) {
-            beggarsPots.set(i, beggarsPots.get(i) + beggarsPots.get(i - 1));
+        for( int i = 1; i < A; i++ )
+        {
+            beggarsPots.set( i, beggarsPots.get( i ) + beggarsPots.get( i - 1 ) );
         }
         return beggarsPots;
     }
@@ -232,6 +238,6 @@ public class AdvArrays1 {
     public static void main(String[] args) {
         int[] arr1 = new int[]{756898537, -1973594324, -2038664370, -184803526, 1424268980};
         ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
-        System.out.println(AdvArrays1.flip("1100100"));
+        System.out.println( Arrays1.flip( "1100100" ) );
     }
 }

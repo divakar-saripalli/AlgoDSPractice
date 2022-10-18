@@ -4,7 +4,8 @@ import com.div.missionfaang.scaler.ArrayUtility;
 
 import java.util.ArrayList;
 
-public class AdvArrays2D {
+public class Arrays2D
+{
     /**
      * Given a 2D Matrix A of dimensions N*N, we need to return the sum of all possible sub-matrices.
      * <p>
@@ -68,7 +69,7 @@ public class AdvArrays2D {
     }
 
     private static int maxSumSubMatrix(ArrayList<ArrayList<Integer>> A) {
-        ArrayList<ArrayList<Integer>> prefixSumMatrix = AdvArrays2D.generatePrefixSumMatrix(A);
+        ArrayList<ArrayList<Integer>> prefixSumMatrix = Arrays2D.generatePrefixSumMatrix( A );
         int maxSum = Integer.MIN_VALUE;
         for (int i = 0; i < A.size(); i++) {
             for (int j = 0; j < A.get(i).size(); j++) {
@@ -128,7 +129,7 @@ public class AdvArrays2D {
      * @return
      */
     private static ArrayList<Integer> subMatrixSumQueries(ArrayList<ArrayList<Integer>> A, ArrayList<Integer> B, ArrayList<Integer> C, ArrayList<Integer> D, ArrayList<Integer> E) {
-        ArrayList<ArrayList<Integer>> prefixSumMatrix = AdvArrays2D.generatePrefixSumMatrix(A);
+        ArrayList<ArrayList<Integer>> prefixSumMatrix = Arrays2D.generatePrefixSumMatrix( A );
         System.out.println(prefixSumMatrix);
         ArrayList<Integer> result = new ArrayList<>();
         for (int i = 0; i < B.size(); i++) {
@@ -214,6 +215,6 @@ public class AdvArrays2D {
         ArrayList<Integer> E = new ArrayList<>();
         E.add(2);
         ArrayList<ArrayList<Integer>> matrix = ArrayUtility.convert2DArrayTo2DList(arr1);
-        System.out.println(AdvArrays2D.subMatrixSumQueries(matrix, B, C, D, E));
+        System.out.println( Arrays2D.subMatrixSumQueries( matrix, B, C, D, E ) );
     }
 }

@@ -4,7 +4,8 @@ import com.div.missionfaang.scaler.ArrayUtility;
 
 import java.util.ArrayList;
 
-public class ModularArithmeticAdvanced {
+public class ModularArithmetic
+{
 
     /**
      * Rearrange a given array so that Arr[i] becomes Arr[Arr[i]] with O(1) extra space.
@@ -60,7 +61,7 @@ public class ModularArithmeticAdvanced {
             }
             return A;
         }
-        long value = (long) (ModularArithmeticAdvanced.pow(A, B / 2, C) % C) * (ModularArithmeticAdvanced.pow(A, B / 2, C) % C) % C;
+        long value = (long) (ModularArithmetic.pow( A, B / 2, C ) % C) * (ModularArithmetic.pow( A, B / 2, C ) % C) % C;
         if ((B & 1) != 0) {
             value = ((value % C) * (A % C)) % C;
         }
@@ -115,7 +116,7 @@ public class ModularArithmeticAdvanced {
         if (B == 1) {
             return A;
         }
-        return ModularArithmeticAdvanced.pow(A, B - 2, B);
+        return ModularArithmetic.pow( A, B - 2, B );
     }
 
     /**
@@ -156,12 +157,12 @@ public class ModularArithmeticAdvanced {
         for (int i = 2; i <= B; i++) {
             bFactorial = (bFactorial * i) % (mod - 1);
         }
-        return ModularArithmeticAdvanced.pow(A, bFactorial, mod) % mod;
+        return ModularArithmetic.pow( A, bFactorial, mod ) % mod;
     }
 
     public static void main(String[] args) {
         int[] arr1 = new int[]{2, 3, 1, 0};
         ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
-        System.out.println(ModularArithmeticAdvanced.arrange(array));
+        System.out.println( ModularArithmetic.arrange( array ) );
     }
 }

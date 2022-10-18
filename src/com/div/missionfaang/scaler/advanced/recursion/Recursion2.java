@@ -2,16 +2,22 @@ package com.div.missionfaang.scaler.advanced.recursion;
 
 import java.util.ArrayList;
 
-public class AdvRecursion2 {
+public class Recursion2
+{
 
-    private static int kthSymbol(int A, int B) {
-        if (A == 1 || B == 0) {
+    private static int kthSymbol( int A, int B )
+    {
+        if( A == 1 || B == 0 )
+        {
             return 0;
         }
-        int value = AdvRecursion2.kthSymbol(A - 1, B / 2);
-        if (B % 2 != 0) {
+        int value = Recursion2.kthSymbol( A - 1, B / 2 );
+        if( B % 2 != 0 )
+        {
             return value;
-        } else {
+        }
+        else
+        {
             return 1 - value;
         }
     }
@@ -23,7 +29,7 @@ public class AdvRecursion2 {
             start.add(1);
             return start;
         }
-        ArrayList<Integer> result = AdvRecursion2.grayCode(a - 1);
+        ArrayList<Integer> result = Recursion2.grayCode( a - 1 );
         for (int i = result.size() - 1; i > -1; i--) {
             result.add(result.get(i) + (1 << (a - 1)));
         }
@@ -31,6 +37,6 @@ public class AdvRecursion2 {
     }
 
     public static void main(String[] args) {
-        System.out.println(AdvRecursion2.kthSymbol(2, 2));
+        System.out.println( Recursion2.kthSymbol( 2, 2 ) );
     }
 }

@@ -4,7 +4,8 @@ import com.div.missionfaang.scaler.ArrayUtility;
 
 import java.util.ArrayList;
 
-public class BitManipulation2Adv {
+public class BitManipulation2
+{
 
     /**
      * Given two integers A and B, find a number X such that A xor X is minimum possible, and the number of set bits in X equals B.
@@ -13,17 +14,21 @@ public class BitManipulation2Adv {
      * @param B
      * @return
      */
-    private static int smallestXOR(int A, int B) {
+    private static int smallestXOR( int A, int B )
+    {
         int i = 31;
         int j = 0;
         int result = 0;
         int firstI = -1;
-        while (i > -1 && j < B) {
+        while( i > -1 && j < B )
+        {
             int mask = (1 << i);
-            if ((A & mask) >= 1) {
+            if( (A & mask) >= 1 )
+            {
                 result += mask;
                 j++;
-                if (firstI == -1) {
+                if( firstI == -1 )
+                {
                     firstI = i;
                 }
             }
@@ -145,7 +150,7 @@ public class BitManipulation2Adv {
                 temp = temp >> 1;
             }
             // Compute the 1's till the above calculated 2 power, as it can be done recursively.
-            sum = ((sum % mod) + (BitManipulation2Adv.countTotalSetBitsFrom2Power(1 << count) + 1) % mod) % mod;
+            sum = ((sum % mod) + (BitManipulation2.countTotalSetBitsFrom2Power( 1 << count ) + 1) % mod) % mod;
             // Subtract the above calculated 2 power from A.
             A -= (1 << count);
             // Add the remaining value A to the total sum because the left most significant bit will be discarded in
@@ -160,7 +165,7 @@ public class BitManipulation2Adv {
         if (A == 0) {
             return 0;
         }
-        return (((A >> 1) % mod) + ((BitManipulation2Adv.countTotalSetBitsFrom2Power(A >> 1) * 2) % mod)) % mod;
+        return (((A >> 1) % mod) + ((BitManipulation2.countTotalSetBitsFrom2Power( A >> 1 ) * 2) % mod)) % mod;
     }
 
     /**
@@ -188,6 +193,6 @@ public class BitManipulation2Adv {
     public static void main(String[] args) {
         int[] arr1 = new int[]{7, 11, 13, 27, 45};
         ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
-        System.out.println(BitManipulation2Adv.divide(Integer.MIN_VALUE, 1));
+        System.out.println( BitManipulation2.divide( Integer.MIN_VALUE, 1 ) );
     }
 }

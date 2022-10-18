@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BitManipulationAdvanced {
+public class BitManipulation1
+{
 
     /**
      * Given an array of integers A, every element appears twice except for one. Find that integer that occurs once.
@@ -192,6 +193,6 @@ public class BitManipulationAdvanced {
     }
 
     public static void main(String[] args) {
-        System.out.println(BitManipulationAdvanced.smallestXOR(4, 6));
+        System.out.println( BitManipulation1.smallestXOR( 4, 6 ) );
     }
 }

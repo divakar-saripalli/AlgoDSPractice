@@ -1,7 +1,7 @@
 package com.div.missionfaang.scaler.advanced.prime;
 
 import com.div.missionfaang.scaler.ArrayUtility;
-import com.div.missionfaang.scaler.advanced.modulararithmetic.ModularArithmeticAdvanced;
+import com.div.missionfaang.scaler.advanced.modulararithmetic.ModularArithmetic;
 
 import java.util.ArrayList;
 
@@ -163,7 +163,7 @@ public class PrimeNumberProblems {
             }
         }
         int mod = 1000000007;
-        return (((ModularArithmeticAdvanced.pow(2, count, mod)) - 1) + mod) % mod;
+        return (((ModularArithmetic.pow( 2, count, mod )) - 1) + mod) % mod;
     }
 
     public static void main(String[] args) {

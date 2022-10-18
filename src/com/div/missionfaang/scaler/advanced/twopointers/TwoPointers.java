@@ -1,4 +1,4 @@
-package com.div.missionfaang.scaler.advanced;
+package com.div.missionfaang.scaler.advanced.twopointers;
 
 import java.util.ArrayList;
 

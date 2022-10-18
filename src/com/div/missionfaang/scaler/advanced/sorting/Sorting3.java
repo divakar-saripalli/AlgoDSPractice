@@ -5,7 +5,8 @@ import com.div.missionfaang.scaler.ArrayUtility;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class AdvSorting3 {
+public class Sorting3
+{
 
     /**
      * Given an array A of non-negative integers of size N.
@@ -120,7 +121,7 @@ public class AdvSorting3 {
 //        int[] arr1 = new int[]{1, 2, 3, 5, 6, 13, 15, 16, 17, 13, 13, 15, 17, 17, 17, 17, 17, 19, 19};
         int[] arr1 = new int[]{-98, 54, -52, 15, 23, -97, 12, -64, 52, 85};
         ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
-        System.out.println(AdvSorting3.maxAndMinMagic(array));
+        System.out.println( Sorting3.maxAndMinMagic( array ) );
     }
 
     public ArrayList<Integer> quickSort(ArrayList<Integer> A) {
