@@ -294,7 +294,7 @@ public class PrimerProblems {
     private static int minimumAppendsPalindrome(String A) {
         int i = 0;
         int j = A.length() - 1;
-        int pivot = i;
+        int pivot;
         while (i < j) {
             if (A.charAt(i) == A.charAt(j)) {
                 pivot = i;
