@@ -208,20 +208,3 @@ public class LinkedList1
   }
 }
 
-class ListNode
-{
-  final int val;
-  public ListNode next;
-
-  ListNode( int x )
-  {
-    val = x;
-    next = null;
-  }
-
-  @Override
-  public String toString()
-  {
-    return val + "";
-  }
-}
