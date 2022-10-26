@@ -20,4 +20,19 @@ class DoublyLinkedListNode
   {
     return "Key :: " + key + " Value :: " + val;
   }
+
+  static void printList( DoublyLinkedListNode head )
+  {
+    DoublyLinkedListNode start = head;
+    while( start != null )
+    {
+      System.out.print( start.val );
+      if( start.next != null )
+      {
+        System.out.print( " --> " );
+      }
+      start = start.next;
+    }
+    System.out.println();
+  }
 }

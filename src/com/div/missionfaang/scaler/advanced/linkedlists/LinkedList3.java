@@ -23,14 +23,6 @@ public class LinkedList3
           {
             prevHead2.next = head2.next;
           }
-          if( prevHead2 != null )
-          {
-            head2 = prevHead2.next;
-          }
-          else
-          {
-            head2 = head2.next;
-          }
         }
         else
         {
@@ -40,14 +32,14 @@ public class LinkedList3
           }
           tail.next = head2;
           tail = tail.next;
-          if( prevHead2 != null )
-          {
-            head2 = prevHead2.next;
-          }
-          else
-          {
-            head2 = head2.next;
-          }
+        }
+        if( prevHead2 != null )
+        {
+          head2 = prevHead2.next;
+        }
+        else
+        {
+          head2 = head2.next;
         }
         tail.next = null;
       }

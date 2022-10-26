@@ -15,7 +15,7 @@ class ListNode
   {
     while( tail.next != null )
     {
-      System.out.print( tail.val + " -->" );
+      System.out.print( tail.val + " --> " );
       tail = tail.next;
     }
     System.out.println( tail.val );
