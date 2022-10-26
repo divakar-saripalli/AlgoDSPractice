@@ -206,5 +206,19 @@ public class LinkedList1
     }
     return prev;
   }
+
+  private static ListNode deleteDuplicates( ListNode A )
+  {
+    ListNode node = A;
+    while( node != null )
+    {
+      if( node.next != null && node.next.val == node.val )
+      {
+        node.next = node.next.next;
+      }
+      node = node.next;
+    }
+    return A;
+  }
 }
 
