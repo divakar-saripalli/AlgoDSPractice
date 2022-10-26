@@ -26,7 +26,7 @@ class DoublyLinkedListNode
     DoublyLinkedListNode start = head;
     while( start != null )
     {
-      System.out.print( start.val );
+      System.out.print( "( " + start.key + " , " + start.val + " )" );
       if( start.next != null )
       {
         System.out.print( " --> " );

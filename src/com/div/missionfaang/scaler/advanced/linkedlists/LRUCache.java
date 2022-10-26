@@ -18,8 +18,6 @@ public class LRUCache
   {
     LRUCache lruCache = new LRUCache( 11 );
     lruCache.set( 1, 1 );
-    //    System.out.println( lruCache.get( 11 ) );
-    //    System.out.println( lruCache.get( 11 ) );
     lruCache.get( 11 );
     lruCache.get( 11 );
     lruCache.set( 3, 10 );
