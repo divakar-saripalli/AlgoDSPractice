@@ -1,5 +1,7 @@
 package com.div.missionfaang.scaler.advanced.stacks;
 
+import com.div.missionfaang.scaler.ArrayUtility;
+
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -8,7 +10,50 @@ public class Stacks1
 
   private static int evaluateExpression( ArrayList<String> A )
   {
-    return 1;
+    Stack<String> stack = new Stack<>();
+    for( int i = A.size() - 1; i >= 0; i-- )
+    {
+      boolean evaluateExpression = !(A.get( i ).equals( "+" ) ||
+          A.get( i ).equals( "-" ) ||
+          A.get( i ).equals( "*" ) ||
+          A.get( i ).equals( "/" ))
+          && stack.size() > 1
+          && !(stack.peek().equals( "+" ) ||
+          stack.peek().equals( "-" ) ||
+          stack.peek().equals( "*" ) ||
+          stack.peek().equals( "/" ));
+
+      stack.push( A.get( i ) );
+      if( evaluateExpression )
+      {
+        while( evaluateExpression )
+        {
+          int operand1 = Integer.parseInt( stack.pop() );
+          int operand2 = Integer.parseInt( stack.pop() );
+          String operator = stack.pop();
+          evaluateExpression = stack.size() > 1 && !(stack.peek().equals( "+" ) ||
+              stack.peek().equals( "-" ) ||
+              stack.peek().equals( "*" ) ||
+              stack.peek().equals( "/" ));
+          switch( operator )
+          {
+            case "+":
+              stack.push( String.valueOf( operand1 + operand2 ) );
+              break;
+            case "-":
+              stack.push( String.valueOf( operand1 - operand2 ) );
+              break;
+            case "*":
+              stack.push( String.valueOf( operand1 * operand2 ) );
+              break;
+            case "/":
+              stack.push( String.valueOf( operand1 / operand2 ) );
+              break;
+          }
+        }
+      }
+    }
+    return Integer.parseInt( stack.peek() );
   }
 
   private static int braces( String A )
@@ -47,11 +92,6 @@ public class Stacks1
       str.append( stack.pop() );
     }
     return str.toString();
-  }
-
-  public static void main( String[] args )
-  {
-    System.out.println( Stacks1.doubleCharacterTrouble( "cddfeffe" ) );
   }
 
   public int balancedParantheses( String A )
@@ -102,5 +142,13 @@ public class Stacks1
       }
     }
     return stack.empty() ? 1 : 0;
+  }
+
+  public static void main( String[] args )
+  {
+    //    System.out.println( Stacks1.doubleCharacterTrouble( "cddfeffe" ) );
+    String[] a = new String[] { "5", "1", "2", "+", "4", "*", "+", "3", "-" };
+    ArrayList<String> A = ArrayUtility.convertArrayToList( a );
+    System.out.println( Stacks1.evaluateExpression( A ) );
   }
 }
