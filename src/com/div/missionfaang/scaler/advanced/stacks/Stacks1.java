@@ -59,14 +59,57 @@ public class Stacks1
   private static int braces( String A )
   {
     Stack<Character> stack = new Stack<>();
+    int count = 0;
+    boolean includesOperator = false;
     for( int i = A.length() - 1; i > -1; i-- )
     {
+      if( !includesOperator && (A.charAt( i ) == '+' ||
+          A.charAt( i ) == '-' ||
+          A.charAt( i ) == '*' ||
+          A.charAt( i ) == '/') )
+      {
+        includesOperator = true;
+      }
       if( A.charAt( i ) == '(' )
       {
-
+        if( stack.peek() == ')' )
+        {
+          return 1;
+        }
+        else
+        {
+          boolean includesOperator1 = false;
+          while( !stack.empty() && stack.peek() != ')' )
+          {
+            if( !includesOperator1 && (stack.peek() == '+' ||
+                stack.peek() == '-' ||
+                stack.peek() == '*' ||
+                stack.peek() == '/') )
+            {
+              includesOperator1 = true;
+            }
+            stack.pop();
+          }
+          if( stack.empty() )
+          {
+            return 0;
+          }
+          else
+          {
+            stack.pop();
+          }
+          if( !includesOperator1 )
+          {
+            return 1;
+          }
+        }
+      }
+      else
+      {
+        stack.push( A.charAt( i ) );
       }
     }
-    return 1;
+    return (stack.empty()) ? (includesOperator) ? 0 : 1 : 0;
   }
 
   private static String doubleCharacterTrouble( String A )
@@ -149,6 +192,7 @@ public class Stacks1
     //    System.out.println( Stacks1.doubleCharacterTrouble( "cddfeffe" ) );
     String[] a = new String[] { "5", "1", "2", "+", "4", "*", "+", "3", "-" };
     ArrayList<String> A = ArrayUtility.convertArrayToList( a );
-    System.out.println( Stacks1.evaluateExpression( A ) );
+    //    System.out.println( Stacks1.evaluateExpression( A ) );
+    System.out.println( Stacks1.braces( "(a+(a))" ) );
   }
 }
