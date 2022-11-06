@@ -187,12 +187,59 @@ public class Stacks1
     return stack.empty() ? 1 : 0;
   }
 
+  private static int checkTwoBracketExpression( String A, String B )
+  {
+    if( A.indexOf( '(' ) == -1 && B.indexOf( '(' ) == -1 )
+    {
+      return (A.equals( B )) ? 1 : 0;
+    }
+
+    if( A.indexOf( '(' ) == -1 && B.indexOf( '(' ) != -1 )
+    {
+      String temp = A;
+      A = B;
+      B = temp;
+    }
+
+    StringBuilder str = new StringBuilder();
+    for( int i = 0; i < A.length(); i++ )
+    {
+      if( A.charAt( i ) != '(' )
+      {
+        str.append( A.charAt( i ) );
+      }
+      else
+      {
+        i++;
+        boolean invert = (str.length() > 0 && str.charAt( str.length() - 1 ) == '-');
+        while( i < A.length() && A.charAt( i ) != ')' )
+        {
+          if( A.charAt( i ) == '+' && invert )
+          {
+            str.append( '-' );
+          }
+          else if( A.charAt( i ) == '-' && invert )
+          {
+            str.append( '+' );
+          }
+          else
+          {
+            str.append( A.charAt( i ) );
+          }
+          i++;
+        }
+      }
+    }
+    return (str.toString().equals( B )) ? 1 : 0;
+  }
+
   public static void main( String[] args )
   {
     //    System.out.println( Stacks1.doubleCharacterTrouble( "cddfeffe" ) );
     String[] a = new String[] { "5", "1", "2", "+", "4", "*", "+", "3", "-" };
     ArrayList<String> A = ArrayUtility.convertArrayToList( a );
     //    System.out.println( Stacks1.evaluateExpression( A ) );
-    System.out.println( Stacks1.braces( "(a+(a))" ) );
+    //    System.out.println( Stacks1.braces( "(a+(a))" ) );
+    System.out.println( Stacks1.checkTwoBracketExpression( "(a+b-c-d+e-f+g+h+i)", "a+b-c-d+e-f+g+h+i" ) );
   }
 }

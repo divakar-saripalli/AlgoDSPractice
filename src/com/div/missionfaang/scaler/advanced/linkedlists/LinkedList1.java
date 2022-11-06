@@ -93,26 +93,23 @@ public class LinkedList1
    */
   private static ListNode reverseList( ListNode A, int B )
   {
-    if( A == null || A.next == null )
-    {
-      return A;
-    }
-
+    ListNode current = A;
+    ListNode next = null;
     ListNode prev = null;
-    ListNode curr = A;
-    ListNode next = A.next;
-
-    for( int i = 1; i < B; i++ )
+    int count = 0;
+    while( current != null && count < B )
     {
-      prev = curr;
-      curr.next = next.next;
-      ListNode temp = curr.next;
-      curr.next = prev;
-      prev.next = temp;
+      next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+      count++;
     }
-    A = prev;
-
-    return A;
+    if( next != null )
+    {
+      A.next = LinkedList1.reverseList( next, B );
+    }
+    return prev;
   }
 
   /**
@@ -189,7 +186,7 @@ public class LinkedList1
     return curr.val;
   }
 
-  public ListNode reverseList( ListNode A )
+  private static ListNode reverseList( ListNode A )
   {
     ListNode curr = A;
     ListNode prev = null;
