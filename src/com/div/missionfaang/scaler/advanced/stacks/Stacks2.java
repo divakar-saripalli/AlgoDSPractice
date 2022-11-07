@@ -86,28 +86,17 @@ public class Stacks2
 
       Stacks2.buildAdjacentSmallerStackForIndex( A, rightSmallerStack, rightSmaller, j );
     }
-    long maxArea = Integer.MIN_VALUE;
-    maxArea = Math.max( maxArea, (long) A.get( 0 ) * (rightSmaller.get( 0 )) );
-    maxArea = Math.max( maxArea, (long) A.get( A.size() - 1 ) * (A.size() - leftSmaller.get( A.size() - 1 ) - 1) );
-    for( int i = 1; i < A.size() - 1; i++ )
+    for( int i = 0; i < rightSmaller.size(); i++ )
     {
-      long currentArea = 0;
-      if( rightSmaller.get( i ) == -1 && leftSmaller.get( i ) == -1 )
+      if( rightSmaller.get( i ) == -1 )
       {
-        currentArea = A.get( i );
+        rightSmaller.set( i, rightSmaller.size() );
       }
-      else if( rightSmaller.get( i ) == -1 )
-      {
-        currentArea = (long) A.get( i ) * (A.size() - leftSmaller.get( i ) - 1);
-      }
-      else if( leftSmaller.get( i ) == -1 )
-      {
-        currentArea = (long) A.get( i ) * (rightSmaller.get( i ) - 2);
-      }
-      else
-      {
-        currentArea = (long) A.get( i ) * (rightSmaller.get( i ) - leftSmaller.get( i ) - 1);
-      }
+    }
+    long maxArea = Integer.MIN_VALUE;
+    for( int i = 0; i < A.size(); i++ )
+    {
+      long currentArea = (long) A.get( i ) * (rightSmaller.get( i ) - leftSmaller.get( i ) - 1);
       maxArea = Math.max( maxArea, currentArea );
     }
     return (int) maxArea;
