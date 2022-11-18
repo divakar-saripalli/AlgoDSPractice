@@ -1,6 +1,9 @@
 package com.div.missionfaang.scaler.advanced.trees;
 
+import com.div.missionfaang.scaler.ArrayUtility;
+
 import java.util.ArrayList;
+import java.util.List;
 
 class Trees3
 {
@@ -64,11 +67,38 @@ class Trees3
     }
   }
 
+  private static TreeNode sortedArrayToBST( List<Integer> A )
+  {
+    return Trees3.sortedArrayToBST( A, 0, A.size() - 1 );
+  }
+
+  private static TreeNode sortedArrayToBST( List<Integer> A, int start, int end )
+  {
+    if( start > end )
+    {
+      return null;
+    }
+    int mid = (start + end) / 2;
+    TreeNode root = new TreeNode( A.get( mid ) );
+    if( start != end )
+    {
+      root.left = Trees3.sortedArrayToBST( A, start, mid - 1 );
+      root.right = Trees3.sortedArrayToBST( A, mid + 1, end );
+    }
+    return root;
+  }
+
   public static void main( String[] args )
   {
-    TreeNode root = new TreeNode( 14 );
-    root.left = new TreeNode( 1 );
-    root.right = new TreeNode( 20 );
-    System.out.println( Trees3.twoSumBST( root, 21 ) );
+    //    TreeNode root = new TreeNode( 14 );
+    //    root.left = new TreeNode( 1 );
+    //    root.right = new TreeNode( 20 );
+    //    System.out.println( Trees3.twoSumBST( root, 21 ) );
+
+    int[] arr1 = new int[] { 1, 2, 3, 4, 5 };
+    ArrayList<Integer> array1 = ArrayUtility.convertArrayToList( arr1 );
+    System.out.println( Trees1.preorderTraversal( Trees3.sortedArrayToBST( array1 ) ) );
+    System.out.println( Trees1.inorderTraversal( Trees3.sortedArrayToBST( array1 ) ) );
+    System.out.println( Trees1.postorderTraversal( Trees3.sortedArrayToBST( array1 ) ) );
   }
 }

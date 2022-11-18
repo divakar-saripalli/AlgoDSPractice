@@ -6,19 +6,19 @@ import java.util.ArrayList;
 
 class Trees1
 {
-  private static ArrayList<Integer> inorderTraversal( TreeNode A )
+  static ArrayList<Integer> inorderTraversal( TreeNode A )
   {
     ArrayList<Integer> result = new ArrayList<>();
     return Trees1.inorderTraversal( A, result );
   }
 
-  private static ArrayList<Integer> preorderTraversal( TreeNode A )
+  static ArrayList<Integer> preorderTraversal( TreeNode A )
   {
     ArrayList<Integer> result = new ArrayList<>();
     return Trees1.preorderTraversal( A, result );
   }
 
-  private static ArrayList<Integer> postorderTraversal( TreeNode A )
+  static ArrayList<Integer> postorderTraversal( TreeNode A )
   {
     ArrayList<Integer> result = new ArrayList<>();
     return Trees1.postorderTraversal( A, result );
