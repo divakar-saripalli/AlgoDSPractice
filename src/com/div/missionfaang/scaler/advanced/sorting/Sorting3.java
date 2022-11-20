@@ -136,21 +136,35 @@ public class Sorting3
         int tempStart = start;
         int tempEnd = end;
         int pivot = (end - start) / 2;
-        while (start < end) {
-            if (A.get(start) < A.get(pivot)) {
+        while( start < end )
+        {
+            if( A.get( start ) < A.get( pivot ) )
+            {
                 start++;
             }
-            if (A.get(end) > A.get(pivot)) {
+            if( A.get( end ) > A.get( pivot ) )
+            {
                 end--;
             }
 
-            if (tempStart == start && tempEnd == end) {
-                A.set(tempStart, A.get(end));
-                A.set(tempEnd, A.get(start));
+            if( tempStart == start && tempEnd == end )
+            {
+                A.set( tempStart, A.get( end ) );
+                A.set( tempEnd, A.get( start ) );
             }
             tempStart = start;
             tempEnd = end;
         }
         return A;
     }
+
+    //    private static ArrayList<Pair<Integer, Integer>> sortAndKeepTrackOldIndex( ArrayList<Integer> A )
+    //    {
+    //        HashSet<Integer> availability = new HashSet<>();
+    //        availability.addAll( A );
+    //        for( Integer available : availability )
+    //        {
+    //            
+    //        }
+    //    }
 }
