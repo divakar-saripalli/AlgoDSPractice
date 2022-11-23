@@ -88,6 +88,57 @@ class Trees3
     return root;
   }
 
+  private static int isValidBST( TreeNode A )
+  {
+    return Trees3.isValidBST( A, Integer.MIN_VALUE, Integer.MAX_VALUE );
+  }
+
+  private static int isValidBST( TreeNode A, int min, int max )
+  {
+    if( A != null )
+    {
+      if( A.val > min && A.val < max )
+      {
+        return Math.min( Trees3.isValidBST( A.left, min, A.val ), Trees3.isValidBST( A.right, A.val, max ) );
+      }
+      return 0;
+    }
+    return 1;
+  }
+
+  private static int largestBSTSubtree( TreeNode A )
+  {
+    int height = Trees3.largestBSTSubtree( A, Integer.MIN_VALUE, Integer.MAX_VALUE );
+    return Math.max( height, 0 );
+  }
+
+  private static int largestBSTSubtree( TreeNode A, int min, int max )
+  {
+    if( A == null )
+    {
+      return 0;
+    }
+    int maxHeight = Math.max( Trees3.largestBSTSubtree( A.left, min, A.val ), Trees3.largestBSTSubtree( A.right, A.val, max ) );
+    return maxHeight >= 0 ? maxHeight + 1 : 0;
+  }
+
+  private static int bstNodesInRange( TreeNode A, int B, int C )
+  {
+    if( A == null )
+    {
+      return 0;
+    }
+    if( A.val > C )
+    {
+      return Trees3.bstNodesInRange( A.left, B, C );
+    }
+    if( A.val < B )
+    {
+      return Trees3.bstNodesInRange( A.right, B, C );
+    }
+    return Trees3.bstNodesInRange( A.left, B, C ) + Trees3.bstNodesInRange( A.right, B, C ) + 1;
+  }
+
   public static void main( String[] args )
   {
     //    TreeNode root = new TreeNode( 14 );
