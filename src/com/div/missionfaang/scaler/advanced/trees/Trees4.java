@@ -1,5 +1,7 @@
 package com.div.missionfaang.scaler.advanced.trees;
 
+import java.util.ArrayList;
+
 public class Trees4
 {
 
@@ -52,6 +54,16 @@ public class Trees4
       }
     }
     return 1;
+  }
+
+  private static ArrayList<Integer> recoverTree( TreeNode A )
+  {
+    return Trees4.recoverTree( A, null, new ArrayList<>() );
+  }
+
+  private static ArrayList<Integer> recoverTree( TreeNode a_, Object o_, ArrayList<Integer> integers_ )
+  {
+    return integers_;
   }
 
   public static void main( String[] args )

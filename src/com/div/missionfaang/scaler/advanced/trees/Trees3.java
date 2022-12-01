@@ -106,6 +106,52 @@ class Trees3
     return 1;
   }
 
+  private static String checkForBSTWithOneChild( ArrayList<Integer> A )
+  {
+    if( A.size() == 1 )
+    {
+      return "YES";
+    }
+    boolean leftDirection = A.get( 0 ) > A.get( 1 );
+    int min = Integer.MIN_VALUE;
+    int max = Integer.MAX_VALUE;
+    if( leftDirection )
+    {
+      max = A.get( 0 );
+    }
+    else
+    {
+      min = A.get( 0 );
+    }
+    for( int i = 1; i < A.size(); i++ )
+    {
+      if( A.get( i ) > min && A.get( i ) < max )
+      {
+        if( min == Integer.MIN_VALUE && A.get( i ) > A.get( i - 1 ) )
+        {
+          min = A.get( i - 1 );
+        }
+        else if( A.get( i ) < max )
+        {
+          max = A.get( i );
+        }
+        else if( max == Integer.MAX_VALUE && A.get( i ) < A.get( i - 1 ) )
+        {
+          max = A.get( i - 1 );
+        }
+        else if( A.get( i ) > min )
+        {
+          min = A.get( i );
+        }
+      }
+      else
+      {
+        return "NO";
+      }
+    }
+    return "YES";
+  }
+
   private static int largestBSTSubtree( TreeNode A )
   {
     int height = Trees3.largestBSTSubtree( A, Integer.MIN_VALUE, Integer.MAX_VALUE );
@@ -146,10 +192,8 @@ class Trees3
     //    root.right = new TreeNode( 20 );
     //    System.out.println( Trees3.twoSumBST( root, 21 ) );
 
-    int[] arr1 = new int[] { 1, 2, 3, 4, 5 };
+    int[] arr1 = new int[] { 12, 1, 9, 6, 2 };
     ArrayList<Integer> array1 = ArrayUtility.convertArrayToList( arr1 );
-    System.out.println( Trees1.preorderTraversal( Trees3.sortedArrayToBST( array1 ) ) );
-    System.out.println( Trees1.inorderTraversal( Trees3.sortedArrayToBST( array1 ) ) );
-    System.out.println( Trees1.postorderTraversal( Trees3.sortedArrayToBST( array1 ) ) );
+    System.out.println( Trees3.checkForBSTWithOneChild( array1 ) );
   }
 }
