@@ -194,43 +194,104 @@ public class Stacks1
       return (A.equals( B )) ? 1 : 0;
     }
 
-    if( A.indexOf( '(' ) == -1 && B.indexOf( '(' ) != -1 )
+    A = Stacks1.getFinalStringExpression( A );
+    B = Stacks1.getFinalStringExpression( B );
+    boolean[] operandSign = new boolean[26];
+    for( int i = A.length() - 1; i >= 0; )
     {
-      String temp = A;
-      A = B;
-      B = temp;
+      int index = A.charAt( i ) - 'a';
+      operandSign[index] = A.charAt( i - 1 ) == '+';
+      i = i - 2;
     }
-
-    StringBuilder str = new StringBuilder();
-    for( int i = 0; i < A.length(); i++ )
+    for( int i = B.length() - 1; i >= 0; )
     {
-      if( A.charAt( i ) != '(' )
+      int index = B.charAt( i ) - 'a';
+      if( operandSign[index] )
       {
-        str.append( A.charAt( i ) );
+        if( B.charAt( i - 1 ) != '+' )
+        {
+          return 0;
+        }
       }
       else
       {
-        i++;
-        boolean invert = (str.length() > 0 && str.charAt( str.length() - 1 ) == '-');
-        while( i < A.length() && A.charAt( i ) != ')' )
+        if( B.charAt( i - 1 ) != '-' )
         {
-          if( A.charAt( i ) == '+' && invert )
-          {
-            str.append( '-' );
-          }
-          else if( A.charAt( i ) == '-' && invert )
-          {
-            str.append( '+' );
-          }
-          else
-          {
-            str.append( A.charAt( i ) );
-          }
-          i++;
+          return 0;
         }
       }
+      i = i - 2;
     }
-    return (str.toString().equals( B )) ? 1 : 0;
+    return 1;
+  }
+
+  private static String getFinalStringExpression( String A )
+  {
+    Stack<Character> stack = new Stack<>();
+    for( int i = 0; i < A.length(); i++ )
+    {
+      if( A.charAt( i ) == ')' )
+      {
+        Stack<Character> tempStack = new Stack<>();
+        while( !stack.isEmpty() && stack.peek() != '(' )
+        {
+          tempStack.push( stack.pop() );
+        }
+        if( !stack.isEmpty() )
+        {
+          stack.pop();
+          boolean invertSymbol = false;
+          if( !stack.isEmpty() )
+          {
+            invertSymbol = (stack.peek() == '-');
+            if( (stack.peek() == '-' || stack.peek() == '+') &&
+                (tempStack.peek() == '-' || tempStack.peek() == '+') )
+            {
+              stack.pop();
+            }
+          }
+          while( !tempStack.isEmpty() )
+          {
+            Character pop = tempStack.pop();
+            if( invertSymbol && pop == '-' )
+            {
+              stack.push( '+' );
+            }
+            else if( invertSymbol && pop == '+' )
+            {
+              stack.push( '-' );
+            }
+            else
+            {
+              stack.push( pop );
+            }
+          }
+        }
+      }
+      else
+      {
+        stack.push( A.charAt( i ) );
+      }
+    }
+    Stack<Character> tempStack = new Stack<>();
+    while( !stack.isEmpty() )
+    {
+      Character pop = stack.pop();
+      if( !stack.isEmpty() || pop != '+' )
+      {
+        tempStack.push( pop );
+      }
+      if( stack.isEmpty() && tempStack.peek() != '-' )
+      {
+        tempStack.push( '+' );
+      }
+    }
+    StringBuilder str = new StringBuilder();
+    while( !tempStack.isEmpty() )
+    {
+      str.append( tempStack.pop() );
+    }
+    return str.toString();
   }
 
   public static void main( String[] args )
@@ -240,6 +301,9 @@ public class Stacks1
     ArrayList<String> A = ArrayUtility.convertArrayToList( a );
     //    System.out.println( Stacks1.evaluateExpression( A ) );
     //    System.out.println( Stacks1.braces( "(a+(a))" ) );
-    System.out.println( Stacks1.checkTwoBracketExpression( "(a+b-c-d+e-f+g+h+i)", "a+b-c-d+e-f+g+h+i" ) );
+    //    System.out.println( Stacks1.checkTwoBracketExpression( "-(-(-(-a+b)-d+c)-q)", "a-b-d+c+q" ) );
+    System.out.println( Stacks1.checkTwoBracketExpression( "-(a+((b-c)-(d+e)))", "-(a+b-c-d-e)" ) );
+    System.out.println( Stacks1.checkTwoBracketExpression( "-(-(-(-a+b)-d+c)-q)", "-(-(a-b-d+c+q))" ) );
+    System.out.println( Stacks1.checkTwoBracketExpression( "-(a-(-z-(b-(c+t)-x)+l)-q)", "-a+l-b-(z-(c+t)-x-q)" ) );
   }
 }
