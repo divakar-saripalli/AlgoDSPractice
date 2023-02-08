@@ -1,6 +1,7 @@
 package com.div.missionfaang.scaler.advanced.trees;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 class Trees2
 {
@@ -8,7 +9,6 @@ class Trees2
   {
     ArrayList<TreeNode> queue = new ArrayList<>();
     ArrayList<Integer> result = new ArrayList<>();
-    TreeNode root = null;
     if( A != null )
     {
       result.add( A.val );
@@ -264,6 +264,104 @@ class Trees2
     return oddSum - evenSum;
   }
 
+  private static ArrayList<ArrayList<Integer>> verticalOrderTraversal( TreeNode A )
+  {
+    HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
+    ArrayList<Pair<TreeNode, Integer>> queue = new ArrayList<>();
+    if( A == null )
+    {
+      return new ArrayList<>();
+    }
+    queue.add( new Pair<>( A, 0 ) );
+    int front = 0;
+    int rear = 0;
+    int minLevel = Integer.MAX_VALUE;
+    int maxLevel = Integer.MIN_VALUE;
+    while( front <= rear )
+    {
+      TreeNode node = queue.get( front ).getFirst();
+      Integer level = queue.get( front ).getSecond();
+      minLevel = Math.min( minLevel, level );
+      maxLevel = Math.max( maxLevel, level );
+      if( map.containsKey( level ) )
+      {
+        map.get( level ).add( node.val );
+      }
+      else
+      {
+        ArrayList<Integer> list = new ArrayList<>();
+        map.put( level, list );
+        list.add( node.val );
+      }
+      front++;
+      if( node.left != null )
+      {
+        queue.add( new Pair<>( node.left, level - 1 ) );
+        rear++;
+      }
+      if( node.right != null )
+      {
+        queue.add( new Pair<>( node.right, level + 1 ) );
+        rear++;
+      }
+    }
+    ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+    for( int i = minLevel; i <= maxLevel; i++ )
+    {
+      result.add( map.get( i ) );
+    }
+    return result;
+  }
+
+  public ArrayList<Integer> solve( TreeNode A )
+  {
+    HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
+    ArrayList<Pair<TreeNode, Integer>> queue = new ArrayList<>();
+    if( A == null )
+    {
+      return new ArrayList<>();
+    }
+    queue.add( new Pair<>( A, 0 ) );
+    int front = 0;
+    int rear = 0;
+    int minLevel = Integer.MAX_VALUE;
+    int maxLevel = Integer.MIN_VALUE;
+    while( front <= rear )
+    {
+      TreeNode node = queue.get( front ).getFirst();
+      Integer level = queue.get( front ).getSecond();
+      minLevel = Math.min( minLevel, level );
+      maxLevel = Math.max( maxLevel, level );
+      if( map.containsKey( level ) )
+      {
+        map.get( level ).add( node.val );
+      }
+      else
+      {
+        ArrayList<Integer> list = new ArrayList<>();
+        map.put( level, list );
+        list.add( node.val );
+      }
+      front++;
+      if( node.left != null )
+      {
+        queue.add( new Pair<>( node.left, level - 1 ) );
+        rear++;
+      }
+      if( node.right != null )
+      {
+        queue.add( new Pair<>( node.right, level + 1 ) );
+        rear++;
+      }
+    }
+    ArrayList<Integer> result = new ArrayList<>();
+    for( int i = minLevel; i <= maxLevel; i++ )
+    {
+      result.add( map.get( i ).get( 0 ) );
+    }
+    return result;
+  }
+
   public static void main( String[] args )
   {
     TreeNode root = new TreeNode( 1 );
@@ -282,5 +380,61 @@ class Trees2
     root.right.right.left = new TreeNode( 14 );
     root.right.right.right = new TreeNode( 15 );
     System.out.println( Trees2.zigzagLevelOrder( root ) );
+  }
+}
+
+class Pair<A, B>
+{
+  private final A first;
+  private final B second;
+
+  Pair( A first, B second )
+  {
+    super();
+    this.first = first;
+    this.second = second;
+  }
+
+  @Override
+  public int hashCode()
+  {
+    int hashFirst = first != null ? first.hashCode() : 0;
+    int hashSecond = second != null ? second.hashCode() : 0;
+
+    return (hashFirst + hashSecond) * hashSecond + hashFirst;
+  }
+
+  @Override
+  public boolean equals( Object other )
+  {
+    if( other instanceof Pair )
+    {
+      Pair otherPair = (Pair) other;
+      return
+          ((first == otherPair.first ||
+              (first != null && otherPair.first != null &&
+                  first.equals( otherPair.first ))) &&
+              (second == otherPair.second ||
+                  (second != null && otherPair.second != null &&
+                      second.equals( otherPair.second ))));
+    }
+
+    return false;
+  }
+
+  @Override
+  public String toString()
+  {
+    return "(" + first + ", " + second + ")";
+  }
+
+  public A getFirst()
+  {
+    return first;
+  }
+
+  B getSecond()
+  {
+    return second;
   }
 }
