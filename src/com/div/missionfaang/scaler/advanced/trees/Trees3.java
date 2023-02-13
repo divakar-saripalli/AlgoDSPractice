@@ -3,48 +3,65 @@ package com.div.missionfaang.scaler.advanced.trees;
 import com.div.missionfaang.scaler.ArrayUtility;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 class Trees3
 {
   private static int twoSumBST( TreeNode A, int B )
   {
-    ArrayList<TreeNode> queue = new ArrayList<>();
-    TreeNode root = null;
-    if( A != null )
+    // Find lowest common ancestor
+    TreeNode lca = A;
+    TreeNode parent = A;
+    while( lca.val > B )
     {
-      boolean found = Trees3.searchInBST( A, B - A.val );
-      if( !found )
+      parent = lca;
+      lca = lca.left;
+    }
+    if( lca.val == B )
+    {
+      // Check if node with 0 magnitude exists.
+      while( lca != null )
       {
-        queue.add( A.left );
-        queue.add( A.right );
-        while( !queue.isEmpty() && !found )
+        if( lca.val == 0 )
         {
-          ArrayList<TreeNode> tempQueue = new ArrayList<>();
-          int size = queue.size();
-          for( int i = 0; i < size && !found; i++ )
-          {
-            if( queue.get( 0 ) != null )
-            {
-              found = Trees3.searchInBST( A, B - queue.get( 0 ).val );
-              if( !found )
-              {
-                found = Trees3.searchInBST( A, B - queue.get( 0 ).val );
-              }
-              if( !found )
-              {
-                tempQueue.add( queue.get( 0 ).left );
-                tempQueue.add( queue.get( 0 ).right );
-              }
-            }
-            queue.remove( 0 );
-          }
-          queue = tempQueue;
+          return 1;
+        }
+        if( lca.val < 0 )
+        {
+          lca = lca.right;
+        }
+        else
+        {
+          lca = lca.left;
         }
       }
-      return (found) ? 1 : 0;
+      return 0;
+    }
+    ArrayList<Integer> leftTree = new ArrayList<>();
+    Trees3.inorderTraversal( lca, leftTree );
+    ArrayList<Integer> result = new ArrayList<>();
+    HashSet<Integer> rightTree = new HashSet<>( Trees3.inorderTraversal( lca.right, result ) );
+    for( Integer integer_ : leftTree )
+    {
+      if( rightTree.contains( B - integer_ ) )
+      {
+        return 1;
+      }
     }
     return 0;
+  }
+
+  private static ArrayList<Integer> inorderTraversal( TreeNode A, ArrayList<Integer> result )
+  {
+    if( A == null )
+    {
+      return result;
+    }
+    result = Trees3.inorderTraversal( A.left, result );
+    result.add( A.val );
+    result = Trees3.inorderTraversal( A.right, result );
+    return result;
   }
 
   private static boolean searchInBST( TreeNode A, int B )
@@ -123,26 +140,20 @@ class Trees3
     {
       min = A.get( 0 );
     }
+    int lastNumber = A.get( 0 );
     for( int i = 1; i < A.size(); i++ )
     {
       if( A.get( i ) > min && A.get( i ) < max )
       {
-        if( min == Integer.MIN_VALUE && A.get( i ) > A.get( i - 1 ) )
+        if( min < A.get( i ) && A.get( i ) <= lastNumber )
         {
-          min = A.get( i - 1 );
+          max = lastNumber;
         }
-        else if( A.get( i ) < max )
+        else
         {
-          max = A.get( i );
+          min = lastNumber;
         }
-        else if( max == Integer.MAX_VALUE && A.get( i ) < A.get( i - 1 ) )
-        {
-          max = A.get( i - 1 );
-        }
-        else if( A.get( i ) > min )
-        {
-          min = A.get( i );
-        }
+        lastNumber = A.get( i );
       }
       else
       {
@@ -154,17 +165,26 @@ class Trees3
 
   private static int largestBSTSubtree( TreeNode A )
   {
-    int height = Trees3.largestBSTSubtree( A, Integer.MIN_VALUE, Integer.MAX_VALUE );
+    int height = Trees3.largestBSTSubtree( A, Integer.MIN_VALUE, Integer.MAX_VALUE, 0 );
     return Math.max( height, 0 );
   }
 
-  private static int largestBSTSubtree( TreeNode A, int min, int max )
+  private static int largestBSTSubtree( TreeNode A, int min, int max, int height )
   {
     if( A == null )
     {
       return 0;
     }
-    int maxHeight = Math.max( Trees3.largestBSTSubtree( A.left, min, A.val ), Trees3.largestBSTSubtree( A.right, A.val, max ) );
+    if( A.left != null && A.left.val >= A.val )
+    {
+      return height;
+    }
+
+    if( A.right != null && A.right.val <= A.val )
+    {
+      return height;
+    }
+    int maxHeight = Math.max( Trees3.largestBSTSubtree( A.left, min, A.val, height ), Trees3.largestBSTSubtree( A.right, A.val, max, height ) );
     return maxHeight >= 0 ? maxHeight + 1 : 0;
   }
 
@@ -194,6 +214,12 @@ class Trees3
 
     int[] arr1 = new int[] { 12, 1, 9, 6, 2 };
     ArrayList<Integer> array1 = ArrayUtility.convertArrayToList( arr1 );
+    System.out.println( Trees3.checkForBSTWithOneChild( array1 ) );
+    arr1 = new int[] { 4, 10, 5, 8 };
+    array1 = ArrayUtility.convertArrayToList( arr1 );
+    System.out.println( Trees3.checkForBSTWithOneChild( array1 ) );
+    arr1 = new int[] { 49, 44, 42, 25, 2 };
+    array1 = ArrayUtility.convertArrayToList( arr1 );
     System.out.println( Trees3.checkForBSTWithOneChild( array1 ) );
   }
 }
