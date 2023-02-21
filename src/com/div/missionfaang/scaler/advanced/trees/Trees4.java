@@ -25,6 +25,117 @@ public class Trees4
   //    rightMax = Math.max( leftMax, Trees4.treeDiameter( A.right, leftMax, rightMax++ ) );
   //  }
 
+  private static int lca( TreeNode A, int B, int C )
+  {
+    ArrayList<Integer> pathToB = Trees4.pathToNode( A, B );
+    ArrayList<Integer> pathToC = Trees4.pathToNode( A, C );
+    int i = pathToB.size() - 1;
+    int j = pathToC.size() - 1;
+    for( ; i > -1 && j > -1; i--, j-- )
+    {
+      if( !pathToB.get( i ).equals( pathToC.get( j ) ) )
+      {
+        return pathToB.get( i + 1 );
+      }
+    }
+    if( j == -1 && pathToC.size() > 0 )
+    {
+      return pathToC.get( 0 );
+    }
+
+    if( i == -1 && pathToB.size() > 0 )
+    {
+      return pathToB.get( 0 );
+    }
+    return -1;
+  }
+
+  private static ArrayList<Integer> pathToNode( TreeNode A, int targetNodeValue )
+  {
+    if( A != null )
+    {
+      if( A.val == targetNodeValue )
+      {
+        ArrayList<Integer> traversal = new ArrayList<>();
+        traversal.add( A.val );
+        return traversal;
+      }
+      else
+      {
+        ArrayList<Integer> lpath = Trees4.pathToNode( A.left, targetNodeValue );
+        if( !lpath.isEmpty() )
+        {
+          lpath.add( A.val );
+          return lpath;
+        }
+        ArrayList<Integer> rpath = Trees4.pathToNode( A.right, targetNodeValue );
+        if( !rpath.isEmpty() )
+        {
+          rpath.add( A.val );
+          return rpath;
+        }
+        return new ArrayList<>();
+      }
+    }
+    return new ArrayList<>();
+  }
+
+  private static ArrayList<Integer> recoverTree( TreeNode A )
+  {
+    TreeNode prev = A;
+    TreeNode first = null;
+    TreeNode second = null;
+
+    while( A != null && (first == null || second == null) )
+    {
+      if( A.left != null )
+      {
+        TreeNode temp = A;
+        TreeNode predecessor = A.left;
+        while( predecessor.right != null && predecessor.right != temp )
+        {
+          predecessor = predecessor.right;
+        }
+        if( predecessor.right == null )
+        {
+          predecessor.right = temp;
+          A = A.left;
+        }
+        else
+        {
+          predecessor.right = null;
+          if( first == null && prev.val > A.val )
+          {
+            first = prev;
+          }
+          else if( first != null && prev.val > A.val )
+          {
+            second = prev;
+          }
+          prev = A;
+          A = A.right;
+        }
+      }
+      else
+      {
+        if( first == null && prev.val > A.val )
+        {
+          first = prev;
+        }
+        else if( first != null && prev.val > A.val )
+        {
+          second = prev;
+        }
+        prev = A;
+        A = A.right;
+      }
+    }
+    ArrayList<Integer> ret = new ArrayList<>();
+    ret.add( first.val );
+    ret.add( second.val );
+    return ret;
+  }
+
   private static int isSameTree( TreeNode A, TreeNode B )
   {
     if( A != null || B != null )
@@ -34,7 +145,7 @@ public class Trees4
         return 0;
       }
     }
-    if( A != null && B != null )
+    if( A != null )
     {
       if( A.val == B.val )
       {
@@ -56,18 +167,51 @@ public class Trees4
     return 1;
   }
 
-  private static ArrayList<Integer> recoverTree( TreeNode A )
+  private static ArrayList<Integer> morrisAlgorithm( TreeNode A )
   {
-    return Trees4.recoverTree( A, null, new ArrayList<>() );
-  }
-
-  private static ArrayList<Integer> recoverTree( TreeNode a_, Object o_, ArrayList<Integer> integers_ )
-  {
-    return integers_;
+    ArrayList<Integer> result = new ArrayList<>();
+    while( A != null )
+    {
+      if( A.left != null )
+      {
+        TreeNode temp = A;
+        TreeNode predecessor = A.left;
+        while( predecessor.right != null && predecessor.right != temp )
+        {
+          predecessor = predecessor.right;
+        }
+        if( predecessor.right == null )
+        {
+          predecessor.right = temp;
+          A = A.left;
+        }
+        else
+        {
+          predecessor.right = null;
+          result.add( A.val );
+          A = A.right;
+        }
+      }
+      else
+      {
+        result.add( A.val );
+        A = A.right;
+      }
+    }
+    return result;
   }
 
   public static void main( String[] args )
   {
-
+    TreeNode root = new TreeNode( 1 );
+    root.right = new TreeNode( 4 );
+    root.right.left = new TreeNode( 3 );
+    root.right.left.left = new TreeNode( 5 );
+    root.right.right = new TreeNode( 6 );
+    root.right.right.left = new TreeNode( 2 );
+    root.right.right.right = new TreeNode( 7 );
+    System.out.println( Trees4.lca( root, 7, 5 ) );
+    //    System.out.println( Trees4.recoverTree( root ) );
+    //    System.out.println( Trees1.inorderTraversal( root ) );
   }
 }

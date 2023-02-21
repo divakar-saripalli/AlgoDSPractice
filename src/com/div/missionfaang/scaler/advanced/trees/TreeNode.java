@@ -2,7 +2,7 @@ package com.div.missionfaang.scaler.advanced.trees;
 
 class TreeNode
 {
-  final int val;
+  int val;
   TreeNode left;
   TreeNode right;
 
@@ -11,5 +11,10 @@ class TreeNode
     val = x;
     left = null;
     right = null;
+  }
+
+  public void setVal( int val_ )
+  {
+    val = val_;
   }
 }

@@ -173,7 +173,7 @@ class Trees3
   {
     if( A == null )
     {
-      return 0;
+      return -1;
     }
     if( A.left != null && A.left.val >= A.val )
     {
