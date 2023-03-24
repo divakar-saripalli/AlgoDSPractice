@@ -49,7 +49,7 @@ public class Trees6
     return oddSum - evenSum;
   }
 
-  private static TreeNode deserializeBinaryTree( ArrayList<Integer> A )
+  static TreeNode deserializeBinaryTree( ArrayList<Integer> A )
   {
     TreeNode root = new TreeNode( A.get( 0 ) );
     ArrayList<TreeNode> queue = new ArrayList<>();

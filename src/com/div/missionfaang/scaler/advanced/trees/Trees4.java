@@ -1,29 +1,31 @@
 package com.div.missionfaang.scaler.advanced.trees;
 
+import com.div.missionfaang.scaler.ArrayUtility;
+
 import java.util.ArrayList;
 
 public class Trees4
 {
 
-  //  private static int treeDiameter( TreeNode A, ArrayList<Integer> leftRightMaximums_ )
-  //  {
-  //    ArrayList<Integer> leftRightMaximums = new ArrayList<>();
-  //    leftRightMaximums.add( 0 );
-  //    leftRightMaximums.add( 0 );
-  //    Trees4.treeDiameter( A, leftRightMaximums );
-  //    return leftRightMaximums.get( 0 ) + leftRightMaximums.get( 1 );
-  //  }
-  //
-  //  private static int treeDiameter( TreeNode A, ArrayList<Integer> leftRightMaximums )
-  //  {
-  //    if(A != null){
-  //      if( A.left != null ) {
-  //        leftRightMaximums.set( 0,  )
-  //        Trees4.treeDiameter( A.left,  );
-  //      }
-  //    }
-  //    rightMax = Math.max( leftMax, Trees4.treeDiameter( A.right, leftMax, rightMax++ ) );
-  //  }
+  private static int treeDiameter( TreeNode A )
+  {
+    ArrayList<Integer> leftRightMax = new ArrayList<>( 2 );
+    leftRightMax.add( 0 );
+    leftRightMax.add( 0 );
+    //    Trees4.treeDiameter( A, leftRightMax, 0 );
+    return leftRightMax.get( 1 ) - leftRightMax.get( 0 );
+  }
+
+  private static void height( TreeNode A, ArrayList<Integer> leftRightMax, int index )
+  {
+    if( A != null )
+    {
+      leftRightMax.set( 0, Math.min( leftRightMax.get( 0 ), index ) );
+      leftRightMax.set( 1, Math.max( leftRightMax.get( 1 ), index ) );
+      //      Trees4.treeDiameter( A.left, leftRightMax, index - 1 );
+      //      Trees4.treeDiameter( A.right, leftRightMax, index + 1 );
+    }
+  }
 
   private static int lca( TreeNode A, int B, int C )
   {
@@ -203,14 +205,16 @@ public class Trees4
 
   public static void main( String[] args )
   {
-    TreeNode root = new TreeNode( 1 );
-    root.right = new TreeNode( 4 );
-    root.right.left = new TreeNode( 3 );
-    root.right.left.left = new TreeNode( 5 );
-    root.right.right = new TreeNode( 6 );
-    root.right.right.left = new TreeNode( 2 );
-    root.right.right.right = new TreeNode( 7 );
-    System.out.println( Trees4.lca( root, 7, 5 ) );
+    //    TreeNode root = new TreeNode( 4 );
+    //    root.left = new TreeNode( 2 );
+    //    root.right = new TreeNode( 6 );
+    //    root.left.left = new TreeNode( 1 );
+    //    root.left.right = new TreeNode( 3 );
+    //    root.right.left = new TreeNode( 5 );
+    //    root.right.right = new TreeNode( 7 );
+    int[] arr1 = new int[] { 13, 18, 14, 20, 10, 27, 25, -1, -1, -1, -1, -1, -1, -1 };
+    ArrayList<Integer> array1 = ArrayUtility.convertArrayToList( arr1 );
+    System.out.println( Trees4.treeDiameter( Trees1.deserializeBinaryTree( array1 ) ) );
     //    System.out.println( Trees4.recoverTree( root ) );
     //    System.out.println( Trees1.inorderTraversal( root ) );
   }

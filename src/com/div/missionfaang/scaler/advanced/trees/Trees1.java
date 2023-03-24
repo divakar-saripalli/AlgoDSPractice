@@ -158,13 +158,13 @@ class Trees1
     return root;
   }
 
-  private static TreeNode deserializeBinaryTree( ArrayList<Integer> A )
+  static TreeNode deserializeBinaryTree( ArrayList<Integer> A )
   {
     TreeNode root = new TreeNode( A.get( 0 ) );
     int front = 0;
     ArrayList<TreeNode> queue = new ArrayList<>();
     queue.add( root );
-    for( int i = 1; i < A.size(); i++ )
+    for( int i = 1; i < A.size(); )
     {
       TreeNode node = queue.get( front );
       front++;
