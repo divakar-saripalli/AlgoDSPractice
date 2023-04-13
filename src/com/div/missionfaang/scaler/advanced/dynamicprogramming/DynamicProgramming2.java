@@ -81,69 +81,259 @@ public class DynamicProgramming2
     return min;
   }
 
+  private static int calculateMinimumHP( ArrayList<ArrayList<Integer>> A )
+  {
+    ArrayList<ArrayList<Pair<Integer, Integer>>> result = new ArrayList<>();
+    ArrayList<Pair<Integer, Integer>> firstRow = new ArrayList<>();
+    firstRow.add( A.get( 0 ).get( 0 ) > -1 ? new Pair<>( 1, A.get( 0 ).get( 0 ) + 1 ) : new Pair<>( 1, A.get( 0 ).get( 0 ) * -1 + 1 ) );
+    int finalResult = 0;
+    for( int i = 1; i < A.get( 0 ).size(); i++ )
+    {
+      if( A.get( 0 ).get( i ) > -1 )
+      {
+        firstRow.add( new Pair<>( firstRow.get( i - 1 ).getFirst() + A.get( 0 ).get( i ), firstRow.get( i - 1 ).getSecond() + A.get( 0 ).get( i ) ) );
+      }
+      else
+      {
+        firstRow.add( new Pair<>( firstRow.get( i - 1 ).getFirst() - A.get( 0 ).get( i ), firstRow.get( i - 1 ).getSecond() - A.get( 0 ).get( i ) ) );
+      }
+    }
+    result.add( firstRow );
+
+    for( int i = 1; i < A.size(); i++ )
+    {
+      ArrayList<Pair<Integer, Integer>> row = new ArrayList<>();
+      //      row.add( A.get( i ).get( 0 ) > -1 ? result.get( i - 1 ).get( 0 ) + A.get( i ).get( 0 ) : result.get( i - 1 ).get( 0 ) - A.get( i ).get( 0 ) );
+      for( int j = 1; j < A.get( i ).size(); j++ )
+      {
+        //        finalResult = Math.min( row.get( j - 1 ), result.get( i - 1 ).get( j ) );
+        if( A.get( i ).get( j ) < 0 )
+        {
+          finalResult -= A.get( i ).get( j );
+        }
+        else
+        {
+          finalResult += A.get( i ).get( j );
+        }
+        //        row.add( finalResult );
+      }
+      result.add( row );
+    }
+    return result.get( A.size() - 1 ).get( A.get( 0 ).size() - 1 ).getSecond();
+  }
+
+  /**
+   * Problem Description
+   * <p>
+   * In Dance land, one person can party either alone or can pair up with another person.
+   * Can you find in how many ways they can party if there are A people in Dance land?
+   * <p>
+   * Note: Return your answer modulo 10003, as the answer can be large.
+   *
+   * @param A
+   * @return
+   */
+  private static int letsParty( int A )
+  {
+    if( A < 3 )
+    {
+      return A;
+    }
+    int first = 1;
+    int second = 2;
+    int mod = 10003;
+    int count = 3;
+    while( count <= A )
+    {
+      int temp = ((second + (first * (count - 1)) % mod) % mod);
+      first = second;
+      second = temp;
+      count++;
+    }
+    return second;
+  }
+
+  private static int minPathSum( ArrayList<ArrayList<Integer>> A )
+  {
+    ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+    ArrayList<Integer> firstRow = new ArrayList<>();
+    firstRow.add( A.get( 0 ).get( 0 ) );
+    int finalResult = 0;
+    for( int i = 1; i < A.get( 0 ).size(); i++ )
+    {
+      firstRow.add( firstRow.get( i - 1 ) + A.get( 0 ).get( i ) );
+    }
+    result.add( firstRow );
+
+    for( int i = 1; i < A.size(); i++ )
+    {
+      ArrayList<Integer> row = new ArrayList<>();
+      row.add( result.get( 0 ).get( 0 ) + A.get( i ).get( 0 ) );
+      for( int j = 1; j < A.get( i ).size(); j++ )
+      {
+        finalResult = Math.min( row.get( j - 1 ), result.get( 0 ).get( j ) );
+        finalResult += A.get( i ).get( j );
+        row.add( finalResult );
+      }
+      result.add( row );
+      result.remove( 0 );
+    }
+    return result.get( 0 ).get( A.get( 0 ).size() - 1 );
+  }
+
   public static void main( String[] args )
   {
     ArrayList<ArrayList<Integer>> result = new ArrayList<>();
     ArrayList<Integer> row = new ArrayList<>();
-    row.add( 9 );
-    result.add( row );
+    //    row.add( -2 );
+    //    row.add( -3 );
+    //    row.add( 3 );
+    //    result.add( row );
+    //
+    //    row = new ArrayList<>();
+    //    row.add( -5 );
+    //    row.add( -10 );
+    //    row.add( 1 );
+    //    result.add( row );
+    //
+    //    row = new ArrayList<>();
+    //    row.add( 10 );
+    //    row.add( 30 );
+    //    row.add( -5 );
+    //    result.add( row );
 
-    row = new ArrayList<>();
-    row.add( 3 );
-    row.add( 8 );
-    result.add( row );
+    //    row = new ArrayList<>();
+    //    row.add( 8 );
+    //    row.add( 3 );
+    //    row.add( 9 );
+    //    row.add( 0 );
+    //    result.add( row );
+    //
+    //    row = new ArrayList<>();
+    //    row.add( 5 );
+    //    row.add( 2 );
+    //    row.add( 2 );
+    //    row.add( 7 );
+    //    row.add( 3 );
+    //    result.add( row );
+    //
+    //    row = new ArrayList<>();
+    //    row.add( 7 );
+    //    row.add( 9 );
+    //    row.add( 0 );
+    //    row.add( 2 );
+    //    row.add( 3 );
+    //    row.add( 9 );
+    //    result.add( row );
+    //
+    //    row = new ArrayList<>();
+    //    row.add( 9 );
+    //    row.add( 7 );
+    //    row.add( 0 );
+    //    row.add( 3 );
+    //    row.add( 9 );
+    //    row.add( 8 );
+    //    row.add( 6 );
+    //    result.add( row );
+    //
+    //    row = new ArrayList<>();
+    //    row.add( 5 );
+    //    row.add( 7 );
+    //    row.add( 6 );
+    //    row.add( 2 );
+    //    row.add( 7 );
+    //    row.add( 0 );
+    //    row.add( 3 );
+    //    row.add( 9 );
+    //    result.add( row );
 
+    //    System.out.println( DynamicProgramming2.calculateMinimumHP( result ) );
+
+    result = new ArrayList<>();
     row = new ArrayList<>();
-    row.add( 0 );
+    row.add( 1 );
+    row.add( -3 );
     row.add( 2 );
-    row.add( 4 );
     result.add( row );
 
     row = new ArrayList<>();
-    row.add( 8 );
-    row.add( 3 );
-    row.add( 9 );
-    row.add( 0 );
+    row.add( 2 );
+    row.add( 5 );
+    row.add( 10 );
     result.add( row );
 
     row = new ArrayList<>();
     row.add( 5 );
-    row.add( 2 );
-    row.add( 2 );
-    row.add( 7 );
-    row.add( 3 );
+    row.add( -5 );
+    row.add( 1 );
     result.add( row );
 
-    row = new ArrayList<>();
-    row.add( 7 );
-    row.add( 9 );
-    row.add( 0 );
-    row.add( 2 );
-    row.add( 3 );
-    row.add( 9 );
-    result.add( row );
+    System.out.println( DynamicProgramming2.minPathSum( result ) );
+  }
+}
 
-    row = new ArrayList<>();
-    row.add( 9 );
-    row.add( 7 );
-    row.add( 0 );
-    row.add( 3 );
-    row.add( 9 );
-    row.add( 8 );
-    row.add( 6 );
-    result.add( row );
+class Pair<A, B>
+{
+  private A first;
+  private B second;
 
-    row = new ArrayList<>();
-    row.add( 5 );
-    row.add( 7 );
-    row.add( 6 );
-    row.add( 2 );
-    row.add( 7 );
-    row.add( 0 );
-    row.add( 3 );
-    row.add( 9 );
-    result.add( row );
+  Pair( A first, B second )
+  {
+    super();
+    this.first = first;
+    this.second = second;
+  }
 
-    System.out.println( DynamicProgramming2.minimumTotal( result ) );
+  @Override
+  public int hashCode()
+  {
+    int hashFirst = first != null ? first.hashCode() : 0;
+    int hashSecond = second != null ? second.hashCode() : 0;
+
+    return (hashFirst + hashSecond) * hashSecond + hashFirst;
+  }
+
+  @Override
+  public boolean equals( Object other )
+  {
+    if( other instanceof Pair )
+    {
+      Pair otherPair = (Pair) other;
+      return
+          ((first == otherPair.first ||
+              (first != null && otherPair.first != null &&
+                  first.equals( otherPair.first ))) &&
+              (second == otherPair.second ||
+                  (second != null && otherPair.second != null &&
+                      second.equals( otherPair.second ))));
+    }
+
+    return false;
+  }
+
+  @Override
+  public String toString()
+  {
+    return "(" + first + ", " + second + ")";
+  }
+
+  public A getFirst()
+  {
+    return first;
+  }
+
+  public void setFirst( A first )
+  {
+    this.first = first;
+  }
+
+  B getSecond()
+  {
+    return second;
+  }
+
+  public void setSecond( B second )
+  {
+    this.second = second;
   }
 }

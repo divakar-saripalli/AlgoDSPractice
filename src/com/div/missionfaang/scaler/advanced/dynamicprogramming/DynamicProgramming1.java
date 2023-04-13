@@ -69,7 +69,7 @@ public class DynamicProgramming1
     }
     return dp.get( A.get( 0 ).size() );
   }
-
+  
   private static int numDecodings( String A )
   {
     int[] dp = new int[A.length() + 1];
