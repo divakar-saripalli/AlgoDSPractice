@@ -1,5 +1,7 @@
 package com.div.missionfaang.scaler.advanced.trees;
 
+import com.div.missionfaang.scaler.advanced.TreeNode;
+
 import java.util.ArrayList;
 
 public class Trees5

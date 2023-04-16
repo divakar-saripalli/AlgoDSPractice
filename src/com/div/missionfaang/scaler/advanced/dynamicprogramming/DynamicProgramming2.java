@@ -181,6 +181,23 @@ public class DynamicProgramming2
     return result.get( 0 ).get( A.get( 0 ).size() - 1 );
   }
 
+  private static int uniquePathsWithObstacles( int[][] A )
+  {
+    int[][] result = new int[A.length + 1][A[0].length + 1];
+    for( int i = 1; i <= A.length; i++ )
+    {
+      for( int j = 1; j <= A[i - 1].length; j++ )
+      {
+        result[i][j] = (A[i - 1][j - 1] == 0) ?
+            ((result[i][j - 1] > 0 && result[i - 1][j] > 0) ?
+                Math.max( result[i][j - 1], result[i - 1][j] ) + 1 :
+                Math.max( result[i][j - 1], result[i - 1][j] )) :
+            0;
+      }
+    }
+    return result[A.length][A[0].length];
+  }
+
   public static void main( String[] args )
   {
     ArrayList<ArrayList<Integer>> result = new ArrayList<>();
@@ -268,7 +285,11 @@ public class DynamicProgramming2
     row.add( 1 );
     result.add( row );
 
-    System.out.println( DynamicProgramming2.minPathSum( result ) );
+    //    System.out.println( DynamicProgramming2.minPathSum( result ) );
+    int[][] A = new int[1][1];
+    A[0][0] = 0;
+    //    A[0][1] = 0;
+    System.out.println( uniquePathsWithObstacles( A ) );
   }
 }
 
