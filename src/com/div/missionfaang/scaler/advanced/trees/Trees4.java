@@ -41,12 +41,12 @@ public class Trees4
         return pathToB.get( i + 1 );
       }
     }
-    if( j == -1 && pathToC.size() > 0 )
+    if( j == -1 && !pathToC.isEmpty() )
     {
       return pathToC.get( 0 );
     }
 
-    if( i == -1 && pathToB.size() > 0 )
+    if( i == -1 && !pathToB.isEmpty() )
     {
       return pathToB.get( 0 );
     }
@@ -134,7 +134,9 @@ public class Trees4
       }
     }
     ArrayList<Integer> ret = new ArrayList<>();
+    assert first != null;
     ret.add( first.val );
+    assert second != null;
     ret.add( second.val );
     return ret;
   }

@@ -65,7 +65,6 @@ class Trees1
   {
     ArrayList<TreeNode> queue = new ArrayList<>();
     ArrayList<ArrayList<Integer>> result = new ArrayList<>();
-    TreeNode root = null;
     if( A != null )
     {
       ArrayList<Integer> rootLevel = new ArrayList<>();

@@ -37,7 +37,7 @@ public class SubsequenceProblems {
                 gIndices.add(i);
             }
         }
-        if (gIndices.size() == 0 || aIndices.size() == 0) {
+        if ( gIndices.isEmpty() || aIndices.isEmpty() ) {
             return 0;
         }
         int gIndicesPointer = 0;
@@ -54,14 +54,19 @@ public class SubsequenceProblems {
         return subsequenceCount;
     }
 
-    public int maxOddEvenSubsequence(ArrayList<Integer> A) {
+    public int maxOddEvenSubsequence( ArrayList<Integer> A )
+    {
         int count = 1;
-        boolean checkForOdd = (A.get(0) % 2 == 0);
-        for (int i = 0; i < A.size(); i++) {
-            if (checkForOdd && A.get(i) % 2 != 0) {
+        boolean checkForOdd = (A.get( 0 ) % 2 == 0);
+        for( Integer integer_ : A )
+        {
+            if( checkForOdd && integer_ % 2 != 0 )
+            {
                 count++;
                 checkForOdd = false;
-            } else if (!checkForOdd && A.get(i) % 2 == 0) {
+            }
+            else if( !checkForOdd && integer_ % 2 == 0 )
+            {
                 count++;
                 checkForOdd = true;
             }

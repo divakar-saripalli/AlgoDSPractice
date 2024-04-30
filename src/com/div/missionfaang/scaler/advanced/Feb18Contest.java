@@ -22,7 +22,14 @@ public class Feb18Contest
       }
       int leftCount = solve1( A.left, B, sum, count, integers_ );
       int rightCount = solve1( A.right, B, sum, count, integers_ );
-      count += leftCount + rightCount;
+      integers_.remove( integers_.size() - 1 );
+      int tempCount = count;
+      if(leftCount != tempCount){
+        count += leftCount;
+      }
+      if(rightCount != tempCount){
+        count += rightCount;
+      }
       return count;
     }
     return 0;

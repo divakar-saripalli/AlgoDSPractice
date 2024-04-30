@@ -158,7 +158,7 @@ public class DynamicProgramming2
     ArrayList<ArrayList<Integer>> result = new ArrayList<>();
     ArrayList<Integer> firstRow = new ArrayList<>();
     firstRow.add( A.get( 0 ).get( 0 ) );
-    int finalResult = 0;
+    int finalResult;
     for( int i = 1; i < A.get( 0 ).size(); i++ )
     {
       firstRow.add( firstRow.get( i - 1 ) + A.get( 0 ).get( i ) );
@@ -179,6 +179,67 @@ public class DynamicProgramming2
       result.remove( 0 );
     }
     return result.get( 0 ).get( A.get( 0 ).size() - 1 );
+  }
+
+  private int maximalRectangle(ArrayList<ArrayList<Integer>> A) {
+    if(A.size() == 1) {
+      int max = 0;
+      int count = 0;
+      for(int i = 0; i < A.get(0).size(); i++) {
+        if(A.get(0).get(i) == 0) {
+          max = Math.max(max, count);
+          count = 0;
+        }
+        count += A.get( 0 ).get( i );
+      }
+      max = Math.max(max, count);
+      return max;
+    }
+    if(A.get(0).size() == 1) {
+      int max = 0;
+      int count = 0;
+      for( ArrayList<Integer> integers_ : A )
+      {
+        if( integers_.get( 0 ) == 0 )
+        {
+          max = Math.max( max, count );
+          count = 0;
+        }
+        count += integers_.get( 0 );
+      }
+      max = Math.max(max, count);
+      return max;
+    }
+    ArrayList<ArrayList<Integer>> placeholder = new ArrayList<>();
+    for(int i = 0; i < A.size(); i++) {
+      ArrayList<Integer> newRow = new ArrayList<>();
+      placeholder.add( newRow );
+      newRow.add( A.get(i).get(0) );
+      for(int j = 1; j < A.get(i).size(); j++) {
+        if(A.get(i).get(j) == 0) {
+          newRow.add( 0 );
+        } else {
+          newRow.add( A.get(i).get(j) + placeholder.get( i ).get( j - 1 ) );
+        }
+      }
+    }
+
+    int max = 0;
+    for(int i = 0; i < A.size(); i++) {
+      for(int j = 0; j < A.get(i).size(); j++) {
+        if(placeholder.get(i).get(j) != 0) {
+          int width = placeholder.get( i ).get( j );
+          int height = 1;
+          max = Math.max(max, width * height);
+          for(int k = i-1; k > -1; k--) {
+            height++;
+            width = Math.min( width, placeholder.get( k ).get( j ) );
+            max = Math.max(max, width * height);
+          }
+        }
+      }
+    }
+    return max;
   }
 
   private static int uniquePathsWithObstacles( int[][] A )

@@ -104,6 +104,50 @@ public class PrefixSum {
         return count;
     }
 
+    private static int specialIndex(ArrayList<Integer> A) {
+        int count = 0;
+        if (A.size() < 3) {
+            return 0;
+        }
+
+        ArrayList<Integer> evenPrefixSum = new ArrayList<>();
+        ArrayList<Integer> oddPrefixSum = new ArrayList<>();
+        evenPrefixSum.add(A.get(0));
+        evenPrefixSum.add(A.get(0));
+        oddPrefixSum.add(0);
+        oddPrefixSum.add(A.get(1));
+        for(int i = 2; i < A.size(); i++) {
+            if(i%2 == 0) {
+                evenPrefixSum.add(evenPrefixSum.get(i-1) + A.get(i));
+                oddPrefixSum.add(oddPrefixSum.get(i-1));
+            } else {
+                oddPrefixSum.add(oddPrefixSum.get(i-1) + A.get(i));
+                evenPrefixSum.add(evenPrefixSum.get(i-1));
+            }
+        }
+
+        if(evenPrefixSum.get(evenPrefixSum.size() - 1) - A.get(0) == oddPrefixSum.get(oddPrefixSum.size() - 1)){
+            count++;
+        }
+
+        for(int i = 1; i< A.size(); i++){
+            if(i%2 == 0) {
+                int evenSum = evenPrefixSum.get(i) - A.get(i) + (oddPrefixSum.get(oddPrefixSum.size() - 1) - oddPrefixSum.get(i));
+                int oddSum = oddPrefixSum.get(i) + (evenPrefixSum.get(evenPrefixSum.size() - 1) - evenPrefixSum.get(i));
+                if(evenSum == oddSum) {
+                    count++;
+                }
+            } else {
+                int oddSum = oddPrefixSum.get(i) - A.get(i) + (evenPrefixSum.get(evenPrefixSum.size() - 1) - evenPrefixSum.get(i));
+                int evenSum = evenPrefixSum.get(i) + (oddPrefixSum.get(oddPrefixSum.size() - 1) - oddPrefixSum.get(i));
+                if(evenSum == oddSum) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
     private static ArrayList<Long> rangeSum(ArrayList<Integer> A, ArrayList<ArrayList<Integer>> B) {
         ArrayList<Long> resultArray = new ArrayList<>();
         ArrayList<Long> prefixSumArray = new ArrayList<>(A.size());
@@ -136,6 +180,6 @@ public class PrefixSum {
     public static void main(String[] args) {
         int[] arr1 = new int[]{1, 2, 3, 7, 1, 2, 3};
         ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
-        System.out.println(PrefixSum.findBalancingArrayIndices(array));
+        System.out.println(PrefixSum.specialIndex(array));
     }
 }

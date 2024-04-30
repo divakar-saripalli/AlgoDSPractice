@@ -73,7 +73,7 @@ public class BitManipulation {
             }
             a = a >> 1;
         }
-        // returning result + 1 if the original number is odd because it was reduced by 1 
+        // returning result + 1 if the original number is odd because it was reduced by 1
         // while calculating the reverse bit above.
         return (add1) ? result + 1 : result;
     }
@@ -210,11 +210,55 @@ public class BitManipulation {
         return result;
     }
 
+    private static String addBinary1(String A, String B) {
+        int carry = 0;
+        int i = 0;
+        StringBuilder result = new StringBuilder();
+        while(i < A.length() || i < B.length()) {
+            char a = '0';
+            char b = '0';
+            if(i < A.length()) {
+                a = A.charAt(A.length() - 1 - i);
+            }
+            if(i < B.length()) {
+                b = B.charAt(B.length() - 1 - i);
+            }
+
+            if(a != b && (a == '0' || b == '0')) {
+                if(carry == 1) {
+                    result.insert( 0, "0" );
+                } else {
+                    result.insert( 0, "1" );
+                }
+            } else if( a == '0') {
+                if(carry == 1) {
+                    result.insert( 0, "1" );
+                } else {
+                    result.insert( 0, "0" );
+                }
+                carry = 0;
+            } else {
+                if(carry == 1) {
+                    result.insert( 0, "1" );
+                } else {
+                    result.insert( 0, "0" );
+                    carry = 1;
+                }
+            }
+            i++;
+        }
+        if(carry == 1) {
+            result.insert( 0, "1" );
+        }
+        return result.toString();
+    }
+
     public static void main(String[] args) {
 //        System.out.println(BitManipulation.helpFromSam(3));
 //        System.out.println(BitManipulation.unsetXBits(53L, 5));
         int[] arr1 = new int[]{186, 256, 102, 377, 186, 377};
-        ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
-        System.out.println(BitManipulation.singleNumber3(array));
+//        ArrayList<Integer> array = ArrayUtility.convertArrayToList(arr1);
+        System.out.println(BitManipulation.addBinary1("0101", "0111"));
+        System.out.println(BitManipulation.addBinary1("1010110111001101101000", "1000011011000000111100110"));
     }
 }

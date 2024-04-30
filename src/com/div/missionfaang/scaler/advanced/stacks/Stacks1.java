@@ -59,7 +59,6 @@ public class Stacks1
   private static int braces( String A )
   {
     Stack<Character> stack = new Stack<>();
-    int count = 0;
     boolean includesOperator = false;
     for( int i = A.length() - 1; i > -1; i-- )
     {

@@ -4,9 +4,12 @@ import com.div.missionfaang.scaler.ArrayUtility;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class Queues2
 {
+  static Stack<Integer> stack = new Stack<>();
+  static Stack<Integer> minStack = new Stack<>();
   private static String firstNonRepeatingCharacter( String A )
   {
     StringBuilder result = new StringBuilder();
@@ -259,6 +262,38 @@ public class Queues2
       }
     }
     return (int) result;
+  }
+
+  private static void push(int x) {
+    stack.push(x);
+    if(minStack.isEmpty() || minStack.peek() > x){
+      minStack.push(x);
+    }
+  }
+
+  private static void pop() {
+    if(!stack.isEmpty()){
+      int element = stack.pop();
+      if(element == minStack.peek()){
+        minStack.pop();
+      }
+    }else {
+      minStack.empty();
+    }
+  }
+
+  private static int top() {
+    if(stack.isEmpty()){
+      return  -1;
+    }
+    return stack.peek();
+  }
+
+  private static int getMin() {
+    if(minStack.isEmpty()){
+      return  -1;
+    }
+    return minStack.peek();
   }
 
   public static void main( String[] args )
