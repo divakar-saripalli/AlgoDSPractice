@@ -423,11 +423,11 @@ public class DynamicProgramming2
         { 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
         { 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0 },
-        { 0, 0, 0, 0, 0, 0, 0, 1, 1, 0,0,0,0}
-};
+        { 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0 }
+    };
     //    A[0][1] = 0;
     //    System.out.println( uniquePathsWithObstacles( A ) );
-    System.out.println( maxAreaOfIsland( A ));
+    System.out.println( maxAreaOfIsland( A ) );
   }
 
   private int maximalRectangle( ArrayList<ArrayList<Integer>> A )
@@ -497,7 +497,8 @@ public class DynamicProgramming2
       return 0;
     }
     grid[i][j] = 0;
-    return dfs_LeetCode_1ms( grid, i + 1, j ) + dfs_LeetCode_1ms( grid, i - 1, j ) + dfs_LeetCode_1ms( grid, i, j + 1 ) + dfs_LeetCode_1ms( grid, i, j - 1) + 1;
+    return dfs_LeetCode_1ms( grid, i + 1, j ) + dfs_LeetCode_1ms( grid, i - 1, j ) + dfs_LeetCode_1ms( grid, i, j + 1 ) + dfs_LeetCode_1ms( grid, i, j - 1 )
+        + 1;
   }
 }
 

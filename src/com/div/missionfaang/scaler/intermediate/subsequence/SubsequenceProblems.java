@@ -37,8 +37,8 @@ public class SubsequenceProblems {
                 gIndices.add(i);
             }
         }
-      if( gIndices.isEmpty() || aIndices.isEmpty() )
-      {
+        if( gIndices.isEmpty() || aIndices.isEmpty() )
+        {
             return 0;
         }
         int gIndicesPointer = 0;

@@ -31,7 +31,7 @@ public class AlliesAndAssociates
     {
       if( map.containsKey( ally.colony1 ) && !map.get( ally.colony1 ).contains( ally.colony2 ) )
       {
-        map.put( ally.colony1, map.get( ally.colony1 ) + ally.colony2);
+        map.put( ally.colony1, map.get( ally.colony1 ) + ally.colony2 );
       }
       else if( !map.containsKey( ally.colony1 ) )
       {
@@ -40,7 +40,7 @@ public class AlliesAndAssociates
 
       if( map.containsKey( ally.colony2 ) && !map.get( ally.colony2 ).contains( ally.colony1 ) )
       {
-        map.put( ally.colony2, map.get( ally.colony2 ) + ally.colony1);
+        map.put( ally.colony2, map.get( ally.colony2 ) + ally.colony1 );
       }
       else if( !map.containsKey( ally.colony2 ) )
       {
