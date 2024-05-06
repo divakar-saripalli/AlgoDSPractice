@@ -106,7 +106,8 @@ public class StringProblems {
         if (A.size() == 1) {
             return A.get(0);
         }
-        if ( A.isEmpty() ) {
+      if( A.isEmpty() )
+      {
             return "";
         }
         boolean isCommon = true;
@@ -130,7 +131,7 @@ public class StringProblems {
             return A;
         }
         if (A.length() < 3) {
-            return A.contentEquals( new StringBuilder(A).reverse() ) ? A : "" + A.charAt(0);
+          return A.contentEquals( new StringBuilder( A ).reverse() ) ? A : "" + A.charAt( 0 );
         }
         int longestPalindromeLength = Integer.MIN_VALUE;
         int longestPalindromeStartIndex = A.length();

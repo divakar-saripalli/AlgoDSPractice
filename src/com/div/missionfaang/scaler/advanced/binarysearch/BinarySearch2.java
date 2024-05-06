@@ -1,7 +1,5 @@
 package com.div.missionfaang.scaler.advanced.binarysearch;
 
-import com.div.missionfaang.scaler.ArrayUtility;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +72,7 @@ public class BinarySearch2 {
             if ((mid * mid) == A) {
                 return (int) mid;
             } else if ((mid * mid) < A) {
-                ans = mid;
+                //                ans = mid;
                 left = mid + 1;
             } else {
                 right = mid - 1;
@@ -183,6 +181,26 @@ public class BinarySearch2 {
         return BinarySearch2.gcd(A, B % A);
     }
 
+    private static boolean judgeSquareSum( int c )
+    {
+        if( c < 3 )
+        {
+            return true;
+        }
+        int a = 0;
+        int b = c;
+        while( a <= b )
+        {
+            if( sqrt( b ) != 0 )
+            {
+                return true;
+            }
+            b = c - (int) Math.pow( a + 1, 2 );
+            a++;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         int[] arr1 = new int[]{
                 3, 5, 7, 24, 25, 40, 41, 56, 57, 64, 75, 79, 100, 118, 121, 129, 130, 132, 135, 145, 149, 153, 154, 158, 165, 171, 184,
@@ -226,7 +244,8 @@ public class BinarySearch2 {
                 10, 47, 1, 99, 91, 53, 99, 18, 52, 61, 84, 10, 13, 52, 3, 9, 78, 16, 7, 62
         };
 
-        ArrayList<Integer> array1 = ArrayUtility.convertArrayToList(arr1);
-        System.out.println(BinarySearch2.kthPrice(array1, 22));
+        //        ArrayList<Integer> array1 = ArrayUtility.convertArrayToList(arr1);
+        //        System.out.println(BinarySearch2.kthPrice(array1, 22));
+        System.out.println( BinarySearch2.judgeSquareSum( 10000000 ) );
     }
 }

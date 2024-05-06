@@ -118,6 +118,25 @@ public class Heaps1
     }
     max3[2] = A.get( 2 );
     result.add( max3[1] * max3[0] * max3[2] );
+    rearrangeInSortedOrder( max3 );
+    for( int i = 3; i < A.size(); i++ )
+    {
+      if( A.get( i ) > max3[0] )
+      {
+        result.add( max3[1] * max3[2] * A.get( i ) );
+        max3[0] = A.get( i );
+        rearrangeInSortedOrder( max3 );
+      }
+      else
+      {
+        result.add( result.get( i - 1 ) );
+      }
+    }
+    return result;
+  }
+
+  private static void rearrangeInSortedOrder( int[] max3 )
+  {
     if( max3[0] > max3[1] )
     {
       int temp = max3[0];
@@ -131,32 +150,6 @@ public class Heaps1
       max3[0] = max3[2];
       max3[2] = temp;
     }
-    for( int i = 3; i < A.size(); i++ )
-    {
-      if( A.get( i ) > max3[0] )
-      {
-        result.add( (result.get( i - 1 ) / max3[0]) * A.get( i ) );
-        max3[0] = A.get( i );
-        if( max3[0] > max3[1] )
-        {
-          int temp = max3[0];
-          max3[0] = max3[1];
-          max3[1] = temp;
-        }
-
-        if( max3[0] > max3[2] )
-        {
-          int temp = max3[0];
-          max3[0] = max3[2];
-          max3[2] = temp;
-        }
-      }
-      else
-      {
-        result.add( result.get( i - 1 ) );
-      }
-    }
-    return result;
   }
 
   public static void main( String[] args )

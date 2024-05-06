@@ -75,7 +75,7 @@ public class ModularArithmetic {
         while (A >= 1) {
             int pow = (int) (Math.log(A) / Math.log(2));
             A = (int) (A - Math.pow(2, pow));
-            sum += Math.pow(5, pow + 1);
+            sum += (int) Math.pow( 5, pow + 1 );
         }
         return sum;
     }

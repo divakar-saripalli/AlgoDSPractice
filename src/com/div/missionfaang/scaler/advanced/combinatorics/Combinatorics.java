@@ -142,39 +142,7 @@ public class Combinatorics
 
   private static int pow( int A, long B, int C )
   {
-    if( A == 0 )
-    {
-      return 0;
-    }
-
-    if( B == 0 )
-    {
-      return 1;
-    }
-
-    if( C == 1 )
-    {
-      return 0;
-    }
-    if( B == 1 )
-    {
-      if( A < 0 )
-      {
-        return (A + C) % C;
-      }
-      return A;
-    }
-    long value = (long) (ModularArithmetic.pow( A, B / 2, C ) % C) * (ModularArithmetic.pow( A, B / 2, C ) % C) % C;
-    if( (B & 1) != 0 )
-    {
-      value = ((value % C) * (A % C)) % C;
-    }
-    if( value < 0 )
-    {
-      value = value + C;
-    }
-    value = value % C;
-    return (int) value;
+    return ModularArithmetic.pow( A, B, C );
   }
 
   private static int computeNcR( int A, int B, int C )

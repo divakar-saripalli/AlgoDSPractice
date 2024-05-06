@@ -24,10 +24,12 @@ public class Feb18Contest
       int rightCount = solve1( A.right, B, sum, count, integers_ );
       integers_.remove( integers_.size() - 1 );
       int tempCount = count;
-      if(leftCount != tempCount){
+      if( leftCount != tempCount )
+      {
         count += leftCount;
       }
-      if(rightCount != tempCount){
+      if( rightCount != tempCount )
+      {
         count += rightCount;
       }
       return count;

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Trees5
 {
 
-  private static TreeNode invertTree( TreeNode A )
+  private static void invertTree( TreeNode A )
   {
     if( A != null )
     {
@@ -17,7 +17,6 @@ public class Trees5
       A.left = A.right;
       A.right = temp;
     }
-    return A;
   }
 
   private static int kthsmallest( TreeNode A, int B )

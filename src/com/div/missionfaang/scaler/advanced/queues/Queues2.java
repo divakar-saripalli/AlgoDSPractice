@@ -264,34 +264,45 @@ public class Queues2
     return (int) result;
   }
 
-  private static void push(int x) {
-    stack.push(x);
-    if(minStack.isEmpty() || minStack.peek() > x){
-      minStack.push(x);
+  private static void push( int x )
+  {
+    stack.push( x );
+    if( minStack.isEmpty() || minStack.peek() > x )
+    {
+      minStack.push( x );
     }
   }
 
-  private static void pop() {
-    if(!stack.isEmpty()){
+  private static void pop()
+  {
+    if( !stack.isEmpty() )
+    {
       int element = stack.pop();
-      if(element == minStack.peek()){
+      if( element == minStack.peek() )
+      {
         minStack.pop();
       }
-    }else {
+    }
+    else
+    {
       minStack.empty();
     }
   }
 
-  private static int top() {
-    if(stack.isEmpty()){
-      return  -1;
+  private static int top()
+  {
+    if( stack.isEmpty() )
+    {
+      return -1;
     }
     return stack.peek();
   }
 
-  private static int getMin() {
-    if(minStack.isEmpty()){
-      return  -1;
+  private static int getMin()
+  {
+    if( minStack.isEmpty() )
+    {
+      return -1;
     }
     return minStack.peek();
   }

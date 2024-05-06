@@ -1,7 +1,10 @@
 package com.div.missionfaang.scaler.advanced.dynamicprogramming;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Queue;
+import java.util.Stack;
 
 public class DynamicProgramming2
 {
@@ -181,60 +184,64 @@ public class DynamicProgramming2
     return result.get( 0 ).get( A.get( 0 ).size() - 1 );
   }
 
-  private int maximalRectangle(ArrayList<ArrayList<Integer>> A) {
-    if(A.size() == 1) {
-      int max = 0;
-      int count = 0;
-      for(int i = 0; i < A.get(0).size(); i++) {
-        if(A.get(0).get(i) == 0) {
-          max = Math.max(max, count);
-          count = 0;
-        }
-        count += A.get( 0 ).get( i );
-      }
-      max = Math.max(max, count);
-      return max;
-    }
-    if(A.get(0).size() == 1) {
-      int max = 0;
-      int count = 0;
-      for( ArrayList<Integer> integers_ : A )
-      {
-        if( integers_.get( 0 ) == 0 )
-        {
-          max = Math.max( max, count );
-          count = 0;
-        }
-        count += integers_.get( 0 );
-      }
-      max = Math.max(max, count);
-      return max;
-    }
+  int m, n;
+
+  /**
+   * Construct the temporary matrix which stores the information of
+   * maximum consequent 1's available to the left of the given index.
+   *
+   * @param A
+   * @return
+   */
+  private static int getMaxArea( ArrayList<ArrayList<Integer>> A )
+  {
     ArrayList<ArrayList<Integer>> placeholder = new ArrayList<>();
-    for(int i = 0; i < A.size(); i++) {
+    for( int i = 0; i < A.size(); i++ )
+    {
       ArrayList<Integer> newRow = new ArrayList<>();
       placeholder.add( newRow );
-      newRow.add( A.get(i).get(0) );
-      for(int j = 1; j < A.get(i).size(); j++) {
-        if(A.get(i).get(j) == 0) {
+      newRow.add( A.get( i ).get( 0 ) );
+      for( int j = 1; j < A.get( i ).size(); j++ )
+      {
+        if( A.get( i ).get( j ) == 0 )
+        {
           newRow.add( 0 );
-        } else {
-          newRow.add( A.get(i).get(j) + placeholder.get( i ).get( j - 1 ) );
+        }
+        else
+        {
+          newRow.add( A.get( i ).get( j ) + placeholder.get( i ).get( j - 1 ) );
         }
       }
     }
 
+    return getMaxArea( A, placeholder );
+  }
+
+  /**
+   * Find the max area of rectangle with only 1's in it using the input matrix and
+   * constructed matrix with information on consequent 1s.
+   *
+   * @param A
+   * @param consequentOnesInfoMatrix
+   * @return
+   */
+  private static int getMaxArea( ArrayList<ArrayList<Integer>> A, ArrayList<ArrayList<Integer>> consequentOnesInfoMatrix )
+  {
     int max = 0;
-    for(int i = 0; i < A.size(); i++) {
-      for(int j = 0; j < A.get(i).size(); j++) {
-        if(placeholder.get(i).get(j) != 0) {
-          int width = placeholder.get( i ).get( j );
+    for( int i = 0; i < A.size(); i++ )
+    {
+      for( int j = 0; j < A.get( i ).size(); j++ )
+      {
+        if( consequentOnesInfoMatrix.get( i ).get( j ) != 0 )
+        {
+          int width = consequentOnesInfoMatrix.get( i ).get( j );
           int height = 1;
-          max = Math.max(max, width * height);
-          for(int k = i-1; k > -1; k--) {
+          max = Math.max( max, width * height );
+          for( int k = i - 1; k > -1; k-- )
+          {
             height++;
-            width = Math.min( width, placeholder.get( k ).get( j ) );
-            max = Math.max(max, width * height);
+            width = Math.min( width, consequentOnesInfoMatrix.get( k ).get( j ) );
+            max = Math.max( max, width * height );
           }
         }
       }
@@ -257,6 +264,67 @@ public class DynamicProgramming2
       }
     }
     return result[A.length][A[0].length];
+  }
+
+  // Input: grid = [
+  //                  [0,0,1,0,0,0,0,1,0,0,0,0,0],
+  //                  [0,0,0,0,0,0,0,1,1,1,0,0,0],
+  //                  [0,1,1,0,1,0,0,0,0,0,0,0,0],
+  //                  [0,1,0,0,1,1,0,0,1,0,1,0,0],
+  //                  [0,1,0,0,1,1,0,0,1,1,1,0,0],
+  //                  [0,0,0,0,0,0,0,0,0,0,1,0,0],
+  //                  [0,0,0,0,0,0,0,1,1,1,0,0,0],
+  //                  [0,0,0,0,0,0,0,1,1,0,0,0,0]
+  //               ]
+  public static int maxAreaOfIsland( int[][] grid )
+  {
+    boolean[][] visited = new boolean[grid.length][];
+    for( int i = 0; i < grid.length; i++ )
+    {
+      visited[i] = new boolean[grid[i].length];
+    }
+    Stack<Pair<Integer, Integer>> stack = new Stack<>();
+    int maxArea = 0;
+    for( int i = 0; i < grid.length; i++ )
+    {
+      for( int j = 0; j < grid[i].length; j++ )
+      {
+        int area = 0;
+        stack.push( new Pair<>( i, j ) );
+        while( !stack.isEmpty() )
+        {
+          Pair<Integer, Integer> pop = stack.pop();
+          Integer rowIndex = pop.getFirst();
+          Integer colIndex = pop.getSecond();
+          if( !visited[rowIndex][colIndex] )
+          {
+            if( grid[rowIndex][colIndex] == 1 )
+            {
+              area++;
+              if( colIndex > 0 )
+              {
+                stack.push( new Pair<>( rowIndex, colIndex - 1 ) );
+              }
+              if( rowIndex > 0 )
+              {
+                stack.push( new Pair<>( rowIndex - 1, colIndex ) );
+              }
+              if( rowIndex < grid.length - 1 )
+              {
+                stack.push( new Pair<>( rowIndex + 1, colIndex ) );
+              }
+              if( colIndex < grid[rowIndex].length - 1 )
+              {
+                stack.push( new Pair<>( rowIndex, colIndex + 1 ) );
+              }
+            }
+          }
+          visited[rowIndex][colIndex] = true;
+        }
+        maxArea = Math.max( maxArea, area );
+      }
+    }
+    return maxArea;
   }
 
   public static void main( String[] args )
@@ -347,10 +415,89 @@ public class DynamicProgramming2
     result.add( row );
 
     //    System.out.println( DynamicProgramming2.minPathSum( result ) );
-    int[][] A = new int[1][1];
-    A[0][0] = 0;
+    int[][] A = {
+        { 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0 },
+        { 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0 },
+        { 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 },
+        { 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0 },
+        { 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0 },
+        { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 },
+        { 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0 },
+        { 0, 0, 0, 0, 0, 0, 0, 1, 1, 0,0,0,0}
+};
     //    A[0][1] = 0;
-    System.out.println( uniquePathsWithObstacles( A ) );
+    //    System.out.println( uniquePathsWithObstacles( A ) );
+    System.out.println( maxAreaOfIsland( A ));
+  }
+
+  private int maximalRectangle( ArrayList<ArrayList<Integer>> A )
+  {
+    if( A.size() == 1 )
+    {
+      int max = 0;
+      int count = 0;
+      for( int i = 0; i < A.get( 0 ).size(); i++ )
+      {
+        if( A.get( 0 ).get( i ) == 0 )
+        {
+          max = Math.max( max, count );
+          count = 0;
+        }
+        count += A.get( 0 ).get( i );
+      }
+      max = Math.max( max, count );
+      return max;
+    }
+    if( A.get( 0 ).size() == 1 )
+    {
+      int max = 0;
+      int count = 0;
+      for( ArrayList<Integer> integers_ : A )
+      {
+        if( integers_.get( 0 ) == 0 )
+        {
+          max = Math.max( max, count );
+          count = 0;
+        }
+        count += integers_.get( 0 );
+      }
+      max = Math.max( max, count );
+      return max;
+    }
+    return getMaxArea( A );
+  }
+
+  public int maxAreaOfIsland_LeetCode_1ms( int[][] grid )
+  {
+    m = grid.length;
+    n = grid[0].length;
+    int ret = 0;
+    for( int i = 0; i < m; i++ )
+    {
+      for( int j = 0; j < n; j++ )
+      {
+        if( grid[i][j] == 1 )
+        {
+          ret = Math.max( ret, dfs_LeetCode_1ms( grid, i, j ) );
+        }
+      }
+    }
+    return ret;
+  }
+
+  private int dfs_LeetCode_1ms( int[][] grid, int i, int j )
+  {
+    Queue<Integer> test = new ArrayDeque<>();
+    if( i < 0 || j < 0 || i >= m || j >= n )
+    {
+      return 0;
+    }
+    if( grid[i][j] == 0 )
+    {
+      return 0;
+    }
+    grid[i][j] = 0;
+    return dfs_LeetCode_1ms( grid, i + 1, j ) + dfs_LeetCode_1ms( grid, i - 1, j ) + dfs_LeetCode_1ms( grid, i, j + 1 ) + dfs_LeetCode_1ms( grid, i, j - 1) + 1;
   }
 }
 
@@ -378,9 +525,8 @@ class Pair<A, B>
   @Override
   public boolean equals( Object other )
   {
-    if( other instanceof Pair )
+    if( other instanceof Pair otherPair )
     {
-      Pair otherPair = (Pair) other;
       return
           ((first == otherPair.first ||
               (first != null && otherPair.first != null &&

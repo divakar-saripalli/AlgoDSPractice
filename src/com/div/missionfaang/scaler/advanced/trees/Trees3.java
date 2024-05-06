@@ -11,17 +11,15 @@ class Trees3
 {
   private static int twoSumBST( TreeNode A, int B )
   {
-    // Find lowest common ancestor
+    // Find the lowest common ancestor
     TreeNode lca = A;
-    TreeNode parent = A;
     while( lca.val > B )
     {
-      parent = lca;
       lca = lca.left;
     }
     if( lca.val == B )
     {
-      // Check if node with 0 magnitude exists.
+      // Check if a node with magnitude 0 exists.
       while( lca != null )
       {
         if( lca.val == 0 )
@@ -146,7 +144,7 @@ class Trees3
     {
       if( A.get( i ) > min && A.get( i ) < max )
       {
-        if( min < A.get( i ) && A.get( i ) <= lastNumber )
+        if( A.get( i ) <= lastNumber )
         {
           max = lastNumber;
         }
