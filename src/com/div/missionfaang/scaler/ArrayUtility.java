@@ -19,10 +19,7 @@ public class ArrayUtility {
     public static ArrayList<ArrayList<Integer>> convert2DArrayTo2DList(int[][] arr) {
         ArrayList<ArrayList<Integer>> list = new ArrayList<>();
         for (int[] i : arr) {
-            ArrayList<Integer> newList = new ArrayList<>();
-            for (int j : i) {
-                newList.add(j);
-            }
+          ArrayList<Integer> newList = convertArrayToList( i );
             list.add(newList);
         }
         return list;

@@ -136,7 +136,7 @@ public class Arrays3
      * Solution:
      * <p>
      * Try placing the value at the index where it belongs. After that,
-     * traverse from the start and find the index which is not having intended value and return index+1.
+     * traverse from the start and find the index which is not having the intended value and return index+1.
      *
      * @param A
      * @return
@@ -145,9 +145,9 @@ public class Arrays3
         for (int i = 0; i < A.size(); ) {
             // Current element should be greater than 0
             // Current element should be lesser than Array size
-            // Current element is not its index + 1
-            // Element at the index 0f current element value is also not the current element value, meaning if there are 
-            // duplicates and the same value is not already placed at that index already.
+            // the Current element is not its index + 1
+            // Element at the index of current element value is also not the current element value, meaning if there are
+            // duplicates, and the same value is not already placed at that index already.
             if (A.get(i) > 0 && A.get(i) < A.size() && A.get(i) != i + 1 && !A.get(A.get(i) - 1).equals(A.get(i))) {
                 int temp = A.get(i);
                 A.set(i, A.get(temp - 1));
