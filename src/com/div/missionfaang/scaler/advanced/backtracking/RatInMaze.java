@@ -110,8 +110,8 @@ public class RatInMaze
     }
     visited.get( rowIndex ).set( colIndex, true );
 
-    canRatReachHouse( maze, visited, rowIndex, colIndex + 1, path.append( 'R' ), possiblePaths );
     canRatReachHouse( maze, visited, rowIndex + 1, colIndex, path.append( 'D' ), possiblePaths );
+    canRatReachHouse( maze, visited, rowIndex, colIndex + 1, path.append( 'R' ), possiblePaths );
     canRatReachHouse( maze, visited, rowIndex, colIndex - 1, path.append( 'L' ), possiblePaths );
     canRatReachHouse( maze, visited, rowIndex - 1, colIndex, path.append( 'U' ), possiblePaths );
     if( !path.isEmpty() )
@@ -144,6 +144,16 @@ public class RatInMaze
         { 1, 1, 0, 1 },
         { 1, 1, 0, 0 },
         { 0, 1, 1, 1 }
+    };
+    matrixMaze = ArrayUtility.convert2DArrayTo2DList( arrMaze );
+    System.out.println( solveMazePath( matrixMaze ) );
+
+    arrMaze = new int[][] {
+        { 1, 1, 0, 0, 1 },
+        { 1, 1, 1, 1, 0 },
+        { 1, 1, 1, 0, 1 },
+        { 0, 0, 1, 0, 0 },
+        { 1, 1, 1, 1, 1 }
     };
     matrixMaze = ArrayUtility.convert2DArrayTo2DList( arrMaze );
     System.out.println( solveMazePath( matrixMaze ) );
